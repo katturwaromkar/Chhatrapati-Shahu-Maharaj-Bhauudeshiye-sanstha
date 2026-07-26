@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>फोटो गॅलरी | छत्रपती शाहू महाराज बहुउद्देशीय संस्था</title>
+  <meta name="description" content="आरोग्य शिबीर छायाचित्रे, उपक्रम, फॅमिली हेल्थ कार्ड वितरण व सामाजिक कार्यक्रमांची गॅलरी.">
+  
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <!-- Top Info Bar -->
+  <div class="top-bar">
+    <div class="container top-bar-content">
+      <div class="top-info">
+        <span class="reg-badge"><i class="fas fa-certificate"></i> REG NO: 699(MH) F 5559</span>
+        <div class="top-info-item"><i class="fas fa-phone-alt"></i><span>+91 9021757353 / +91 8007474503</span></div>
+      </div>
+      <div style="display: flex; align-items: center; gap: 15px;">
+        <button class="lang-toggle-btn"><i class="fas fa-globe"></i> English</button>
+        <div class="top-info-item"><i class="fas fa-clock"></i><span>सोम - शनि: 9:00 AM - 6:00 PM</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navbar -->
+  <!-- Sticky Navbar -->
+  <nav class="navbar">
+    <div class="container navbar-container">
+      <a href="index.html" class="logo-brand">
+        <img src="assets/images/logo.png" alt="छत्रपती शाहू महाराज बहुउद्देशीय संस्था" class="site-logo-img">
+        <div class="logo-text-group">
+          <span class="logo-title">छत्रपती शाहू महाराज</span>
+          <span class="logo-subtitle">बहुउद्देशीय संस्था (Reg. No. 699/MH F 5559)</span>
+        </div>
+      </a>
+
+      <ul class="nav-menu">
+        <li><a href="index.html" class="nav-link">मुख्य पृष्ठ (Home)</a></li>
+        <li><a href="about.html" class="nav-link">संस्थेविषयी (About)</a></li>
+        <li><a href="activities.html" class="nav-link">उपक्रम (Activities)</a></li>
+        <li><a href="projects.html" class="nav-link">प्रकल्प (Projects)</a></li>
+        <li><a href="gallery.html" class="nav-link active">गॅलरी (Gallery)</a></li>
+        <li><a href="notices.html" class="nav-link">सूचना व बातम्या (Notices)</a></li>
+        <li><a href="committee.html" class="nav-link">पदाधिकारी (Committee)</a></li>
+        <li><a href="downloads.html" class="nav-link">डाऊनलोड्स (Downloads)</a></li>
+        <li><a href="contact.html" class="nav-link">संपर्क (Contact)</a></li>
+      </ul>
+
+      <div class="nav-cta">
+        <a href="#" class="btn btn-secondary btn-sm open-card-verify-btn"><i class="fas fa-search"></i> कार्ड तपासा</a>
+        <a href="#" class="btn btn-primary btn-sm open-card-apply-btn"><i class="fas fa-id-card"></i> ऑनलाइन कार्ड</a>
+      </div>
+      <button class="hamburger" aria-label="Toggle Navigation"><i class="fas fa-bars"></i></button>
+    </div>
+  </nav>
+
+  <!-- Banner -->
+  <section class="section-padding" style="background: var(--gradient-hero); color: #ffffff; text-align: center; padding-top: 100px; padding-bottom: 80px;">
+    <div class="container reveal">
+      <span class="section-badge" style="background: rgba(255,255,255,0.2); color: #ffffff;">छायाचित्र दालन</span>
+      <h1 style="color: #ffffff; margin-bottom: 1rem;">गॅलरी (Camps & Event Gallery)</h1>
+      <p style="color: rgba(255,255,255,0.85); font-size: 1.15rem; max-width: 700px; margin: 0 auto;">
+        आरोग्य तपासणी शिबीरे, फॅमिली हेल्थ कार्ड वितरण व सामाजिक उपक्रमांचे छायाचित्रे.
+      </p>
+    </div>
+  </section>
+
+  <!-- Gallery Section -->
+  <section class="section-padding">
+    <div class="container">
+
+      <!-- Category Filter -->
+      <div class="filter-wrapper">
+        <button class="filter-btn gallery-filter-btn active" data-filter="all">सर्व फोटो (All)</button>
+        <button class="filter-btn gallery-filter-btn" data-filter="camps">आरोग्य शिबीरे (Health Camps)</button>
+        <button class="filter-btn gallery-filter-btn" data-filter="cards">हेल्थ कार्ड वितरण (Health Cards)</button>
+        <button class="filter-btn gallery-filter-btn" data-filter="events">सामाजिक उपक्रम (Events)</button>
+        <button class="filter-btn gallery-filter-btn" data-filter="certs">अधिकृत प्रमाणपत्रे (Certificates)</button>
+      </div>
+
+      <div class="gallery-grid">
+        
+        <!-- Image Item 1 -->
+        <div class="gallery-item reveal" data-category="camps">
+          <img src="assets/images/event_camp_1.jpg" alt="Health Checkup Camp">
+          <div class="gallery-overlay">
+            <h4 class="gallery-title">सर्वोपचारी मोफत आरोग्य तपासणी शिबीर</h4>
+            <span class="gallery-category"><i class="fas fa-search-plus"></i> क्लिक करून फोटो पहा</span>
+          </div>
+        </div>
+
+        <!-- Image Item 2 -->
+        <div class="gallery-item reveal" data-category="cards">
+          <img src="assets/images/event_card_dist_1.jpg" alt="Health Card Distribution">
+          <div class="gallery-overlay">
+            <h4 class="gallery-title">लोहारिया फॅमिली हेल्थ कार्ड वाटप सोहळा</h4>
+            <span class="gallery-category"><i class="fas fa-search-plus"></i> क्लिक करून फोटो पहा</span>
+          </div>
+        </div>
+
+        <!-- Image Item 3 -->
+        <div class="gallery-item reveal" data-category="camps">
+          <img src="assets/images/event_camp_2.jpg" alt="Sanstha Doctor Team">
+          <div class="gallery-overlay">
+            <h4 class="gallery-title">तज्ज्ञ डॉक्टर टीम व तपासणी उपक्रम</h4>
+            <span class="gallery-category"><i class="fas fa-search-plus"></i> क्लिक करून फोटो पहा</span>
+          </div>
+        </div>
+
+        <!-- Image Item 4 -->
+        <div class="gallery-item reveal" data-category="cards">
+          <img src="assets/images/event_card_dist_2.jpg" alt="Card Beneficiaries">
+          <div class="gallery-overlay">
+            <h4 class="gallery-title">हेल्थ कार्ड लाभार्थी नोंदणी सभा</h4>
+            <span class="gallery-category"><i class="fas fa-search-plus"></i> क्लिक करून फोटो पहा</span>
+          </div>
+        </div>
+
+        <!-- Image Item 5 -->
+        <div class="gallery-item reveal" data-category="events">
+          <img src="assets/images/event_blood_donation.jpg" alt="Blood Donation Drive">
+          <div class="gallery-overlay">
+            <h4 class="gallery-title">भव्य मोफत रक्तदान व प्लाझ्मा मदत शिबीर</h4>
+            <span class="gallery-category"><i class="fas fa-search-plus"></i> क्लिक करून फोटो पहा</span>
+          </div>
+        </div>
+
+        <!-- Image Item 6 -->
+        <div class="gallery-item reveal" data-category="events">
+          <img src="assets/images/event_awareness.jpg" alt="Health Awareness Meeting">
+          <div class="gallery-overlay">
+            <h4 class="gallery-title">आरोग्य जनजागृती व सवलत मार्गदर्शन सभा</h4>
+            <span class="gallery-category"><i class="fas fa-search-plus"></i> क्लिक करून फोटो पहा</span>
+          </div>
+        </div>
+
+        <!-- Image Item 7 -->
+        <div class="gallery-item reveal" data-category="cards">
+          <img src="assets/images/banner_health_card.png" alt="Health Card Poster" style="object-fit: contain; background: #fff; padding: 10px;">
+          <div class="gallery-overlay">
+            <h4 class="gallery-title">कौटुंबिक आरोग्य कार्ड अधिकृत माहिती</h4>
+            <span class="gallery-category"><i class="fas fa-search-plus"></i> क्लिक करून फोटो पहा</span>
+          </div>
+        </div>
+
+        <!-- Image Item 8 -->
+        <div class="gallery-item reveal" data-category="camps">
+          <img src="assets/images/banner_medical_camp.png" alt="Medical Camp Poster" style="object-fit: contain; background: #fff; padding: 10px;">
+          <div class="gallery-overlay">
+            <h4 class="gallery-title">मोफत सर्वोपचारी वैद्यकीय शिबीर पोस्टर</h4>
+            <span class="gallery-category"><i class="fas fa-search-plus"></i> क्लिक करून फोटो पहा</span>
+          </div>
+        </div>
+
+        <!-- Image Item 9 -->
+        <div class="gallery-item reveal" data-category="camps">
+          <img src="assets/images/banner_eye_camp.png" alt="Eye Camp Poster" style="object-fit: contain; background: #fff; padding: 10px;">
+          <div class="gallery-overlay">
+            <h4 class="gallery-title">मोफत नेत्र व मोतीबिंदू तपासणी पोस्टर</h4>
+            <span class="gallery-category"><i class="fas fa-search-plus"></i> क्लिक करून फोटो पहा</span>
+          </div>
+        </div>
+
+        <!-- Image Item 10 -->
+        <div class="gallery-item reveal" data-category="events">
+          <img src="assets/images/banner_blood_donation.png" alt="Blood Donation Poster" style="object-fit: contain; background: #fff; padding: 10px;">
+          <div class="gallery-overlay">
+            <h4 class="gallery-title">रक्तदान अभियान पोस्टर</h4>
+            <span class="gallery-category"><i class="fas fa-search-plus"></i> क्लिक करून फोटो पहा</span>
+          </div>
+        </div>
+
+        <!-- Image Item 11 -->
+        <div class="gallery-item reveal" data-category="events">
+          <img src="assets/images/banner_tree_plantation.png" alt="Tree Plantation Poster" style="object-fit: contain; background: #fff; padding: 10px;">
+          <div class="gallery-overlay">
+            <h4 class="gallery-title">वृक्षारोपण व पर्यावरण संवर्धन पोस्टर</h4>
+            <span class="gallery-category"><i class="fas fa-search-plus"></i> क्लिक करून फोटो पहा</span>
+          </div>
+        </div>
+
+        <!-- Image Item 12 -->
+        <div class="gallery-item reveal" data-category="events">
+          <img src="assets/images/banner_women_empowerment.png" alt="Women Empowerment Poster" style="object-fit: contain; background: #fff; padding: 10px;">
+          <div class="gallery-overlay">
+            <h4 class="gallery-title">महिला आरोग्य व सक्षमीकरण पोस्टर</h4>
+            <span class="gallery-category"><i class="fas fa-search-plus"></i> क्लिक करून फोटो पहा</span>
+          </div>
+        </div>
+
+        <!-- Image Item 13 -->
+        <div class="gallery-item reveal" data-category="certs">
+          <img src="assets/images/docs/reg_certificate_1.jpg" alt="Society Reg Certificate">
+          <div class="gallery-overlay">
+            <h4 class="gallery-title">संस्था नोंदणी प्रमाणपत्र (Reg No 699/MH)</h4>
+            <span class="gallery-category"><i class="fas fa-search-plus"></i> क्लिक करून फोटो पहा</span>
+          </div>
+        </div>
+
+        <!-- Image Item 14 -->
+        <div class="gallery-item reveal" data-category="certs">
+          <img src="assets/images/docs/reg_certificate_2.jpg" alt="Trust Reg Certificate">
+          <div class="gallery-overlay">
+            <h4 class="gallery-title">सार्वजनिक विश्वस्त नोंदणी पत्र (F 5559)</h4>
+            <span class="gallery-category"><i class="fas fa-search-plus"></i> क्लिक करून फोटो पहा</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo-brand">
+            <div class="logo-icon"><i class="fas fa-hands-holding-child"></i></div>
+            <div class="logo-text-group">
+              <span class="logo-title">छत्रपती शाहू महाराज</span>
+              <span class="logo-subtitle">बहुउद्देशीय संस्था (Reg. 699/MH F 5559)</span>
+            </div>
+          </a>
+          <p>समाजातील सर्व घटकांच्या सर्वांगीण विकासासाठी अविरत कार्यरत संस्था.</p>
+        </div>
+        <div>
+          <h4 class="footer-title">द्रुत लिंक्स</h4>
+          <div class="footer-links">
+            <a href="index.html" class="footer-link"><i class="fas fa-chevron-right"></i> मुख्य पृष्ठ</a>
+            <a href="about.html" class="footer-link"><i class="fas fa-chevron-right"></i> संस्थेविषयी</a>
+            <a href="gallery.html" class="footer-link"><i class="fas fa-chevron-right"></i> फोटो गॅलरी</a>
+          </div>
+        </div>
+        <div>
+          <h4 class="footer-title">इतर लिंक्स</h4>
+          <div class="footer-links">
+            <a href="committee.html" class="footer-link"><i class="fas fa-chevron-right"></i> पदाधिकारी</a>
+            <a href="notices.html" class="footer-link"><i class="fas fa-chevron-right"></i> सूचना</a>
+          </div>
+        </div>
+        <div>
+          <h4 class="footer-title">मुख्य कार्यालय</h4>
+          <p style="font-size: 0.9rem;"><i class="fas fa-map-marker-alt" style="color: var(--accent);"></i> मयूर पार्क, जळगाव रोड, छत्रपती संभाजीनगर - 431003</p>
+          <p style="font-size: 0.9rem; margin-top: 5px;"><i class="fas fa-phone-alt" style="color: var(--accent);"></i> +91 9021757353</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 छत्रपती शाहू महाराज बहुउद्देशीय संस्था. (Reg No 699/MH F 5559)</span>
+      </div>
+    </div>
+  </footer>
+
+  <button class="back-to-top" aria-label="Back to top"><i class="fas fa-arrow-up"></i></button>
+  <script src="js/main.js"></script>
+  <script src="js/gallery.js"></script>
+  <script src="js/card-generator.js"></script>
+</body>
+</html>
