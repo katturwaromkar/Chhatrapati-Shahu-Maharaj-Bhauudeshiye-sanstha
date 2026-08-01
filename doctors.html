@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+
+<html lang="mr">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Doctors Photo Gallery | छत्रपती शाहू महाराज बहुउद्देशीय संस्था</title>
+<meta content="तज्ज्ञ डॉक्टर व वैद्यकीय प्रतिनिधी फोटो गॅलरी अल्बम - Chhatrapati Shahu Maharaj Bahuuddeshiya Sanstha" name="description"/>
+<!-- Favicon Icon -->
+<link href="assets/images/logo.png" rel="icon" type="image/png"/>
+<link href="assets/images/logo.png" rel="shortcut icon" type="image/png"/>
+<link href="assets/images/logo.png" rel="apple-touch-icon"/>
+<!-- CSS Stylesheets -->
+<link href="css/style.css" rel="stylesheet"/>
+<link href="css/responsive.css" rel="stylesheet"/>
+<!-- Font Awesome Icons -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+    .doctor-album-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 25px;
+    }
+
+    .doctor-album-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--border-color);
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .doctor-album-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .doctor-album-img-wrap {
+      position: relative;
+      width: 100%;
+      background: #000;
+      overflow: hidden;
+    }
+
+    .doctor-album-img {
+      width: 100%;
+      height: 320px;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+      cursor: zoom-in;
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .doctor-album-card:hover .doctor-album-img {
+      transform: scale(1.05);
+    }
+
+    .doctor-album-caption {
+      padding: 14px 18px;
+      text-align: center;
+      background: var(--bg-white);
+      border-top: 1px solid var(--border-color);
+    }
+
+    .doctor-album-caption h4 {
+      font-size: 1rem;
+      color: var(--text-dark);
+      margin-bottom: 4px;
+    }
+
+    .doctor-album-caption p {
+      font-size: 0.82rem;
+      color: var(--primary);
+      margin-bottom: 0;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+<!-- Top Info Bar -->
+<div class="top-bar">
+<div class="container top-bar-content">
+<div class="top-info">
+<div class="top-info-item">
+<i class="fas fa-phone-alt"></i>
+<span>+91 9021757353 / +91 8007474503</span>
+</div>
+<div class="top-info-item">
+<i class="fas fa-map-marker-alt"></i>
+<span>Chh. Sambhajinagar &amp; Jalgaon, Maharashtra</span>
+</div>
+</div>
+<div style="display: flex; align-items: center; gap: 15px;">
+<div class="top-info-item">
+<i class="fas fa-clock"></i>
+<span>सोम - शनि: 9:00 AM - 6:00 PM</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Centered Main Brand Header (Inline Small Logo on Left of Title with Matching Height) -->
+<header class="header-brand-centered" style="background: #ffffff; padding: 14px 0; border-bottom: 1px solid #E6E8F2; text-align: center;">
+<div class="container" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;">
+<a href="index.html" style="display: flex; align-items: center; justify-content: center; gap: 14px; text-decoration: none;">
+<img alt="छत्रपती शाहू महाराज बहुउद्देशीय संस्था" src="assets/images/logo.png" style="height: 48px; width: 48px; max-height: 48px; object-fit: contain; flex-shrink: 0; display: inline-block;"/>
+<h1 style="font-family: 'Poppins', sans-serif; font-size: 2rem; font-weight: 800; color: #1E2432; margin: 0; line-height: 1.2; white-space: nowrap; display: inline-block;">
+          छत्रपती शाहू महाराज बहुउद्देशीय संस्था
+        </h1>
+</a>
+<span class="brand-badge-large" style="background: linear-gradient(135deg, #6F4BFF 0%, #8E6CFF 100%); color: #ffffff; padding: 4px 18px; border-radius: 999px; font-weight: 700; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 6px;">
+<i class="fas fa-certificate"></i> REG NO-699(MH) F 5559
+      </span>
+</div>
+</header>
+<!-- Sticky Navbar (Single Row Menus) -->
+<nav class="navbar">
+<div class="container navbar-container">
+<ul class="nav-menu">
+<li><a class="nav-link" href="index.html">Home</a></li>
+<li><a class="nav-link" href="hospitals.html">Our Hospitals</a></li>
+<li><a class="nav-link" href="camps-photos.html">Camps Photos</a></li>
+<li><a class="nav-link" href="family-health-card.html">Family Health Card</a></li>
+<li><a class="nav-link" href="our-officers.html">Our Officers</a></li>
+<li><a class="nav-link active" href="doctors.html">Doctors</a></li>
+<li><a class="nav-link" href="documents.html">Documents</a></li>
+<li><a class="nav-link" href="find.html">Find</a></li>
+<li><a class="nav-link" href="news.html">News</a></li>
+<li><a class="nav-link" href="contact.html">Address and Contact Details</a></li>
+</ul>
+<button aria-label="Toggle Navigation" class="hamburger">
+<i class="fas fa-bars"></i>
+</button>
+</div>
+</nav>
+<!-- Page Header / Breadcrumb -->
+<section class="section-padding" style="background: var(--gradient-subtle); padding: 40px 0;">
+<div class="container" style="text-align: center;">
+<span class="section-badge"><i class="fas fa-user-md"></i> Doctors &amp; Medical Representatives Album (65 Photos)</span>
+<h1 style="font-size: 2.4rem; margin-top: 10px;">Doctors Photo Gallery</h1>
+<p style="color: var(--text-muted);">संस्थेशी जोडलेले सर्व तज्ज्ञ डॉक्टर व फॅमिली हेल्थ कार्ड वितरण क्षणचित्रे (एकूण 65 फोटो)</p>
+</div>
+</section>
+<!-- Doctors Photo Gallery Album Section -->
+<section class="section-padding">
+<div class="container">
+<div class="section-title-wrap">
+<h2 class="section-title">तज्ज्ञ डॉक्टर व वैद्यकीय सल्लागार फोटो अल्बम (65)</h2>
+<p class="section-subtitle">चित्र (Image) वर क्लिक करून मोठ्या आकारात पहा (Click any photo to view in large full-screen view).</p>
+</div>
+<!-- Photo Gallery Grid Album -->
+<div class="doctor-album-grid">
+<div class="doctor-album-card">
+<div class="doctor-album-img-wrap">
+<img alt="तज्ज्ञ डॉक्टर व हेल्थ कार्ड उपक्रम फोटो 1" class="doctor-album-img" loading="lazy" src="assets/images/doctors/20240610_134003-scaled.jpg"/>
+</div>
+<div class="doctor-album-caption">
+<h4>वैद्यकीय सल्लागार व डॉक्टर भेट #1</h4>
+<p><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+</div>
+</div>
+<div class="doctor-album-card">
+<div class="doctor-album-img-wrap">
+<img alt="तज्ज्ञ डॉक्टर व हेल्थ कार्ड उपक्रम फोटो 2" class="doctor-album-img" loading="lazy" src="assets/images/doctors/20240610_173838-scaled.jpg"/>
+</div>
+<div class="doctor-album-caption">
+<h4>वैद्यकीय सल्लागार व डॉक्टर भेट #2</h4>
+<p><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+</div>
+</div>
+<div class="doctor-album-card">
+<div class="doctor-album-img-wrap">
+<img alt="तज्ज्ञ डॉक्टर व हेल्थ कार्ड उपक्रम फोटो 3" class="doctor-album-img" loading="lazy" src="assets/images/doctors/IMG-20220618-WA0001.jpg"/>
+</div>
+<div class="doctor-album-caption">
+<h4>वैद्यकीय सल्लागार व डॉक्टर भेट #3</h4>
+<p><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+</div>
+</div>
+<div class="doctor-album-card">
+<div class="doctor-album-img-wrap">
+<img alt="तज्ज्ञ डॉक्टर व हेल्थ कार्ड उपक्रम फोटो 4" class="doctor-album-img" loading="lazy" src="assets/images/doctors/IMG-20220618-WA0002.jpg"/>
+</div>
+<div class="doctor-album-caption">
+<h4>वैद्यकीय सल्लागार व डॉक्टर भेट #4</h4>
+<p><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+</div>
+</div>
+<div class="doctor-album-card">
+<div class="doctor-album-img-wrap">
+<img alt="तज्ज्ञ डॉक्टर व हेल्थ कार्ड उपक्रम फोटो 5" class="doctor-album-img" loading="lazy" src="assets/images/doctors/IMG-20220618-WA0003.jpg"/>
+</div>
+<div class="doctor-album-caption">
+<h4>वैद्यकीय सल्लागार व डॉक्टर भेट #5</h4>
+<p><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+</div>
+</div>
+<div class="doctor-album-card">
+<div class="doctor-album-img-wrap">
+<img alt="तज्ज्ञ डॉक्टर व हेल्थ कार्ड उपक्रम फोटो 6" class="doctor-album-img" loading="lazy" src="assets/images/doctors/IMG-20220618-WA0004.jpg"/>
+</div>
+<div class="doctor-album-caption">
+<h4>वैद्यकीय सल्लागार व डॉक्टर भेट #6</h4>
+<p><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+</div>
+</div>
+<div class="doctor-album-card">
+<div class="doctor-album-img-wrap">
+<img alt="तज्ज्ञ डॉक्टर व हेल्थ कार्ड उपक्रम फोटो 7" class="doctor-album-img" loading="lazy" src="assets/images/doctors/IMG-20220618-WA0006.jpg"/>
+</div>
+<div class="doctor-album-caption">
+<h4>वैद्यकीय सल्लागार व डॉक्टर भेट #7</h4>
+<p><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+</div>
+</div>
+<div class="doctor-album-card">
+<div class="doctor-album-img-wrap">
+<img alt="तज्ज्ञ डॉक्टर व हेल्थ कार्ड उपक्रम फोटो 8" class="doctor-album-img" loading="lazy" src="assets/images/doctors/IMG-20220618-WA0008.jpg"/>
+</div>
+<div class="doctor-album-caption">
+<h4>वैद्यकीय सल्लागार व डॉक्टर भेट #8</h4>
+<p><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+</div>
+</div>
+<div class="doctor-album-card">
+<div class="doctor-album-img-wrap">
+<img alt="तज्ज्ञ डॉक्टर व हेल्थ कार्ड उपक्रम फोटो 9" class="doctor-album-img" loading="lazy" src="assets/images/doctors/IMG-20220618-WA0009.jpg"/>
+</div>
+<div class="doctor-album-caption">
+<h4>वैद्यकीय सल्लागार व डॉक्टर भेट #9</h4>
+<p><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+</div>
+</div>
+<div class="doctor-album-card">
+<div class="doctor-album-img-wrap">
+<img alt="तज्ज्ञ डॉक्टर व हेल्थ कार्ड उपक्रम फोटो 10" class="doctor-album-img" loading="lazy" src="assets/images/doctors/IMG-20220618-WA0010.jpg"/>
+</div>
+<div class="doctor-album-caption">
+<h4>वैद्यकीय सल्लागार व डॉक्टर भेट #10</h4>
+<p><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+</div>
+</div>
+<div class="doctor-album-card">
+<div class="doctor-album-img-wrap">
+<img alt="तज्ज्ञ डॉक्टर व हेल्थ कार्ड उपक्रम फोटो 11" class="doctor-album-img" loading="lazy" src="assets/images/doctors/IMG-20220618-WA0011.jpg"/>
+</div>
+<div class="doctor-album-caption">
+<h4>वैद्यकीय सल्लागार व डॉक्टर भेट #11</h4>
+<p><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+</div>
+</div>
+<div class="doctor-album-card">
+<div class="doctor-album-img-wrap">
+<img alt="तज्ज्ञ डॉक्टर व हेल्थ कार्ड उपक्रम फोटो 12" class="doctor-album-img" loading="lazy" src="assets/images/doctors/IMG-20240308-WA0000.jpg"/>
+</div>
+<div class="doctor-album-caption">
+<h4>वैद्यकीय सल्लागार व डॉक्टर भेट #12</h4>
+<p><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+</div>
+</div>
+<div class="doctor-album-card">
+<div class="doctor-album-img-wrap">
+<img alt="तज्ज्ञ डॉक्टर व हेल्थ कार्ड उपक्रम फोटो 13" class="doctor-album-img" loading="lazy" src="assets/images/doctors/IMG-20240308-WA0001.jpg"/>
+</div>
+<div class="doctor-album-caption">
+<h4>वैद्यकीय सल्लागार व डॉक्टर भेट #13</h4>
+<p><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+</div>
+</div>
+<div class="doctor-album-card">
+<div class="doctor-album-img-wrap">
+<img alt="तज्ज्ञ डॉक्टर व हेल्थ कार्ड उपक्रम फोटो 14" class="doctor-album-img" loading="lazy" src="assets/images/doctors/IMG-20240308-WA0002.jpg"/>
+</div>
+<div class="doctor-album-caption">
+<h4>वैद्यकीय सल्लागार व डॉक्टर भेट #14</h4>
+<p><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+</div>
+</div>
+<div class="doctor-album-card">
+<div class="doctor-album-img-wrap">
+<img alt="तज्ज्ञ डॉक्टर व हेल्थ कार्ड उपक्रम फोटो 15" class="doctor-album-img" loading="lazy" src="assets/images/doctors/IMG-20240308-WA0003.jpg"/>
+</div>
+<div class="doctor-album-caption">
+<h4>वैद्यकीय सल्लागार व डॉक्टर भेट #15</h4>
+<p><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+</div>
+</div>
+<div class="doctor-album-card">
+<div class="doctor-album-img-wrap">
+<img alt="तज्ज्ञ डॉक्टर व हेल्थ कार्ड उपक्रम फोटो 16" class="doctor-album-img" loading="lazy" src="assets/images/doctors/IMG_20210721_155305-scaled.jpg"/>
+</div>
+<div class="doctor-album-caption">
+<h4>वैद्यकीय सल्लागार व डॉक्टर भेट #16</h4>
+<p><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+</div>
+</div>
+<div class="doctor-album-card">
+<div class="doctor-album-img-wrap">
+<img alt="तज्ज्ञ डॉक्टर व हेल्थ कार्ड उपक्रम फोटो 17" class="doctor-album-img" loading="lazy" src="assets/images/doctors/IMG_20210722_141505-scaled.jpg"/>
+</div>
+<div class="doctor-album-caption">
+<h4>वैद्यकीय सल्लागार व डॉक्टर भेट #17</h4>
+<p><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+</div>
+</div>
+<div class="doctor-album-card">
+<div class="doctor-album-img-wrap">
+<img alt="तज्ज्ञ डॉक्टर व हेल्थ कार्ड उपक्रम फोटो 18" class="doctor-album-img" loading="lazy" src="assets/images/doctors/IMG_20210725_081526-scaled.jpg"/>
+</div>
+<div class="doctor-album-caption">
+<h4>वैद्यकीय सल्लागार व डॉक्टर भेट #18</h4>
+<p><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+</div>
+</div>
+<div class="doctor-album-card">
+<div class="doctor-album-img-wrap">
+<img alt="तज्ज्ञ डॉक्टर व हेल्थ कार्ड उपक्रम फोटो 19" class="doctor-album-img" loading="lazy" src="assets/images/doctors/IMG_20210725_114456-scaled.jpg"/>
+</div>
+<div class="doctor-album-caption">
+<h4>वैद्यकीय सल्लागार व डॉक्टर भेट #19</h4>
+<p><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+</div>
+</div>
+<div class="doctor-album-card">
+<div class="doctor-album-img-wrap">
+<img alt="तज्ज्ञ डॉक्टर व हेल्थ कार्ड उपक्रम फोटो 20" class="doctor-album-img" loading="lazy" src="assets/images/doctors/IMG_20210725_114846-scaled.jpg"/>
+</div>
+<div class="doctor-album-caption">
+<h4>वैद्यकीय सल्लागार व डॉक्टर भेट #20</h4>
+<p><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+</div>
+</div>
+<div class="doctor-album-card">
+<div class="doctor-album-img-wrap">
+<img alt="तज्ज्ञ डॉक्टर व हेल्थ कार्ड उपक्रम फोटो 21" class="doctor-album-img" loading="lazy" src="assets/images/doctors/IMG_20210725_115231-scaled.jpg"/>
+</div>
+<div class="doctor-album-caption">
+<h4>वैद्यकीय सल्लागार व डॉक्टर भेट #21</h4>
+<p><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+</div>
+</div>
+<div class="doctor-album-card">
+<div class="doctor-album-img-wrap">
+<img alt="तज्ज्ञ डॉक्टर व हेल्थ कार्ड उपक्रम फोटो 22" class="doctor-album-img" loading="lazy" src="assets/images/doctors/IMG_20210802_121719-scaled.jpg"/>
+</div>
+<div class="doctor-album-caption">
+<h4>वैद्यकीय सल्लागार व डॉक्टर भेट #22</h4>
+<p><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+</div>
+</div>
+<div class="doctor-album-card">
+<div class="doctor-album-img-wrap">
+<img alt="तज्ज्ञ डॉक्टर व हेल्थ कार्ड उपक्रम फोटो 23" class="doctor-album-img" loading="lazy" src="assets/images/doctors/IMG_20210802_123333-scaled.jpg"/>
+</div>
+<div class="doctor-album-caption">
+<h4>वैद्यकीय सल्लागार व डॉक्टर भेट #23</h4>
+<p><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+</div>
+</div>
+<div class="doctor-album-card">
+<div class="doctor-album-img-wrap">
+<img alt="तज्ज्ञ डॉक्टर व हेल्थ कार्ड उपक्रम फोटो 24" class="doctor-album-img" loading="lazy" src="assets/images/doctors/IMG_20220624_114411-scaled.jpg"/>
+</div>
+<div class="doctor-album-caption">
+<h4>वैद्यकीय सल्लागार व डॉक्टर भेट #24</h4>
+<p><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+</div>
+</div>
+<div class="doctor-album-card">
+<div class="doctor-album-img-wrap">
+<img alt="तज्ज्ञ डॉक्टर व हेल्थ कार्ड उपक्रम फोटो 25" class="doctor-album-img" loading="lazy" src="assets/images/doctors/IMG_20220624_121939-scaled.jpg"/>
+</div>
+<div class="doctor-album-caption">
+<h4>वैद्यकीय सल्लागार व डॉक्टर भेट #25</h4>
+<p><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+</div>
+</div>
+<div class="doctor-album-card">
+<div class="doctor-album-img-wrap">
+<img alt="तज्ज्ञ डॉक्टर व हेल्थ कार्ड उपक्रम फोटो 26" class="doctor-album-img" loading="lazy" src="assets/images/doctors/IMG_20220624_124147-scaled.jpg"/>
+</div>
+<div class="doctor-album-caption">
+<h4>वैद्यकीय सल्लागार व डॉक्टर भेट #26</h4>
+<p><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+</div>
+</div>
+<div class="doctor-album-card">
+<div class="doctor-album-img-wrap">
+<img alt="तज्ज्ञ डॉक्टर व हेल्थ कार्ड उपक्रम फोटो 27" class="doctor-album-img" loading="lazy" src="assets/images/doctors/IMG_20220929_123609-scaled.jpg"/>
+</div>
+<div class="doctor-album-caption">
+<h4>वैद्यकीय सल्लागार व डॉक्टर भेट #27</h4>
+<p><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+</div>
+</div>
+<div class="doctor-album-card">
+<div class="doctor-album-img-wrap">
+<img alt="तज्ज्ञ डॉक्टर व हेल्थ कार्ड उपक्रम फोटो 28" class="doctor-album-img" loading="lazy" src="assets/images/doctors/IMG_20220929_132138-scaled.jpg"/>
+</div>
+<div class="doctor-album-caption">
+<h4>वैद्यकीय सल्लागार व डॉक्टर भेट #28</h4>
+<p><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+</div>
+</div>
+<div class="doctor-album-card">
+<div class="doctor-album-img-wrap">
+<img alt="तज्ज्ञ डॉक्टर व हेल्थ कार्ड उपक्रम फोटो 29" class="doctor-album-img" loading="lazy" src="assets/images/doctors/IMG_20220929_133352-scaled.jpg"/>
+</div>
+<div class="doctor-album-caption">
+<h4>वैद्यकीय सल्लागार व डॉक्टर भेट #29</h4>
+<p><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+</div>
+</div>
+<div class="doctor-album-card">
+<div class="doctor-album-img-wrap">
+<img alt="तज्ज्ञ डॉक्टर व हेल्थ कार्ड उपक्रम फोटो 30" class="doctor-album-img" loading="lazy" src="assets/images/doctors/IMG_20220929_134136-scaled.jpg"/>
+</div>
+<div class="doctor-album-caption">
+<h4>वैद्यकीय सल्लागार व डॉक्टर भेट #30</h4>
+<p><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+</div>
+</div>
+<div class="doctor-album-card">
+<div class="doctor-album-img-wrap">
+<img alt="तज्ज्ञ डॉक्टर व हेल्थ कार्ड उपक्रम फोटो 31" class="doctor-album-img" loading="lazy" src="assets/images/doctors/IMG_20221120_112054-scaled.jpg"/>
+</div>
+<div class="doctor-album-caption">
+<h4>वैद्यकीय सल्लागार व डॉक्टर भेट #31</h4>
+<p><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+</div>
+</div>
+<div class="doctor-album-card">
+<div class="doctor-album-img-wrap">
+<img alt="तज्ज्ञ डॉक्टर व हेल्थ कार्ड उपक्रम फोटो 32" class="doctor-album-img" loading="lazy" src="assets/images/doctors/IMG_20221120_114207-scaled.jpg"/>
+</div>
+<div class="doctor-album-caption">
+<h4>वैद्यकीय सल्लागार व डॉक्टर भेट #32</h4>
+<p><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+</div>
+</div>
+<div class="doctor-album-card">
+<div class="doctor-album-img-wrap">
+<img alt="तज्ज्ञ डॉक्टर व हेल्थ कार्ड उपक्रम फोटो 33" class="doctor-album-img" loading="lazy" src="assets/images/doctors/IMG_20221123_085233-scaled.jpg"/>
+</div>
+<div class="doctor-album-caption">
+<h4>वैद्यकीय सल्लागार व डॉक्टर भेट #33</h4>
+<p><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+</div>
+</div>
+<div class="doctor-album-card">
+<div class="doctor-album-img-wrap">
+<img alt="तज्ज्ञ डॉक्टर व हेल्थ कार्ड उपक्रम फोटो 34" class="doctor-album-img" loading="lazy" src="assets/images/doctors/IMG_20221223_204607-scaled.jpg"/>
+</div>
+<div class="doctor-album-caption">
+<h4>वैद्यकीय सल्लागार व डॉक्टर भेट #34</h4>
+<p><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+</div>
+</div>
+<div class="doctor-album-card">
+<div class="doctor-album-img-wrap">
+<img alt="तज्ज्ञ डॉक्टर व हेल्थ कार्ड उपक्रम फोटो 35" class="doctor-album-img" loading="lazy" src="assets/images/doctors/IMG_20230624_083330-scaled.jpg"/>
+</div>
+<div class="doctor-album-caption">
+<h4>वैद्यकीय सल्लागार व डॉक्टर भेट #35</h4>
+<p><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+</div>
+</div>
+<div class="doctor-album-card">
+<div class="doctor-album-img-wrap">
+<img alt="तज्ज्ञ डॉक्टर व हेल्थ कार्ड उपक्रम फोटो 36" class="doctor-album-img" loading="lazy" src="assets/images/doctors/IMG_20230715_113942-scaled.jpg"/>
+</div>
+<div class="doctor-album-caption">
+<h4>वैद्यकीय सल्लागार व डॉक्टर भेट #36</h4>
+<p><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+</div>
+</div>
+<div class="doctor-album-card">
+<div class="doctor-album-img-wrap">
+<img alt="तज्ज्ञ डॉक्टर व हेल्थ कार्ड उपक्रम फोटो 37" class="doctor-album-img" loading="lazy" src="assets/images/doctors/IMG_20230715_123014-scaled.jpg"/>
+</div>
+<div class="doctor-album-caption">
+<h4>वैद्यकीय सल्लागार व डॉक्टर भेट #37</h4>
+<p><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+</div>
+</div>
+<div class="doctor-album-card">
+<div class="doctor-album-img-wrap">
+<img alt="तज्ज्ञ डॉक्टर व हेल्थ कार्ड उपक्रम फोटो 38" class="doctor-album-img" loading="lazy" src="assets/images/doctors/IMG_20230715_163628-scaled.jpg"/>
+</div>
+<div class="doctor-album-caption">
+<h4>वैद्यकीय सल्लागार व डॉक्टर भेट #38</h4>
+<p><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+</div>
+</div>
+<div class="doctor-album-card">
+<div class="doctor-album-img-wrap">
+<img alt="तज्ज्ञ डॉक्टर व हेल्थ कार्ड उपक्रम फोटो 39" class="doctor-album-img" loading="lazy" src="assets/images/doctors/IMG_20230715_164409-scaled.jpg"/>
+</div>
+<div class="doctor-album-caption">
+<h4>वैद्यकीय सल्लागार व डॉक्टर भेट #39</h4>
+<p><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+</div>
+</div>
+<div class="doctor-album-card">
+<div class="doctor-album-img-wrap">
+<img alt="तज्ज्ञ डॉक्टर व हेल्थ कार्ड उपक्रम फोटो 40" class="doctor-album-img" loading="lazy" src="assets/images/doctors/IMG_20230715_170958-scaled.jpg"/>
+</div>
+<div class="doctor-album-caption">
+<h4>वैद्यकीय सल्लागार व डॉक्टर भेट #40</h4>
+<p><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+</div>
+</div>
+<div class="doctor-album-card">
+<div class="doctor-album-img-wrap">
+<img alt="तज्ज्ञ डॉक्टर व हेल्थ कार्ड उपक्रम फोटो 41" class="doctor-album-img" loading="lazy" src="assets/images/doctors/IMG_20230719_124345-scaled.jpg"/>
+</div>
+<div class="doctor-album-caption">
+<h4>वैद्यकीय सल्लागार व डॉक्टर भेट #41</h4>
+<p><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+</div>
+</div>
+<div class="doctor-album-card">
+<div class="doctor-album-img-wrap">
+<img alt="तज्ज्ञ डॉक्टर व हेल्थ कार्ड उपक्रम फोटो 42" class="doctor-album-img" loading="lazy" src="assets/images/doctors/IMG_20231129_120536-scaled.jpg"/>
+</div>
+<div class="doctor-album-caption">
+<h4>वैद्यकीय सल्लागार व डॉक्टर भेट #42</h4>
+<p><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+</div>
+</div>
+<div class="doctor-album-card">
+<div class="doctor-album-img-wrap">
+<img alt="तज्ज्ञ डॉक्टर व हेल्थ कार्ड उपक्रम फोटो 43" class="doctor-album-img" loading="lazy" src="assets/images/doctors/IMG_20231129_135553-scaled.jpg"/>
+</div>
+<div class="doctor-album-caption">
+<h4>वैद्यकीय सल्लागार व डॉक्टर भेट #43</h4>
+<p><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+</div>
+</div>
+<div class="doctor-album-card">
+<div class="doctor-album-img-wrap">
+<img alt="तज्ज्ञ डॉक्टर व हेल्थ कार्ड उपक्रम फोटो 44" class="doctor-album-img" loading="lazy" src="assets/images/doctors/IMG_20231129_144243-scaled.jpg"/>
+</div>
+<div class="doctor-album-caption">
+<h4>वैद्यकीय सल्लागार व डॉक्टर भेट #44</h4>
+<p><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+</div>
+</div>
+<div class="doctor-album-card">
+<div class="doctor-album-img-wrap">
+<img alt="तज्ज्ञ डॉक्टर व हेल्थ कार्ड उपक्रम फोटो 45" class="doctor-album-img" loading="lazy" src="assets/images/doctors/WhatsApp-Image-2024-07-29-at-1.27.10-PM-scaled.jpeg"/>
+</div>
+<div class="doctor-album-caption">
+<h4>वैद्यकीय सल्लागार व डॉक्टर भेट #45</h4>
+<p><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+</div>
+</div>
+<div class="doctor-album-card">
+<div class="doctor-album-img-wrap">
+<img alt="तज्ज्ञ डॉक्टर व हेल्थ कार्ड उपक्रम फोटो 46" class="doctor-album-img" loading="lazy" src="assets/images/doctors/WhatsApp-Image-2024-07-29-at-1.28.49-PM-scaled.jpeg"/>
+</div>
+<div class="doctor-album-caption">
+<h4>वैद्यकीय सल्लागार व डॉक्टर भेट #46</h4>
+<p><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+</div>
+</div>
+<div class="doctor-album-card">
+<div class="doctor-album-img-wrap">
+<img alt="तज्ज्ञ डॉक्टर व हेल्थ कार्ड उपक्रम फोटो 47" class="doctor-album-img" loading="lazy" src="assets/images/doctors/WhatsApp-Image-2024-07-29-at-1.28.51-PM-scaled.jpeg"/>
+</div>
+<div class="doctor-album-caption">
+<h4>वैद्यकीय सल्लागार व डॉक्टर भेट #47</h4>
+<p><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+</div>
+</div>
+<div class="doctor-album-card">
+<div class="doctor-album-img-wrap">
+<img alt="तज्ज्ञ डॉक्टर व हेल्थ कार्ड उपक्रम फोटो 48" class="doctor-album-img" loading="lazy" src="assets/images/doctors/WhatsApp-Image-2024-07-29-at-1.28.56-PM.jpeg"/>
+</div>
+<div class="doctor-album-caption">
+<h4>वैद्यकीय सल्लागार व डॉक्टर भेट #48</h4>
+<p><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+</div>
+</div>
+<div class="doctor-album-card">
+<div class="doctor-album-img-wrap">
+<img alt="तज्ज्ञ डॉक्टर व हेल्थ कार्ड उपक्रम फोटो 49" class="doctor-album-img" loading="lazy" src="assets/images/doctors/WhatsApp-Image-2024-07-29-at-1.29.01-PM.jpeg"/>
+</div>
+<div class="doctor-album-caption">
+<h4>वैद्यकीय सल्लागार व डॉक्टर भेट #49</h4>
+<p><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+</div>
+</div>
+<div class="doctor-album-card">
+<div class="doctor-album-img-wrap">
+<img alt="तज्ज्ञ डॉक्टर व हेल्थ कार्ड उपक्रम फोटो 50" class="doctor-album-img" loading="lazy" src="assets/images/doctors/WhatsApp-Image-2024-07-29-at-1.29.03-PM.jpeg"/>
+</div>
+<div class="doctor-album-caption">
+<h4>वैद्यकीय सल्लागार व डॉक्टर भेट #50</h4>
+<p><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+</div>
+</div>
+<div class="doctor-album-card">
+<div class="doctor-album-img-wrap">
+<img alt="तज्ज्ञ डॉक्टर व हेल्थ कार्ड उपक्रम फोटो 51" class="doctor-album-img" loading="lazy" src="assets/images/doctors/WhatsApp-Image-2024-07-29-at-1.29.05-PM.jpeg"/>
+</div>
+<div class="doctor-album-caption">
+<h4>वैद्यकीय सल्लागार व डॉक्टर भेट #51</h4>
+<p><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+</div>
+</div>
+<div class="doctor-album-card">
+<div class="doctor-album-img-wrap">
+<img alt="तज्ज्ञ डॉक्टर व हेल्थ कार्ड उपक्रम फोटो 52" class="doctor-album-img" loading="lazy" src="assets/images/doctors/WhatsApp-Image-2024-07-29-at-1.29.08-PM.jpeg"/>
+</div>
+<div class="doctor-album-caption">
+<h4>वैद्यकीय सल्लागार व डॉक्टर भेट #52</h4>
+<p><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+</div>
+</div>
+<div class="doctor-album-card">
+<div class="doctor-album-img-wrap">
+<img alt="तज्ज्ञ डॉक्टर व हेल्थ कार्ड उपक्रम फोटो 53" class="doctor-album-img" loading="lazy" src="assets/images/doctors/WhatsApp-Image-2024-07-29-at-1.29.09-PM.jpeg"/>
+</div>
+<div class="doctor-album-caption">
+<h4>वैद्यकीय सल्लागार व डॉक्टर भेट #53</h4>
+<p><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+</div>
+</div>
+<div class="doctor-album-card">
+<div class="doctor-album-img-wrap">
+<img alt="तज्ज्ञ डॉक्टर व हेल्थ कार्ड उपक्रम फोटो 54" class="doctor-album-img" loading="lazy" src="assets/images/doctors/WhatsApp-Image-2024-07-29-at-1.29.10-PM-scaled.jpeg"/>
+</div>
+<div class="doctor-album-caption">
+<h4>वैद्यकीय सल्लागार व डॉक्टर भेट #54</h4>
+<p><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+</div>
+</div>
+<div class="doctor-album-card">
+<div class="doctor-album-img-wrap">
+<img alt="तज्ज्ञ डॉक्टर व हेल्थ कार्ड उपक्रम फोटो 55" class="doctor-album-img" loading="lazy" src="assets/images/doctors/WhatsApp-Image-2024-07-29-at-1.29.36-PM-scaled.jpeg"/>
+</div>
+<div class="doctor-album-caption">
+<h4>वैद्यकीय सल्लागार व डॉक्टर भेट #55</h4>
+<p><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+</div>
+</div>
+<div class="doctor-album-card">
+<div class="doctor-album-img-wrap">
+<img alt="तज्ज्ञ डॉक्टर व हेल्थ कार्ड उपक्रम फोटो 56" class="doctor-album-img" loading="lazy" src="assets/images/doctors/doctor_album_1.jpg"/>
+</div>
+<div class="doctor-album-caption">
+<h4>वैद्यकीय सल्लागार व डॉक्टर भेट #56</h4>
+<p><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+</div>
+</div>
+<div class="doctor-album-card">
+<div class="doctor-album-img-wrap">
+<img alt="तज्ज्ञ डॉक्टर व हेल्थ कार्ड उपक्रम फोटो 57" class="doctor-album-img" loading="lazy" src="assets/images/doctors/doctor_album_10.png"/>
+</div>
+<div class="doctor-album-caption">
+<h4>वैद्यकीय सल्लागार व डॉक्टर भेट #57</h4>
+<p><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+</div>
+</div>
+<div class="doctor-album-card">
+<div class="doctor-album-img-wrap">
+<img alt="तज्ज्ञ डॉक्टर व हेल्थ कार्ड उपक्रम फोटो 58" class="doctor-album-img" loading="lazy" src="assets/images/doctors/doctor_album_2.jpg"/>
+</div>
+<div class="doctor-album-caption">
+<h4>वैद्यकीय सल्लागार व डॉक्टर भेट #58</h4>
+<p><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+</div>
+</div>
+<div class="doctor-album-card">
+<div class="doctor-album-img-wrap">
+<img alt="तज्ज्ञ डॉक्टर व हेल्थ कार्ड उपक्रम फोटो 59" class="doctor-album-img" loading="lazy" src="assets/images/doctors/doctor_album_3.jpg"/>
+</div>
+<div class="doctor-album-caption">
+<h4>वैद्यकीय सल्लागार व डॉक्टर भेट #59</h4>
+<p><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+</div>
+</div>
+<div class="doctor-album-card">
+<div class="doctor-album-img-wrap">
+<img alt="तज्ज्ञ डॉक्टर व हेल्थ कार्ड उपक्रम फोटो 60" class="doctor-album-img" loading="lazy" src="assets/images/doctors/doctor_album_4.jpg"/>
+</div>
+<div class="doctor-album-caption">
+<h4>वैद्यकीय सल्लागार व डॉक्टर भेट #60</h4>
+<p><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+</div>
+</div>
+<div class="doctor-album-card">
+<div class="doctor-album-img-wrap">
+<img alt="तज्ज्ञ डॉक्टर व हेल्थ कार्ड उपक्रम फोटो 61" class="doctor-album-img" loading="lazy" src="assets/images/doctors/doctor_album_5.jpg"/>
+</div>
+<div class="doctor-album-caption">
+<h4>वैद्यकीय सल्लागार व डॉक्टर भेट #61</h4>
+<p><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+</div>
+</div>
+<div class="doctor-album-card">
+<div class="doctor-album-img-wrap">
+<img alt="तज्ज्ञ डॉक्टर व हेल्थ कार्ड उपक्रम फोटो 62" class="doctor-album-img" loading="lazy" src="assets/images/doctors/doctor_album_6.png"/>
+</div>
+<div class="doctor-album-caption">
+<h4>वैद्यकीय सल्लागार व डॉक्टर भेट #62</h4>
+<p><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+</div>
+</div>
+<div class="doctor-album-card">
+<div class="doctor-album-img-wrap">
+<img alt="तज्ज्ञ डॉक्टर व हेल्थ कार्ड उपक्रम फोटो 63" class="doctor-album-img" loading="lazy" src="assets/images/doctors/doctor_album_7.png"/>
+</div>
+<div class="doctor-album-caption">
+<h4>वैद्यकीय सल्लागार व डॉक्टर भेट #63</h4>
+<p><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+</div>
+</div>
+<div class="doctor-album-card">
+<div class="doctor-album-img-wrap">
+<img alt="तज्ज्ञ डॉक्टर व हेल्थ कार्ड उपक्रम फोटो 64" class="doctor-album-img" loading="lazy" src="assets/images/doctors/doctor_album_8.png"/>
+</div>
+<div class="doctor-album-caption">
+<h4>वैद्यकीय सल्लागार व डॉक्टर भेट #64</h4>
+<p><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+</div>
+</div>
+<div class="doctor-album-card">
+<div class="doctor-album-img-wrap">
+<img alt="तज्ज्ञ डॉक्टर व हेल्थ कार्ड उपक्रम फोटो 65" class="doctor-album-img" loading="lazy" src="assets/images/doctors/doctor_album_9.png"/>
+</div>
+<div class="doctor-album-caption">
+<h4>वैद्यकीय सल्लागार व डॉक्टर भेट #65</h4>
+<p><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="footer">
+<div class="container">
+<div class="footer-grid">
+<div class="footer-brand">
+<a class="logo-brand" href="index.html">
+<div class="logo-icon"><i class="fas fa-hands-holding-child"></i></div>
+<div class="logo-text-group">
+<span class="logo-title">छत्रपती शाहू महाराज</span>
+<span class="logo-subtitle">बहुउद्देशीय संस्था (Reg. 699/MH F 5559)</span>
+</div>
+</a>
+<p>समाजातील सर्व घटकांच्या सर्वांगीण विकासासाठी व वैद्यकीय मदतीसाठी अविरत कार्यरत असलेली अधिकृत संस्था.</p>
+</div>
+<div>
+<h4 class="footer-title">Navigation Links</h4>
+<div class="footer-links">
+<a class="footer-link" href="index.html"><i class="fas fa-chevron-right"></i> Home</a>
+<a class="footer-link" href="hospitals.html"><i class="fas fa-chevron-right"></i> Our Hospitals</a>
+<a class="footer-link" href="camps-photos.html"><i class="fas fa-chevron-right"></i> Camps Photos</a>
+<a class="footer-link" href="family-health-card.html"><i class="fas fa-chevron-right"></i> Family Health Card</a>
+<a class="footer-link" href="our-officers.html"><i class="fas fa-chevron-right"></i> Our Officers</a>
+</div>
+</div>
+<div>
+<h4 class="footer-title">More Options</h4>
+<div class="footer-links">
+<a class="footer-link" href="doctors.html"><i class="fas fa-chevron-right"></i> Doctors</a>
+<a class="footer-link" href="documents.html"><i class="fas fa-chevron-right"></i> Documents</a>
+<a class="footer-link" href="find.html"><i class="fas fa-chevron-right"></i> Find</a>
+<a class="footer-link" href="news.html"><i class="fas fa-chevron-right"></i> News</a>
+<a class="footer-link" href="contact.html"><i class="fas fa-chevron-right"></i> Address &amp; Contact</a>
+</div>
+</div>
+<div>
+<h4 class="footer-title">मुख्य कार्यालय (Head Office)</h4>
+<div style="font-size: 0.92rem; line-height: 1.8;">
+<p><i class="fas fa-map-marker-alt" style="color: var(--accent);"></i> मयूर पार्क, जळगाव रोड, छत्रपती संभाजीनगर - 431003</p>
+<p><i class="fas fa-phone-alt" style="color: var(--accent);"></i> +91 9021757353</p>
+<p><i class="fas fa-envelope" style="color: var(--accent);"></i> akasharke9@gmail.com</p>
+</div>
+</div>
+</div>
+<div class="footer-bottom" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.1);">
+<span>© 2026 छत्रपती शाहू महाराज बहुउद्देशीय संस्था. सर्व हक्क सुरक्षित. (Reg No 699/MH F 5559)</span>
+<span style="font-size: 0.88rem; color: rgba(255,255,255,0.85);">Developed by <strong style="color: var(--secondary);">Nexvora Tech Solutions, Pune</strong> | Contact: <strong style="color: var(--secondary);">+91 7219290885</strong></span>
+</div>
+</div>
+</footer>
+<!-- JavaScript Files -->
+<script src="js/main.js"></script>
+</body>
+</html>

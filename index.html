@@ -8,6 +8,11 @@
   <meta name="description"
     content="छत्रपती शाहू महाराज बहुउद्देशीय संस्था - मोफत आरोग्य शिबीर, आरोग्य कार्ड योजना, सामाजिक व शैक्षणिक उपक्रम.">
 
+    <!-- Favicon Icon -->
+  <link rel="icon" type="image/png" href="assets/images/logo.png">
+  <link rel="shortcut icon" type="image/png" href="assets/images/logo.png">
+  <link rel="apple-touch-icon" href="assets/images/logo.png">
+
   <!-- CSS Stylesheets -->
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/responsive.css">
@@ -18,11 +23,10 @@
 
 <body>
 
-  <!-- Top Info Bar -->
+        <!-- Top Info Bar -->
   <div class="top-bar">
     <div class="container top-bar-content">
       <div class="top-info">
-        <span class="reg-badge"><i class="fas fa-certificate"></i> REG NO: 699(MH) F 5559</span>
         <div class="top-info-item">
           <i class="fas fa-phone-alt"></i>
           <span>+91 9021757353 / +91 8007474503</span>
@@ -33,7 +37,6 @@
         </div>
       </div>
       <div style="display: flex; align-items: center; gap: 15px;">
-        <button class="lang-toggle-btn"><i class="fas fa-globe"></i> English</button>
         <div class="top-info-item">
           <i class="fas fa-clock"></i>
           <span>सोम - शनि: 9:00 AM - 6:00 PM</span>
@@ -42,37 +45,36 @@
     </div>
   </div>
 
-  <!-- Sticky Navbar -->
+  <!-- Centered Main Brand Header (Inline Small Logo on Left of Title with Matching Height) -->
+  <header class="header-brand-centered" style="background: #ffffff; padding: 14px 0; border-bottom: 1px solid #E6E8F2; text-align: center;">
+    <div class="container" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;">
+      <a href="index.html" style="display: flex; align-items: center; justify-content: center; gap: 14px; text-decoration: none;">
+        <img src="assets/images/logo.png" alt="छत्रपती शाहू महाराज बहुउद्देशीय संस्था" style="height: 48px; width: 48px; max-height: 48px; object-fit: contain; flex-shrink: 0; display: inline-block;">
+        <h1 style="font-family: 'Poppins', sans-serif; font-size: 2rem; font-weight: 800; color: #1E2432; margin: 0; line-height: 1.2; white-space: nowrap; display: inline-block;">
+          छत्रपती शाहू महाराज बहुउद्देशीय संस्था
+        </h1>
+      </a>
+      <span class="brand-badge-large" style="background: linear-gradient(135deg, #6F4BFF 0%, #8E6CFF 100%); color: #ffffff; padding: 4px 18px; border-radius: 999px; font-weight: 700; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 6px;">
+        <i class="fas fa-certificate"></i> REG NO-699(MH) F 5559
+      </span>
+    </div>
+  </header>
+
+  <!-- Sticky Navbar (Single Row Menus) -->
   <nav class="navbar">
     <div class="container navbar-container">
-      <a href="index.html" class="logo-brand">
-        <img src="assets/images/logo.png" alt="छत्रपती शाहू महाराज बहुउद्देशीय संस्था" class="site-logo-img">
-        <div class="logo-text-group">
-          <span class="logo-title">छत्रपती शाहू महाराज</span>
-          <span class="logo-subtitle">बहुउद्देशीय संस्था (Reg. No. 699/MH F 5559)</span>
-        </div>
-      </a>
-
       <ul class="nav-menu">
-        <li><a href="index.html" class="nav-link active">मुख्य पृष्ठ </a></li>
-        <li><a href="about.html" class="nav-link">संस्थेविषयी </a></li>
-        <li><a href="activities.html" class="nav-link">उपक्रम </a></li>
-        <li><a href="projects.html" class="nav-link">प्रकल्प </a></li>
-        <li><a href="gallery.html" class="nav-link">गॅलरी </a></li>
-        <li><a href="notices.html" class="nav-link">सूचना व बातम्या </a></li>
-        <li><a href="committee.html" class="nav-link">पदाधिकारी </a></li>
-        <li><a href="downloads.html" class="nav-link">डाऊनलोड्स </a></li>
-        <li><a href="contact.html" class="nav-link">संपर्क </a></li>
+        <li><a href="index.html" class="nav-link active">Home</a></li>
+        <li><a href="hospitals.html" class="nav-link ">Our Hospitals</a></li>
+        <li><a href="camps-photos.html" class="nav-link ">Camps Photos</a></li>
+        <li><a href="family-health-card.html" class="nav-link ">Family Health Card</a></li>
+        <li><a href="our-officers.html" class="nav-link ">Our Officers</a></li>
+        <li><a href="doctors.html" class="nav-link ">Doctors</a></li>
+        <li><a href="documents.html" class="nav-link ">Documents</a></li>
+        <li><a href="find.html" class="nav-link ">Find</a></li>
+        <li><a href="news.html" class="nav-link ">News</a></li>
+        <li><a href="contact.html" class="nav-link ">Address and Contact Details</a></li>
       </ul>
-
-      <div class="nav-cta">
-        <a href="#" class="btn btn-secondary btn-sm open-card-verify-btn">
-          <i class="fas fa-search"></i> कार्ड तपासा
-        </a>
-        <a href="#" class="btn btn-primary btn-sm open-card-apply-btn">
-          <i class="fas fa-id-card"></i> ऑनलाइन कार्ड
-        </a>
-      </div>
 
       <button class="hamburger" aria-label="Toggle Navigation">
         <i class="fas fa-bars"></i>
@@ -127,275 +129,11 @@
     <div class="slider-dots"></div>
   </section>
 
-  <!-- Statistics Counter Banner -->
-  <div class="container stats-banner">
-    <div class="stats-grid">
-      <div class="stat-item reveal">
-        <div class="stat-icon"><i class="fas fa-user-check"></i></div>
-        <div>
-          <div class="stat-number" data-target="50000">0</div>
-          <div class="stat-label">लाभार्थी नागरिक</div>
-        </div>
-      </div>
-      <div class="stat-item reveal">
-        <div class="stat-icon"><i class="fas fa-stethoscope"></i></div>
-        <div>
-          <div class="stat-number" data-target="120">0</div>
-          <div class="stat-label">आरोग्य तपासणी शिबीरे</div>
-        </div>
-      </div>
-      <div class="stat-item reveal">
-        <div class="stat-icon"><i class="fas fa-hospital"></i></div>
-        <div>
-          <div class="stat-number" data-target="45">0</div>
-          <div class="stat-label">संबधित रुग्णालये</div>
-        </div>
-      </div>
-      <div class="stat-item reveal">
-        <div class="stat-icon"><i class="fas fa-hands-helping"></i></div>
-        <div>
-          <div class="stat-number" data-target="15">0</div>
-          <div class="stat-label">वर्षे अविरत सेवा</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- About Preview Section -->
-  <section class="section-padding" style="background: var(--bg-light);">
+  <!-- Manogat Image Section (Below Slider) -->
+  <section class="section-padding" style="background: var(--bg-light); padding: 50px 0;">
     <div class="container">
-      <div class="about-grid">
-        <div class="about-image-wrap reveal-left" style="display: flex; gap: 15px; flex-direction: column;">
-          <div
-            style="position: relative; border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-md);">
-            <img src="assets/images/president_founder.jpg" alt="श्री विश्वास देवकर - संस्थापक व अध्यक्ष"
-              class="about-img-main">
-            <div
-              style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(0,0,0,0.85), transparent); padding: 15px; color: #fff;">
-              <strong style="font-size: 1.1rem; display: block;">श्री विश्वास स. देवकर</strong>
-              <span style="font-size: 0.85rem; color: var(--secondary);">संस्थापक अध्यक्ष</span>
-            </div>
-          </div>
-          <div class="about-experience-card">
-            <span class="exp-years">15+</span>
-            <span class="exp-text">वर्षे अविरत सामाजिक व वैद्यकीय कार्य</span>
-          </div>
-        </div>
-
-        <div class="about-content-wrap reveal-right">
-          <span class="section-badge">आमच्याविषयी (About Us)</span>
-          <h2 class="section-title">छत्रपती शाहू महाराज बहुउद्देशीय संस्था, छत्रपती संभाजीनगर</h2>
-          <p>
-            संस्था नोंदणी अधिनियम १८६० आणि मुंबई सार्वजनिक विश्वस्त व्यवस्था अधिनियम १९५० अन्वये नोंदणीकृत (REG
-            NO-699/MH F 5559) ही एक अग्रगण्य सामाजिक संस्था आहे.
-          </p>
-          <p>
-            समाजातील सर्व घटकांसाठी मोफत आरोग्य शिबीरे आयोजित करणे, तज्ज्ञ डॉक्टरांचे नेटवर्क उभारणे आणि फॅमिली हेल्थ
-            कार्डद्वारे सवलतीच्या दरात उपचार मिळवून देणे हे आमचे प्रमुख उद्दिष्ट आहे.
-          </p>
-
-          <div class="about-feature-list">
-            <div class="about-feature-item"><i class="fas fa-check-circle"></i> मोफत आरोग्य तपासणी शिबीर</div>
-            <div class="about-feature-item"><i class="fas fa-check-circle"></i> फॅमिली हेल्थ कार्ड सुविधा</div>
-            <div class="about-feature-item"><i class="fas fa-check-circle"></i> तज्ज्ञ डॉक्टर व हॉस्पिटल्स</div>
-            <div class="about-feature-item"><i class="fas fa-check-circle"></i> सामाजिक व शैक्षणिक सहाय्य</div>
-          </div>
-
-          <a href="about.html" class="btn btn-primary">
-            अधिक माहिती वाचा <i class="fas fa-arrow-right"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Key Services / Why Choose Us -->
-  <section class="section-padding">
-    <div class="container">
-      <div class="section-title-wrap reveal">
-        <span class="section-badge">वैशिष्ट्ये व सेवा</span>
-        <h2 class="section-title">संस्थेचे प्रमुख उपक्रम व कार्यक्षेत्र</h2>
-        <p class="section-subtitle">आम्ही आरोग्य, शिक्षण आणि सामाजिक सक्षमीकरणासाठी सदैव तत्पर आहोत.</p>
-      </div>
-
-      <div class="features-grid">
-        <div class="feature-card reveal">
-          <div class="feature-icon-box">
-            <i class="fas fa-id-card"></i>
-          </div>
-          <h3>फॅमिली हेल्थ कार्ड योजना</h3>
-          <p>सर्व कुटुंबांसाठी सवलतीच्या दरात औषधे, लॅब टेस्ट्स आणि रुग्णालय उपचारांची खास सुविधा.</p>
-        </div>
-
-        <div class="feature-card reveal">
-          <div class="feature-icon-box">
-            <i class="fas fa-hand-holding-medical"></i>
-          </div>
-          <h3>वैद्यकीय व आरोग्य शिबीरे</h3>
-          <p>ग्रामीण व शहरी भागात मोफत बीपी, शुगर, नेत्र तपासणी आणि रक्तदान शिबीरांचे आयोजन.</p>
-        </div>
-
-        <div class="feature-card reveal">
-          <div class="feature-icon-box">
-            <i class="fas fa-user-md"></i>
-          </div>
-          <h3>तज्ज्ञ डॉक्टर नेटवर्क</h3>
-          <p>विविध तज्ज्ञ डॉक्टरांच्या सहकार्याने रुग्णांना मार्गदर्शन व उपचार सहाय्य.</p>
-        </div>
-
-        <div class="feature-card reveal">
-          <div class="feature-icon-box">
-            <i class="fas fa-graduation-cap"></i>
-          </div>
-          <h3>शैक्षणिक सहाय्य</h3>
-          <p>गरजू विद्यार्थ्यांना वह्या, पुस्तके, शालेय साहित्य आणि मार्गदर्शन पुरवणे.</p>
-        </div>
-
-        <div class="feature-card reveal">
-          <div class="feature-icon-box">
-            <i class="fas fa-female"></i>
-          </div>
-          <h3>महिला सक्षमीकरण</h3>
-          <p>महिलांसाठी आरोग्य मार्गदर्शन, स्वरोजगार कार्यशाळा व सामाजिक सुरक्षा उपक्रम.</p>
-        </div>
-
-        <div class="feature-card reveal">
-          <div class="feature-icon-box">
-            <i class="fas fa-bullhorn"></i>
-          </div>
-          <h3>जनजागृती मोहीम</h3>
-          <p>आरोग्यविषयक कायदे, शासकीय योजना व स्वच्छतेबाबत समाजात व्यापक जागृती.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Health Card Banner Highlight -->
-  <section class="section-padding" style="background: var(--gradient-subtle);">
-    <div class="container">
-      <div class="about-grid">
-        <div class="about-content-wrap reveal-left">
-          <span class="section-badge">विशेष योजना</span>
-          <h2 class="section-title">फॅमिली हेल्थ कार्ड (Family Health Card)</h2>
-          <p>
-            छत्रपती शाहू महाराज बहुउद्देशीय संस्थेमार्फत नोंदणीकृत फॅमिली हेल्थ कार्ड धारकांसाठी संबधित रुग्णालये आणि
-            डॉक्टरांकडे विशेष सवलत व मोफत सल्ला उपलब्ध करून दिला जातो.
-          </p>
-          <ul style="margin: 1.5rem 0; display: flex; flex-direction: column; gap: 0.8rem;">
-            <li class="about-feature-item"><i class="fas fa-shield-alt"></i> संपूर्ण कुटुंबासाठी वैद्यकीय कवच</li>
-            <li class="about-feature-item"><i class="fas fa-briefcase-medical"></i> पॅथॉलॉजी व लॅब टेस्टवर सवलत</li>
-            <li class="about-feature-item"><i class="fas fa-hospital-user"></i> इमर्जन्सी हेल्पलाईन सहाय्य</li>
-          </ul>
-          <a href="activities.html" class="btn btn-primary">हेल्थ कार्ड फॉर्म व माहिती <i
-              class="fas fa-arrow-right"></i></a>
-        </div>
-
-        <div class="about-image-wrap reveal-right"
-          style="position: relative; border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-lg);">
-          <img src="assets/images/banner_health_card.png" alt="लोहारिया फॅमिली हेल्थ कार्ड योजना" class="about-img-main"
-            style="max-height: 420px; object-fit: contain; background: #fff; padding: 10px;">
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Officers / Committee Preview -->
-  <section class="section-padding">
-    <div class="container">
-      <div class="section-title-wrap reveal">
-        <span class="section-badge">पदाधिकारी व व्यवस्थापन</span>
-        <h2 class="section-title">आमचे कार्यक्षम अधिकारी (Our Officers)</h2>
-        <p class="section-subtitle">समाजाच्या सेवेसाठी समर्पित असलेले आमचे प्रमुख पदाधिकारी.</p>
-      </div>
-
-      <div class="committee-grid">
-        <div class="officer-card reveal">
-          <div class="officer-avatar">
-            <img src="assets/images/officers/akash_arke.jpg" alt="Akash S. Arke - Project Officer">
-          </div>
-          <h3 class="officer-name">Akash S. Arke</h3>
-          <span class="officer-role">Project Officer</span>
-          <div class="officer-email">
-            <i class="fas fa-envelope"></i> akasharke9@gmail.com
-          </div>
-        </div>
-
-        <div class="officer-card reveal">
-          <div class="officer-avatar">
-            <img src="assets/images/officers/manisha_salve.jpg" alt="Manisha K. Salve - Ass. Project Officer">
-          </div>
-          <h3 class="officer-name">Manisha K. Salve</h3>
-          <span class="officer-role">Ass. Project Officer</span>
-          <div class="officer-email">
-            <i class="fas fa-envelope"></i> manishaksalve@gmail.com
-          </div>
-        </div>
-
-        <div class="officer-card reveal">
-          <div class="officer-avatar">
-            <img src="assets/images/officers/savita_patil.jpg" alt="Savita S. Patil - Field Officer">
-          </div>
-          <h3 class="officer-name">Savita S. Patil</h3>
-          <span class="officer-role">Field Officer</span>
-          <div class="officer-email">
-            <i class="fas fa-envelope"></i> savitachathe@gmail.com
-          </div>
-        </div>
-      </div>
-
-      <div style="text-align: center; margin-top: 3rem;">
-        <a href="committee.html" class="btn btn-outline">सर्व पदाधिकारी पहा <i class="fas fa-users"></i></a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Latest News & Notice Snippet -->
-  <section class="section-padding" style="background: var(--bg-light);">
-    <div class="container">
-      <div class="section-title-wrap reveal">
-        <span class="section-badge">बातम्या व प्रसिद्धी</span>
-        <h2 class="section-title">नवीनतम बातम्या व सूचना (Latest Updates)</h2>
-      </div>
-
-      <div class="notice-list">
-        <div class="notice-card reveal">
-          <div class="notice-info">
-            <div class="notice-date-badge">
-              <span class="notice-day">24</span>
-              <span class="notice-month">जुलै</span>
-            </div>
-            <div class="notice-details">
-              <h4>लोहारिया येथे फॅमिली हेल्थ कार्ड सभासद नोंदणी शिबीराला उदंड प्रतिसाद!</h4>
-              <div class="notice-meta">
-                <span><i class="fas fa-newspaper"></i> सायमत लाईव्ह (Saimat Live)</span>
-                <span><i class="fas fa-map-marker-alt"></i> लोहारिया</span>
-              </div>
-            </div>
-          </div>
-          <a href="https://saimatlive.com/response-to-family-health-card-membership-registration-camp-at-loharia/"
-            target="_blank" class="btn btn-secondary btn-sm">
-            बातमी पहा <i class="fas fa-external-link-alt"></i>
-          </a>
-        </div>
-
-        <div class="notice-card reveal">
-          <div class="notice-info">
-            <div class="notice-date-badge">
-              <span class="notice-day">15</span>
-              <span class="notice-month">जुन</span>
-            </div>
-            <div class="notice-details">
-              <h4>संस्थेची वार्षिक सर्वसाधारण सभा व नवीन आरोग्य उपक्रम घोषणा</h4>
-              <div class="notice-meta">
-                <span><i class="fas fa-bullhorn"></i> अधिकृत सूचना</span>
-                <span><i class="fas fa-building"></i> छत्रपती संभाजीनगर</span>
-              </div>
-            </div>
-          </div>
-          <a href="notices.html" class="btn btn-secondary btn-sm">
-            सविस्तर वाचा <i class="fas fa-arrow-right"></i>
-          </a>
-        </div>
+      <div style="max-width: 850px; margin: 0 auto; padding: 15px;" class="card glass-card">
+        <img src="assets/images/home_manogat.jpg" alt="मनोगत - श्री. पंजाबराव ना. ढोके (प्रकल्प संचालक)" style="width: 100%; height: auto; border-radius: var(--radius-md); box-shadow: var(--shadow-md); border: 1px solid var(--border-color);">
       </div>
     </div>
   </section>
@@ -424,23 +162,24 @@
         </div>
 
         <div>
-          <h4 class="footer-title">द्रुत लिंक्स (Quick Links)</h4>
+          <h4 class="footer-title">Navigation Links</h4>
           <div class="footer-links">
-            <a href="index.html" class="footer-link"><i class="fas fa-chevron-right"></i> मुख्य पृष्ठ</a>
-            <a href="about.html" class="footer-link"><i class="fas fa-chevron-right"></i> संस्थेविषयी</a>
-            <a href="activities.html" class="footer-link"><i class="fas fa-chevron-right"></i> आमचे उपक्रम</a>
-            <a href="projects.html" class="footer-link"><i class="fas fa-chevron-right"></i> प्रकल्प</a>
-            <a href="gallery.html" class="footer-link"><i class="fas fa-chevron-right"></i> फोटो गॅलरी</a>
+            <a href="index.html" class="footer-link"><i class="fas fa-chevron-right"></i> Home</a>
+            <a href="hospitals.html" class="footer-link"><i class="fas fa-chevron-right"></i> Our Hospitals</a>
+            <a href="camps-photos.html" class="footer-link"><i class="fas fa-chevron-right"></i> Camps Photos</a>
+            <a href="family-health-card.html" class="footer-link"><i class="fas fa-chevron-right"></i> Family Health Card</a>
+            <a href="our-officers.html" class="footer-link"><i class="fas fa-chevron-right"></i> Our Officers</a>
           </div>
         </div>
 
         <div>
-          <h4 class="footer-title">महत्त्वाचे (Important)</h4>
+          <h4 class="footer-title">More Options</h4>
           <div class="footer-links">
-            <a href="committee.html" class="footer-link"><i class="fas fa-chevron-right"></i> पदाधिकारी यादी</a>
-            <a href="notices.html" class="footer-link"><i class="fas fa-chevron-right"></i> बातम्या व सूचना</a>
-            <a href="downloads.html" class="footer-link"><i class="fas fa-chevron-right"></i> डाऊनलोड्स</a>
-            <a href="contact.html" class="footer-link"><i class="fas fa-chevron-right"></i> संपर्क व पत्ते</a>
+            <a href="doctors.html" class="footer-link"><i class="fas fa-chevron-right"></i> Doctors</a>
+            <a href="documents.html" class="footer-link"><i class="fas fa-chevron-right"></i> Documents</a>
+            <a href="find.html" class="footer-link"><i class="fas fa-chevron-right"></i> Find</a>
+            <a href="news.html" class="footer-link"><i class="fas fa-chevron-right"></i> News</a>
+            <a href="contact.html" class="footer-link"><i class="fas fa-chevron-right"></i> Address & Contact</a>
           </div>
         </div>
 
@@ -455,9 +194,9 @@
         </div>
       </div>
 
-      <div class="footer-bottom">
+            <div class="footer-bottom" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.1);">
         <span>© 2026 छत्रपती शाहू महाराज बहुउद्देशीय संस्था. सर्व हक्क सुरक्षित. (Reg No 699/MH F 5559)</span>
-        <span>Designed & Maintained with Excellence</span>
+        <span style="font-size: 0.88rem; color: rgba(255,255,255,0.85);">Developed by <strong style="color: var(--secondary);">Nexvora Tech Solutions, Pune</strong> | Contact: <strong style="color: var(--secondary);">+91 7219290885</strong></span>
       </div>
     </div>
   </footer>

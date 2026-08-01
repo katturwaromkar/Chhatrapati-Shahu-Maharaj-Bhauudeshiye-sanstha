@@ -322,6 +322,62 @@ img {
   border: 1px solid rgba(142, 108, 255, 0.4);
 }
 
+/* --- Centered Main Brand Header --- */
+.header-brand-centered {
+  background: var(--bg-white);
+  padding: 14px 0;
+  text-align: center;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.brand-header-flex {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.brand-centered-content {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+.brand-logo-large {
+  height: 42px !important;
+  max-height: 42px !important;
+  width: auto !important;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.brand-title-large {
+  font-family: var(--font-heading);
+  font-size: 2.1rem !important;
+  font-weight: 800;
+  color: var(--text-dark);
+  letter-spacing: -0.01em;
+  margin: 0 !important;
+  line-height: 1.2 !important;
+  white-space: nowrap;
+}
+
+.brand-badge-large {
+  background: var(--gradient-primary);
+  color: #ffffff;
+  padding: 4px 18px;
+  border-radius: var(--radius-pill);
+  font-weight: 700;
+  font-size: 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: var(--shadow-sm);
+}
+
 /* --- Sticky Navigation Bar --- */
 .navbar {
   position: sticky;
@@ -329,29 +385,38 @@ img {
   left: 0;
   width: 100%;
   z-index: 1000;
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.96);
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
   border-bottom: 1px solid var(--border-color);
   transition: all var(--transition-normal);
-  overflow: hidden;
 }
 
 .navbar.scrolled {
   box-shadow: var(--shadow-md);
-  padding-top: 2px;
-  padding-bottom: 2px;
 }
 
 .navbar-container {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  height: 80px;
-  max-height: 80px;
-  padding-top: 4px;
-  padding-bottom: 4px;
+  justify-content: center;
+  height: 55px;
+  max-height: 55px;
+  padding-top: 2px;
+  padding-bottom: 2px;
   gap: 0.8rem;
+  flex-wrap: nowrap;
+}
+
+.nav-menu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.1rem;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  white-space: nowrap;
   flex-wrap: nowrap;
 }
 

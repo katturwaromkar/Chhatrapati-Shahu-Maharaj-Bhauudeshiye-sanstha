@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initNoticeSearch();
   initContactForm();
   initBackToTop();
+  initImageLightbox();
 });
 
 /* --- Sticky Navbar --- */
@@ -214,6 +215,62 @@ function initBackToTop() {
     window.scrollTo({
       top: 0,
       behavior: 'smooth'
+    });
+  });
+}
+
+/* --- Image Lightbox Modal (Large Form View) --- */
+function initImageLightbox() {
+  let modal = document.getElementById('imageLightboxModal');
+  if (!modal) {
+    modal = document.createElement('div');
+    modal.id = 'imageLightboxModal';
+    modal.className = 'lightbox-modal';
+    modal.innerHTML = `
+      <div class="lightbox-close">&times;</div>
+      <div class="lightbox-content">
+        <img src="" alt="Large Image View">
+        <div class="lightbox-caption">
+          <h3></h3>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(modal);
+  }
+
+  const modalImg = modal.querySelector('.lightbox-content img');
+  const modalCaption = modal.querySelector('.lightbox-caption h3');
+  const closeBtn = modal.querySelector('.lightbox-close');
+
+  const openLightbox = (src, caption) => {
+    modalImg.src = src;
+    modalCaption.textContent = caption || '';
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closeLightbox = () => {
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+  };
+
+  closeBtn.addEventListener('click', closeLightbox);
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal || e.target === closeBtn) closeLightbox();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('active')) closeLightbox();
+  });
+
+  // Attach click listener to hospital flyers, gallery items, and any images
+  document.querySelectorAll('img').forEach(img => {
+    if (img.classList.contains('site-logo-img') || img.classList.contains('brand-logo-large')) return;
+
+    img.style.cursor = 'zoom-in';
+    img.addEventListener('click', (e) => {
+      e.preventDefault();
+      openLightbox(img.src, img.alt || img.title || 'रुग्णालय सवलत माहिती पत्रक');
     });
   });
 }

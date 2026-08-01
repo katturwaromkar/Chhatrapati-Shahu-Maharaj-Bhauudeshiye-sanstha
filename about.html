@@ -9,21 +9,27 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/responsive.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Favicon Icon -->
+  <link rel="icon" type="image/png" href="assets/images/logo.png">
+  <link rel="shortcut icon" type="image/png" href="assets/images/logo.png">
+  <link rel="apple-touch-icon" href="assets/images/logo.png">
 </head>
 <body>
 
-  <!-- Top Info Bar -->
+        <!-- Top Info Bar -->
   <div class="top-bar">
     <div class="container top-bar-content">
       <div class="top-info">
-        <span class="reg-badge"><i class="fas fa-certificate"></i> REG NO: 699(MH) F 5559</span>
         <div class="top-info-item">
           <i class="fas fa-phone-alt"></i>
           <span>+91 9021757353 / +91 8007474503</span>
         </div>
+        <div class="top-info-item">
+          <i class="fas fa-map-marker-alt"></i>
+          <span>Chh. Sambhajinagar & Jalgaon, Maharashtra</span>
+        </div>
       </div>
       <div style="display: flex; align-items: center; gap: 15px;">
-        <button class="lang-toggle-btn"><i class="fas fa-globe"></i> English</button>
         <div class="top-info-item">
           <i class="fas fa-clock"></i>
           <span>सोम - शनि: 9:00 AM - 6:00 PM</span>
@@ -32,35 +38,40 @@
     </div>
   </div>
 
-  <!-- Sticky Navbar -->
+  <!-- Centered Main Brand Header (Inline Small Logo on Left of Title with Matching Height) -->
+  <header class="header-brand-centered" style="background: #ffffff; padding: 14px 0; border-bottom: 1px solid #E6E8F2; text-align: center;">
+    <div class="container" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;">
+      <a href="index.html" style="display: flex; align-items: center; justify-content: center; gap: 14px; text-decoration: none;">
+        <img src="assets/images/logo.png" alt="छत्रपती शाहू महाराज बहुउद्देशीय संस्था" style="height: 48px; width: 48px; max-height: 48px; object-fit: contain; flex-shrink: 0; display: inline-block;">
+        <h1 style="font-family: 'Poppins', sans-serif; font-size: 2rem; font-weight: 800; color: #1E2432; margin: 0; line-height: 1.2; white-space: nowrap; display: inline-block;">
+          छत्रपती शाहू महाराज बहुउद्देशीय संस्था
+        </h1>
+      </a>
+      <span class="brand-badge-large" style="background: linear-gradient(135deg, #6F4BFF 0%, #8E6CFF 100%); color: #ffffff; padding: 4px 18px; border-radius: 999px; font-weight: 700; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 6px;">
+        <i class="fas fa-certificate"></i> REG NO-699(MH) F 5559
+      </span>
+    </div>
+  </header>
+
+  <!-- Sticky Navbar (Single Row Menus) -->
   <nav class="navbar">
     <div class="container navbar-container">
-      <a href="index.html" class="logo-brand">
-        <img src="assets/images/logo.png" alt="छत्रपती शाहू महाराज बहुउद्देशीय संस्था" class="site-logo-img">
-        <div class="logo-text-group">
-          <span class="logo-title">छत्रपती शाहू महाराज</span>
-          <span class="logo-subtitle">बहुउद्देशीय संस्था (Reg. No. 699/MH F 5559)</span>
-        </div>
-      </a>
-
       <ul class="nav-menu">
-        <li><a href="index.html" class="nav-link">मुख्य पृष्ठ (Home)</a></li>
-        <li><a href="about.html" class="nav-link active">संस्थेविषयी (About)</a></li>
-        <li><a href="activities.html" class="nav-link">उपक्रम (Activities)</a></li>
-        <li><a href="projects.html" class="nav-link">प्रकल्प (Projects)</a></li>
-        <li><a href="gallery.html" class="nav-link">गॅलरी (Gallery)</a></li>
-        <li><a href="notices.html" class="nav-link">सूचना व बातम्या (Notices)</a></li>
-        <li><a href="committee.html" class="nav-link">पदाधिकारी (Committee)</a></li>
-        <li><a href="downloads.html" class="nav-link">डाऊनलोड्स (Downloads)</a></li>
-        <li><a href="contact.html" class="nav-link">संपर्क (Contact)</a></li>
+        <li><a href="index.html" class="nav-link ">Home</a></li>
+        <li><a href="hospitals.html" class="nav-link ">Our Hospitals</a></li>
+        <li><a href="camps-photos.html" class="nav-link ">Camps Photos</a></li>
+        <li><a href="family-health-card.html" class="nav-link ">Family Health Card</a></li>
+        <li><a href="our-officers.html" class="nav-link ">Our Officers</a></li>
+        <li><a href="doctors.html" class="nav-link ">Doctors</a></li>
+        <li><a href="documents.html" class="nav-link ">Documents</a></li>
+        <li><a href="find.html" class="nav-link ">Find</a></li>
+        <li><a href="news.html" class="nav-link ">News</a></li>
+        <li><a href="contact.html" class="nav-link ">Address and Contact Details</a></li>
       </ul>
 
-      <div class="nav-cta">
-        <a href="#" class="btn btn-secondary btn-sm open-card-verify-btn"><i class="fas fa-search"></i> कार्ड तपासा</a>
-        <a href="#" class="btn btn-primary btn-sm open-card-apply-btn"><i class="fas fa-id-card"></i> ऑनलाइन कार्ड</a>
-      </div>
-
-      <button class="hamburger" aria-label="Toggle Navigation"><i class="fas fa-bars"></i></button>
+      <button class="hamburger" aria-label="Toggle Navigation">
+        <i class="fas fa-bars"></i>
+      </button>
     </div>
   </nav>
 
@@ -246,8 +257,9 @@
           <p style="font-size: 0.9rem; margin-top: 5px;"><i class="fas fa-phone-alt" style="color: var(--accent);"></i> +91 9021757353</p>
         </div>
       </div>
-      <div class="footer-bottom">
-        <span>© 2026 छत्रपती शाहू महाराज बहुउद्देशीय संस्था. (Reg No 699/MH F 5559)</span>
+            <div class="footer-bottom" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.1);">
+        <span>© 2026 छत्रपती शाहू महाराज बहुउद्देशीय संस्था. सर्व हक्क सुरक्षित. (Reg No 699/MH F 5559)</span>
+        <span style="font-size: 0.88rem; color: rgba(255,255,255,0.85);">Developed by <strong style="color: var(--secondary);">Nexvora Tech Solutions, Pune</strong> | Contact: <strong style="color: var(--secondary);">+91 7219290885</strong></span>
       </div>
     </div>
   </footer>
