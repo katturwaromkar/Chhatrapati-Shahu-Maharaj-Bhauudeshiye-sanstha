@@ -36,30 +36,52 @@ function initMobileMenu() {
 
   if (!hamburger || !navMenu) return;
 
-  hamburger.addEventListener('click', () => {
-    const isActive = navMenu.classList.toggle('active');
-    hamburger.classList.toggle('active-toggle', isActive);
+  let currentScrollY = 0;
+
+  function openMenu() {
+    currentScrollY = window.scrollY || window.pageYOffset;
+    navMenu.classList.add('active');
+    hamburger.classList.add('active-toggle');
+    document.body.classList.add('menu-open');
+    document.body.style.top = `-${currentScrollY}px`;
     const icon = hamburger.querySelector('i');
-    
-    if (isActive) {
-      if (icon) icon.className = 'fas fa-times';
-      document.body.style.overflow = 'hidden';
+    if (icon) icon.className = 'fas fa-times';
+  }
+
+  function closeMenu() {
+    navMenu.classList.remove('active');
+    hamburger.classList.remove('active-toggle');
+    document.body.classList.remove('menu-open');
+    document.body.style.top = '';
+    window.scrollTo(0, currentScrollY);
+    const icon = hamburger.querySelector('i');
+    if (icon) icon.className = 'fas fa-bars';
+  }
+
+  hamburger.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (navMenu.classList.contains('active')) {
+      closeMenu();
     } else {
-      if (icon) icon.className = 'fas fa-bars';
-      document.body.style.overflow = '';
+      openMenu();
     }
   });
 
   // Close menu when clicking links
   document.querySelectorAll('.nav-link').forEach(link => {
     link.addEventListener('click', () => {
-      navMenu.classList.remove('active');
-      hamburger.classList.remove('active-toggle');
-      document.body.style.overflow = '';
-      const icon = hamburger.querySelector('i');
-      if (icon) icon.className = 'fas fa-bars';
+      closeMenu();
     });
   });
+
+  // Block touch scrolling on body background when mobile menu is active
+  document.addEventListener('touchmove', (e) => {
+    if (document.body.classList.contains('menu-open')) {
+      if (!navMenu.contains(e.target)) {
+        e.preventDefault();
+      }
+    }
+  }, { passive: false });
 }
 
 /* --- Active Nav Link Highlighting --- */

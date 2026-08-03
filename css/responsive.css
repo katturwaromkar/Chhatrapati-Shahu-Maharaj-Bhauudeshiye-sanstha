@@ -69,7 +69,7 @@
     padding: 8px 14px !important;
     font-size: 1.3rem !important;
     cursor: pointer !important;
-    z-index: 100001 !important;
+    z-index: 1000001 !important;
     transition: all var(--transition-fast) !important;
   }
 
@@ -80,6 +80,7 @@
     background: var(--primary) !important;
     color: #ffffff !important;
     box-shadow: var(--shadow-md) !important;
+    z-index: 1000001 !important;
   }
 
   /* Full Screen Solid Opaque Mobile Menu Overlay (Covers Entire Webpage When Clicked) */
@@ -101,7 +102,8 @@
     transition: left 0.35s cubic-bezier(0.4, 0, 0.2, 1) !important;
     box-shadow: none !important;
     overflow-y: auto !important;
-    z-index: 100000 !important;
+    -webkit-overflow-scrolling: touch !important;
+    z-index: 1000000 !important;
   }
 
   .nav-menu.active {
