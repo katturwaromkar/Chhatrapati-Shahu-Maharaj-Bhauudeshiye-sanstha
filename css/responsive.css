@@ -326,3 +326,43 @@
   }
 }
 
+/* --- Ultra Small Mobile Devices (max-width: 360px - Galaxy Fold Outer, iPhone SE) --- */
+@media (max-width: 360px) {
+  .container {
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+  }
+
+  .header-brand-centered h1 {
+    font-size: 1.05rem !important;
+  }
+
+  .brand-badge-large {
+    font-size: 0.75rem !important;
+    padding: 3px 12px !important;
+  }
+
+  .nav-menu .nav-link {
+    font-size: 1rem !important;
+    padding: 10px 0 !important;
+  }
+
+  .btn {
+    padding: 8px 16px !important;
+    font-size: 0.85rem !important;
+  }
+}
+
+/* --- iOS Safe Area Insets & Landscape Mode --- */
+@supports (padding: max(0px)) {
+  body {
+    padding-left: min(0px, env(safe-area-inset-left));
+    padding-right: min(0px, env(safe-area-inset-right));
+  }
+
+  .nav-menu {
+    padding-top: max(80px, env(safe-area-inset-top)) !important;
+    padding-bottom: max(30px, env(safe-area-inset-bottom)) !important;
+  }
+}
+
