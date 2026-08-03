@@ -420,6 +420,10 @@ img {
   flex-wrap: nowrap;
 }
 
+.nav-brand-mobile {
+  display: none;
+}
+
 .logo-brand {
   display: flex;
   align-items: center;

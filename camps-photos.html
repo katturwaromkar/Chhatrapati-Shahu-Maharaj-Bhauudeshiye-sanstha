@@ -48,9 +48,9 @@
 <!-- Centered Main Brand Header (Inline Small Logo on Left of Title with Matching Height) -->
 <header class="header-brand-centered" style="background: #ffffff; padding: 14px 0; border-bottom: 1px solid #E6E8F2; text-align: center;">
 <div class="container" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;">
-<a href="index.html" style="display: flex; align-items: center; justify-content: center; gap: 14px; text-decoration: none;">
+<a href="index.html" style="display: flex; align-items: center; justify-content: center; gap: 14px; text-decoration: none; flex-wrap: wrap;">
 <img alt="छत्रपती शाहू महाराज बहुउद्देशीय संस्था" src="assets/images/logo.png" style="height: 48px; width: 48px; max-height: 48px; object-fit: contain; flex-shrink: 0; display: inline-block;"/>
-<h1 style="font-family: 'Poppins', sans-serif; font-size: 2rem; font-weight: 800; color: #1E2432; margin: 0; line-height: 1.2; white-space: nowrap; display: inline-block;">
+<h1 style="font-family: 'Poppins', sans-serif; font-size: clamp(1.15rem, 4vw, 2rem); font-weight: 800; color: #1E2432; margin: 0; line-height: 1.25; word-break: break-word; text-align: center; display: inline-block;">
           छत्रपती शाहू महाराज बहुउद्देशीय संस्था
         </h1>
 </a>
@@ -62,6 +62,10 @@
 <!-- Sticky Navbar (Single Row Menus) -->
 <nav class="navbar">
 <div class="container navbar-container">
+  <a href="index.html" class="nav-brand-mobile">
+    <img src="assets/images/logo.png" alt="Logo">
+    <span>छत्रपती शाहू महाराज संस्था</span>
+  </a>
 <ul class="nav-menu">
 <li><a class="nav-link" href="index.html">Home</a></li>
 <li><a class="nav-link" href="hospitals.html">Our Hospitals</a></li>
