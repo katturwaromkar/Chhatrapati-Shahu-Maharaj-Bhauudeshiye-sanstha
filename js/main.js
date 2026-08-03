@@ -37,14 +37,16 @@ function initMobileMenu() {
   if (!hamburger || !navMenu) return;
 
   hamburger.addEventListener('click', () => {
-    navMenu.classList.toggle('active');
+    const isActive = navMenu.classList.toggle('active');
+    hamburger.classList.toggle('active-toggle', isActive);
     const icon = hamburger.querySelector('i');
-    if (icon) {
-      if (navMenu.classList.contains('active')) {
-        icon.className = 'fas fa-times';
-      } else {
-        icon.className = 'fas fa-bars';
-      }
+    
+    if (isActive) {
+      if (icon) icon.className = 'fas fa-times';
+      document.body.style.overflow = 'hidden';
+    } else {
+      if (icon) icon.className = 'fas fa-bars';
+      document.body.style.overflow = '';
     }
   });
 
@@ -52,6 +54,8 @@ function initMobileMenu() {
   document.querySelectorAll('.nav-link').forEach(link => {
     link.addEventListener('click', () => {
       navMenu.classList.remove('active');
+      hamburger.classList.remove('active-toggle');
+      document.body.style.overflow = '';
       const icon = hamburger.querySelector('i');
       if (icon) icon.className = 'fas fa-bars';
     });
