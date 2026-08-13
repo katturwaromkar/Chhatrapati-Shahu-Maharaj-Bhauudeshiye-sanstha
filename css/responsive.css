@@ -39,51 +39,75 @@
     max-height: 40px !important;
   }
 
-  /* Hide Duplicate Brand Title in Navbar so ONLY ONE Big Title Shows on Mobile */
+  /* Display Mobile Brand Logo & Title in Sticky Navbar on Mobile */
   .nav-brand-mobile {
-    display: none !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    text-decoration: none !important;
+    color: var(--text-dark) !important;
+    margin-right: auto !important;
+  }
+
+  .nav-brand-mobile img {
+    height: 32px !important;
+    width: 32px !important;
+    object-fit: contain !important;
+  }
+
+  .nav-brand-mobile span {
+    font-family: var(--font-heading) !important;
+    font-size: 0.95rem !important;
+    font-weight: 700 !important;
+    color: var(--text-dark) !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    max-width: 220px !important;
   }
 
   /* Hamburger Navigation Bar Container */
   .navbar-container {
     display: flex !important;
     align-items: center !important;
-    justify-content: flex-end !important;
-    height: 48px !important;
+    justify-content: space-between !important;
+    height: 54px !important;
     padding-left: 1rem !important;
     padding-right: 1rem !important;
     width: 100% !important;
   }
 
-  /* Hamburger Menu Button - Fixed Right Side Position */
+  /* Hamburger Menu Button - High Contrast & High Visibility */
   .hamburger {
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    margin-left: auto !important;
-    margin-right: 0 !important;
-    background: var(--primary-light) !important;
-    color: var(--primary) !important;
-    border: 1px solid rgba(111, 75, 255, 0.25) !important;
+    width: 44px !important;
+    height: 44px !important;
+    min-width: 44px !important;
+    min-height: 44px !important;
+    background: var(--primary) !important;
+    color: #ffffff !important;
+    border: none !important;
     border-radius: var(--radius-sm) !important;
-    padding: 8px 14px !important;
     font-size: 1.3rem !important;
     cursor: pointer !important;
     z-index: 1000001 !important;
     transition: all var(--transition-fast) !important;
+    box-shadow: var(--shadow-sm) !important;
   }
 
   .hamburger.active-toggle {
     position: fixed !important;
     top: 14px !important;
     right: 14px !important;
-    background: var(--primary) !important;
+    background: #1E2432 !important;
     color: #ffffff !important;
     box-shadow: var(--shadow-md) !important;
     z-index: 1000001 !important;
   }
 
-  /* Full Screen Solid Opaque Mobile Menu Overlay (Covers Entire Webpage When Clicked) */
+  /* Full Screen Solid Opaque Mobile Menu Overlay */
   .nav-menu {
     position: fixed !important;
     top: 0 !important;
@@ -96,9 +120,9 @@
     -webkit-backdrop-filter: none !important;
     flex-direction: column !important;
     justify-content: flex-start !important;
-    align-items: center !important;
-    padding: 80px 1.5rem 3rem 1.5rem !important;
-    gap: 0.6rem !important;
+    align-items: stretch !important;
+    padding: 85px 1.25rem 3rem 1.25rem !important;
+    gap: 0.2rem !important;
     transition: left 0.35s cubic-bezier(0.4, 0, 0.2, 1) !important;
     box-shadow: none !important;
     overflow-y: auto !important;
