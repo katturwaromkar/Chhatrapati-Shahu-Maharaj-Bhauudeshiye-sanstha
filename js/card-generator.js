@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
 /* --- Sample Pre-loaded Verified Cards Database --- */
 const sampleCardsDB = {
   "CSM-2026-5559": {
+    cardId: "CSM-2026-5559",
     name: "आकाश संभाजी अरके (Akash S. Arke)",
     phone: "+91 9021757353",
     city: "छत्रपती संभाजीनगर",
@@ -23,6 +24,7 @@ const sampleCardsDB = {
     discount: "२०% ओपीडी सवलत, २५% लॅब टेस्ट सवलत"
   },
   "CSM-2026-8942": {
+    cardId: "CSM-2026-8942",
     name: "विजय रामभाऊ पाटील (Vijay R. Patil)",
     phone: "+91 9822012345",
     city: "जळगाव",
@@ -44,53 +46,53 @@ function initHealthCardApplication() {
     });
   });
 
-  const applyForm = document.getElementById('healthCardApplyForm');
-  if (!applyForm) return;
+  // Global submit event listener delegation for healthCardApplyForm
+  document.addEventListener('submit', (e) => {
+    if (e.target && e.target.id === 'healthCardApplyForm') {
+      e.preventDefault();
 
-  applyForm.addEventListener('submit', (e) => {
-    e.preventDefault();
+      const name = document.getElementById('cardHeadName')?.value.trim();
+      const phone = document.getElementById('cardHeadPhone')?.value.trim();
+      const aadhaar = document.getElementById('cardAadhaar')?.value.trim();
+      const city = document.getElementById('cardCity')?.value;
+      const member1 = document.getElementById('cardMember1')?.value.trim();
+      const member2 = document.getElementById('cardMember2')?.value.trim();
 
-    const name = document.getElementById('cardHeadName').value.trim();
-    const phone = document.getElementById('cardHeadPhone').value.trim();
-    const aadhaar = document.getElementById('cardAadhaar').value.trim();
-    const city = document.getElementById('cardCity').value;
-    const member1 = document.getElementById('cardMember1').value.trim();
-    const member2 = document.getElementById('cardMember2').value.trim();
+      if (!name || !phone || !city) {
+        showToast('कृपया सर्व आवश्यक माहिती भरा.', 'warning');
+        return;
+      }
 
-    if (!name || !phone || !city) {
-      showToast('कृपया सर्व आवश्यक माहिती भरा.', 'warning');
-      return;
+      // Generate Unique Registration ID
+      const randomNum = Math.floor(1000 + Math.random() * 9000);
+      const cardId = `CSM-2026-${randomNum}`;
+
+      const membersList = [name + " (प्रमुख)"];
+      if (member1) membersList.push(member1);
+      if (member2) membersList.push(member2);
+
+      const cardData = {
+        cardId: cardId,
+        name: name,
+        phone: phone,
+        aadhaar: aadhaar || "xxxx-xxxx-4829",
+        city: city,
+        issued: new Date().toLocaleDateString('mr-IN', { day: '2-digit', month: 'short', year: 'numeric' }),
+        validTill: "31 मार्च 2027",
+        status: "सक्रिय (ACTIVE)",
+        members: membersList,
+        discount: "२०% ओपीडी सवलत, २५% लॅब टेस्ट सवलत"
+      };
+
+      // Save in LocalStorage for verification
+      const storedCards = JSON.parse(localStorage.getItem('CSM_CARDS') || '{}');
+      storedCards[cardId] = cardData;
+      localStorage.setItem('CSM_CARDS', JSON.stringify(storedCards));
+
+      // Render Live Digital Card Preview
+      renderDigitalCardPreview(cardData);
+      showToast(`अभिनंदन! तुमचे फॅमिली हेल्थ कार्ड तयार झाले आहे. नोंदणी क्र: ${cardId}`, 'success');
     }
-
-    // Generate Unique Registration ID
-    const randomNum = Math.floor(1000 + Math.random() * 9000);
-    const cardId = `CSM-2026-${randomNum}`;
-
-    const membersList = [name + " (प्रमुख)"];
-    if (member1) membersList.push(member1);
-    if (member2) membersList.push(member2);
-
-    const cardData = {
-      cardId: cardId,
-      name: name,
-      phone: phone,
-      aadhaar: aadhaar || "xxxx-xxxx-4829",
-      city: city,
-      issued: new Date().toLocaleDateString('mr-IN', { day: '2-digit', month: 'short', year: 'numeric' }),
-      validTill: "31 मार्च 2027",
-      status: "सक्रिय (ACTIVE)",
-      members: membersList,
-      discount: "२०% ओपीडी सवलत, २५% लॅब टेस्ट सवलत"
-    };
-
-    // Save in LocalStorage for verification
-    const storedCards = JSON.parse(localStorage.getItem('CSM_CARDS') || '{}');
-    storedCards[cardId] = cardData;
-    localStorage.setItem('CSM_CARDS', JSON.stringify(storedCards));
-
-    // Render Live Digital Card Preview
-    renderDigitalCardPreview(cardData);
-    showToast(`अभिनंदन! तुमचे फॅमिली हेल्थ कार्ड तयार झाले आहे. नोंदणी क्र: ${cardId}`, 'success');
   });
 }
 

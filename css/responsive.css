@@ -168,6 +168,14 @@
     display: block !important;
   }
 
+  .nav-dropdown .dropdown-icon {
+    transition: transform 0.3s ease !important;
+  }
+
+  .nav-dropdown.active .dropdown-icon {
+    transform: rotate(180deg) !important;
+  }
+
   .dropdown-item {
     padding: 10px 14px !important;
     font-size: 0.98rem !important;

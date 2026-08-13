@@ -28,7 +28,7 @@ function initPWA() {
   }
 }
 
-/* --- Dropdown Menus Auto-Close on Scroll & Click Outside --- */
+/* --- Dropdown Menus Auto-Close & Mobile Inline Toggle --- */
 function initDropdownMenus() {
   const dropdowns = document.querySelectorAll('.nav-dropdown');
 
@@ -44,21 +44,35 @@ function initDropdownMenus() {
     const link = dp.querySelector('.nav-link');
     if (link) {
       link.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const isActive = dp.classList.contains('active');
-        dropdowns.forEach(d => { if (d !== dp) d.classList.remove('active'); });
-        if (!isActive) {
-          dp.classList.add('active');
+        const isMobile = window.innerWidth <= 992;
+        if (isMobile) {
+          e.preventDefault();
+          e.stopPropagation();
+          const isActive = dp.classList.contains('active');
+          dropdowns.forEach(d => { if (d !== dp) d.classList.remove('active'); });
+          dp.classList.toggle('active', !isActive);
         } else {
-          dp.classList.remove('active');
+          e.stopPropagation();
+          const isActive = dp.classList.contains('active');
+          dropdowns.forEach(d => { if (d !== dp) d.classList.remove('active'); });
+          dp.classList.toggle('active', !isActive);
         }
       });
     }
+
+    // Allow dropdown item links to navigate cleanly and close dropdowns
+    dp.querySelectorAll('.dropdown-item').forEach(item => {
+      item.addEventListener('click', () => {
+        dropdowns.forEach(d => d.classList.remove('active'));
+      });
+    });
   });
 
-  // Automatically close open dropdown menus immediately when user scrolls the website!
+  // Automatically close open dropdown menus when user scrolls the website (desktop)
   window.addEventListener('scroll', () => {
-    closeAllDropdowns();
+    if (window.innerWidth > 992) {
+      closeAllDropdowns();
+    }
   }, { passive: true });
 
   // Automatically close open dropdown menus when user clicks anywhere outside
@@ -343,17 +357,30 @@ function initImageLightbox() {
     if (e.key === 'Escape' && modal.classList.contains('active')) closeLightbox();
   });
 
-  // Attach click listener ONLY to explicit text buttons / triggers ("मोठ्या आकारात पाहण्यासाठी क्लिक करा" / "मोठी प्रत पहा")
-  const zoomTextTriggers = document.querySelectorAll('.zoom-trigger, .gallery-item p, .news-album-caption p, .misc-album-caption p, .doctor-album-caption p, .camps-gallery-grid p');
+  // Attach click listener to photos as well as text zoom triggers
+  const zoomTriggers = document.querySelectorAll(
+    '.zoom-trigger, .gallery-item img, .gallery-item p, .doc-card img, .doc-card p, ' +
+    '.news-album-card img, .news-album-caption p, .misc-album-card img, .misc-album-caption p, ' +
+    '.doctor-album-card img, .doctor-album-caption p, .camps-gallery-grid img, .camps-gallery-grid p, ' +
+    '.card img, .glass-card img, .zoomable-text'
+  );
   
-  zoomTextTriggers.forEach(textEl => {
-    textEl.style.cursor = 'pointer';
-    textEl.addEventListener('click', (e) => {
+  zoomTriggers.forEach(el => {
+    // Avoid triggering on non-zoomable UI icons like navbar/footer logos
+    if (el.closest('.logo-brand, .nav-brand-mobile, .header-brand-centered')) return;
+
+    el.style.cursor = 'pointer';
+    el.addEventListener('click', (e) => {
       e.preventDefault();
       e.stopPropagation();
-      const card = textEl.closest('.gallery-item, .news-album-card, .misc-album-card, .doctor-album-card, .card, .glass-card');
-      const img = card ? card.querySelector('img') : null;
-      const caption = card ? (card.querySelector('h4, h3, .gallery-title')?.innerText || img?.alt) : '';
+
+      let img = el.tagName === 'IMG' ? el : null;
+      const card = el.closest('.gallery-item, .doc-card, .news-album-card, .misc-album-card, .doctor-album-card, .card, .glass-card');
+      if (!img && card) {
+        img = card.querySelector('img');
+      }
+
+      const caption = card ? (card.querySelector('h4, h3, .gallery-title, .doc-title')?.innerText || img?.alt) : (img?.alt || 'छायाचित्र दर्शन');
 
       if (img && img.src) {
         openLightbox(img.src, caption);
