@@ -251,7 +251,10 @@
   .gallery-grid,
   .committee-grid,
   .downloads-grid,
-  .offices-grid {
+  .offices-grid,
+  .news-album-grid,
+  .misc-album-grid,
+  .doctor-album-grid {
     grid-template-columns: 1fr;
   }
 
