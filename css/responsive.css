@@ -134,12 +134,57 @@
     left: 0 !important;
   }
 
+  .nav-dropdown {
+    width: 100% !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+
+  .nav-dropdown .nav-link {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    width: 100% !important;
+    padding: 12px 14px !important;
+  }
+
+  .dropdown-menu {
+    position: static !important;
+    transform: none !important;
+    box-shadow: none !important;
+    border: none !important;
+    background: #F1F5F9 !important;
+    border-radius: var(--radius-sm) !important;
+    padding: 6px 12px !important;
+    margin: 4px 0 10px 0 !important;
+    width: 100% !important;
+    min-width: 100% !important;
+    display: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+
+  .nav-dropdown.active .dropdown-menu {
+    display: block !important;
+  }
+
+  .dropdown-item {
+    padding: 10px 14px !important;
+    font-size: 0.98rem !important;
+    border-bottom: 1px dashed var(--border-color) !important;
+    color: var(--text-dark) !important;
+  }
+
+  .dropdown-item:last-child {
+    border-bottom: none !important;
+  }
+
   .nav-menu .nav-link {
     font-size: 1.15rem !important;
     font-weight: 600 !important;
     width: 100% !important;
-    text-align: center !important;
-    padding: 12px 0 !important;
+    text-align: left !important;
+    padding: 12px 14px !important;
     color: var(--text-dark) !important;
     border-bottom: 1px solid var(--border-color) !important;
     transition: all var(--transition-fast) !important;
@@ -151,6 +196,11 @@
     background: var(--primary-light) !important;
     border-radius: var(--radius-sm) !important;
     border-bottom-color: transparent !important;
+  }
+
+  /* Prevent iOS Safari Automatic Zoom on Input Focus */
+  input[type="text"], input[type="email"], input[type="tel"], input[type="number"], select, textarea {
+    font-size: 16px !important;
   }
 
   .stats-grid {

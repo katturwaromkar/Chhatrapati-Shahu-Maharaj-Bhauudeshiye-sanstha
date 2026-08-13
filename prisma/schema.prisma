@@ -1,0 +1,42 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model HealthCard {
+  id        String   @id @default(cuid())
+  cardId    String   @unique
+  headName  String
+  phone     String
+  aadhaar   String?
+  city      String
+  members   String[]
+  discount  String   @default("२०% ओपीडी सवलत, २५% लॅब टेस्ट सवलत")
+  status    String   @default("सक्रिय (ACTIVE)")
+  validTill String   @default("31 मार्च 2027")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Member {
+  id        String   @id @default(cuid())
+  sno       String
+  name      String
+  aadhar    String
+  family    String?
+  address   String
+  createdAt DateTime @default(now())
+}
+
+model ContactSubmission {
+  id        String   @id @default(cuid())
+  name      String
+  phone     String
+  message   String
+  createdAt DateTime @default(now())
+}

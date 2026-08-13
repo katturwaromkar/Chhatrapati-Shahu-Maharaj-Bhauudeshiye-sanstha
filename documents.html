@@ -9,9 +9,9 @@
   <meta http-equiv="X-Frame-Options" content="DENY">
   <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
   <title>Documents | छत्रपती शाहू महाराज बहुउद्देशीय संस्था</title>
-  <meta name="description" content="संस्थेची अधिकृत नोंदणी व नियमवली कागदपत्रे - Chhatrapati Shahu Maharaj Bahuuddeshiya Sanstha">
+  <meta name="description" content="संस्थेची अधिकृत नोंदणी व नियमावली कागदपत्रे - Chhatrapati Shahu Maharaj Bahuuddeshiya Sanstha">
 
-    <!-- Favicon Icon -->
+  <!-- Favicon Icon -->
   <link rel="icon" type="image/png" href="assets/images/logo.png">
   <link rel="shortcut icon" type="image/png" href="assets/images/logo.png">
   <link rel="apple-touch-icon" href="assets/images/logo.png">
@@ -22,11 +22,12 @@
 
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="manifest" href="manifest.json">
 </head>
 
 <body>
 
-        <!-- Top Info Bar -->
+  <!-- Top Info Bar -->
   <div class="top-bar">
     <div class="container top-bar-content">
       <div class="top-info">
@@ -48,7 +49,7 @@
     </div>
   </div>
 
-  <!-- Centered Main Brand Header (Inline Small Logo on Left of Title with Matching Height) -->
+  <!-- Centered Main Brand Header -->
   <header class="header-brand-centered" style="background: #ffffff; padding: 14px 0; border-bottom: 1px solid #E6E8F2; text-align: center;">
     <div class="container" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;">
       <a href="index.html" style="display: flex; align-items: center; justify-content: center; gap: 14px; text-decoration: none; flex-wrap: wrap;">
@@ -63,7 +64,7 @@
     </div>
   </header>
 
-  <!-- Sticky Navbar (Single Row Menus) -->
+  <!-- Sticky Navbar -->
   <nav class="navbar">
     <div class="container navbar-container">
       <a href="index.html" class="nav-brand-mobile">
@@ -71,17 +72,44 @@
         <span>छत्रपती शाहू महाराज संस्था</span>
       </a>
       <ul class="nav-menu">
-        <li><a href="index.html" class="nav-link">Home</a></li>
-        <li><a href="hospitals.html" class="nav-link">Our Hospitals</a></li>
-        <li><a href="camps-photos.html" class="nav-link">Camps Photos</a></li>
-        <li><a href="family-health-card.html" class="nav-link">Family Health Card</a></li>
-        <li><a href="our-officers.html" class="nav-link">Our Officers</a></li>
-        <li><a href="doctors.html" class="nav-link">Doctors</a></li>
-        <li><a href="documents.html" class="nav-link active">Documents</a></li>
-        <li><a href="find.html" class="nav-link">Find</a></li>
-        <li><a href="news.html" class="nav-link">News</a></li>
-        <li><a href="miscellaneous.html" class="nav-link">Miscellaneous</a></li>
-        <li><a href="contact.html" class="nav-link">Address and Contact Details</a></li>
+        <li><a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a></li>
+        
+        <li class="nav-dropdown">
+          <a href="hospitals.html" class="nav-link">
+            <i class="fas fa-hospital"></i> आरोग्य व रुग्णालये <i class="fas fa-chevron-down dropdown-icon"></i>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a href="hospitals.html" class="dropdown-item"><i class="fas fa-hospital-alt"></i> Our Hospitals</a></li>
+            <li><a href="doctors.html" class="dropdown-item"><i class="fas fa-user-md"></i> Doctors</a></li>
+            <li><a href="family-health-card.html" class="dropdown-item"><i class="fas fa-id-card"></i> Family Health Card</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-dropdown active">
+          <a href="camps-photos.html" class="nav-link">
+            <i class="fas fa-camera"></i> गॅलरी व बातम्या <i class="fas fa-chevron-down dropdown-icon"></i>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a href="camps-photos.html" class="dropdown-item"><i class="fas fa-images"></i> Camps Photos</a></li>
+            <li><a href="news.html" class="dropdown-item"><i class="fas fa-newspaper"></i> News & Press</a></li>
+            <li><a href="miscellaneous.html" class="dropdown-item"><i class="fas fa-photo-video"></i> Miscellaneous</a></li>
+            <li><a href="documents.html" class="dropdown-item active"><i class="fas fa-file-alt"></i> Documents</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-dropdown">
+          <a href="about.html" class="nav-link">
+            <i class="fas fa-users"></i> संस्थेविषयी <i class="fas fa-chevron-down dropdown-icon"></i>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a href="about.html" class="dropdown-item"><i class="fas fa-info-circle"></i> About Us</a></li>
+            <li><a href="our-officers.html" class="dropdown-item"><i class="fas fa-user-shield"></i> Our Officers</a></li>
+            <li><a href="committee.html" class="dropdown-item"><i class="fas fa-sitemap"></i> Committee</a></li>
+            <li><a href="find.html" class="dropdown-item"><i class="fas fa-search"></i> Find Members</a></li>
+          </ul>
+        </li>
+
+        <li><a href="contact.html" class="nav-link"><i class="fas fa-envelope"></i> Contact</a></li>
       </ul>
 
       <button class="hamburger" aria-label="Toggle Navigation">
@@ -95,7 +123,7 @@
     <div class="container" style="text-align: center;">
       <span class="section-badge"><i class="fas fa-file-pdf"></i> Legal & Registration Certificates</span>
       <h1 style="font-size: 2.4rem; margin-top: 10px;">Documents</h1>
-      <p style="color: var(--text-muted);">संस्थेची अधिकृत नोंदणी व नियमावली प्रमाणपत्रे</p>
+      <p style="color: var(--text-muted);" class="zoom-trigger">संस्थेची अधिकृत नोंदणी व नियमावली प्रमाणपत्रे</p>
     </div>
   </section>
 
@@ -112,33 +140,53 @@
         <div class="card card-hover" style="text-align: center; border-radius: var(--radius-md); padding: 15px;">
           <img src="assets/images/docs/reg_certificate_3.jpg" alt="Scanned Document 1" style="border-radius: 8px; border: 1px solid var(--border-color); width: 100%;">
           <h4 style="margin-top: 15px; font-size: 1.05rem;">संस्था नोंदणी प्रमाणपत्र - भाग १</h4>
-          <a href="assets/images/docs/reg_certificate_3.jpg" target="_blank" class="btn btn-secondary btn-sm" style="margin-top: 10px;">
-            <i class="fas fa-search-plus"></i> मोठी प्रत पहा
-          </a>
+          <div style="display: flex; gap: 8px; justify-content: center; margin-top: 12px; flex-wrap: wrap;">
+            <a href="assets/images/docs/reg_certificate_3.jpg" target="_blank" class="btn btn-secondary btn-sm">
+              <i class="fas fa-search-plus"></i> मोठी प्रत पहा
+            </a>
+            <a href="assets/images/docs/reg_certificate_3.jpg" download="CSM_Registration_Certificate_Part1.jpg" class="btn btn-primary btn-sm">
+              <i class="fas fa-download"></i> डाऊनलोड
+            </a>
+          </div>
         </div>
 
         <div class="card card-hover" style="text-align: center; border-radius: var(--radius-md); padding: 15px;">
           <img src="assets/images/docs/reg_certificate_1.jpg" alt="Scanned Document 2" style="border-radius: 8px; border: 1px solid var(--border-color); width: 100%;">
           <h4 style="margin-top: 15px; font-size: 1.05rem;">विश्वस्त व्यवस्था नोंदणी दाखला</h4>
-          <a href="assets/images/docs/reg_certificate_1.jpg" target="_blank" class="btn btn-secondary btn-sm" style="margin-top: 10px;">
-            <i class="fas fa-search-plus"></i> मोठी प्रत पहा
-          </a>
+          <div style="display: flex; gap: 8px; justify-content: center; margin-top: 12px; flex-wrap: wrap;">
+            <a href="assets/images/docs/reg_certificate_1.jpg" target="_blank" class="btn btn-secondary btn-sm">
+              <i class="fas fa-search-plus"></i> मोठी प्रत पहा
+            </a>
+            <a href="assets/images/docs/reg_certificate_1.jpg" download="CSM_Trustee_Registration.jpg" class="btn btn-primary btn-sm">
+              <i class="fas fa-download"></i> डाऊनलोड
+            </a>
+          </div>
         </div>
 
         <div class="card card-hover" style="text-align: center; border-radius: var(--radius-md); padding: 15px;">
           <img src="assets/images/docs/reg_certificate_2.jpg" alt="Scanned Document 3" style="border-radius: 8px; border: 1px solid var(--border-color); width: 100%;">
           <h4 style="margin-top: 15px; font-size: 1.05rem;">संस्थेची नियमावली व अधिकार पत्र</h4>
-          <a href="assets/images/docs/reg_certificate_2.jpg" target="_blank" class="btn btn-secondary btn-sm" style="margin-top: 10px;">
-            <i class="fas fa-search-plus"></i> मोठी प्रत पहा
-          </a>
+          <div style="display: flex; gap: 8px; justify-content: center; margin-top: 12px; flex-wrap: wrap;">
+            <a href="assets/images/docs/reg_certificate_2.jpg" target="_blank" class="btn btn-secondary btn-sm">
+              <i class="fas fa-search-plus"></i> मोठी प्रत पहा
+            </a>
+            <a href="assets/images/docs/reg_certificate_2.jpg" download="CSM_Rules_Authorization.jpg" class="btn btn-primary btn-sm">
+              <i class="fas fa-download"></i> डाऊनलोड
+            </a>
+          </div>
         </div>
 
         <div class="card card-hover" style="text-align: center; border-radius: var(--radius-md); padding: 15px;">
           <img src="assets/images/docs/reg_certificate_4.jpg" alt="Scanned Document 4" style="border-radius: 8px; border: 1px solid var(--border-color); width: 100%;">
           <h4 style="margin-top: 15px; font-size: 1.05rem;">शासकीय मान्यता व उपक्रम मंजुरी</h4>
-          <a href="assets/images/docs/reg_certificate_4.jpg" target="_blank" class="btn btn-secondary btn-sm" style="margin-top: 10px;">
-            <i class="fas fa-search-plus"></i> मोठी प्रत पहा
-          </a>
+          <div style="display: flex; gap: 8px; justify-content: center; margin-top: 12px; flex-wrap: wrap;">
+            <a href="assets/images/docs/reg_certificate_4.jpg" target="_blank" class="btn btn-secondary btn-sm">
+              <i class="fas fa-search-plus"></i> मोठी प्रत पहा
+            </a>
+            <a href="assets/images/docs/reg_certificate_4.jpg" download="CSM_Govt_Approval.jpg" class="btn btn-primary btn-sm">
+              <i class="fas fa-download"></i> डाऊनलोड
+            </a>
+          </div>
         </div>
 
       </div>
@@ -180,7 +228,7 @@
             <a href="news.html" class="footer-link"><i class="fas fa-chevron-right"></i> News</a>
             <a href="miscellaneous.html" class="footer-link"><i class="fas fa-chevron-right"></i> Miscellaneous</a>
             <a href="contact.html" class="footer-link"><i class="fas fa-chevron-right"></i> Address & Contact</a>
-            </div>
+          </div>
         </div>
 
         <div>
@@ -193,16 +241,22 @@
         </div>
       </div>
 
-            <div class="footer-bottom" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.1);">
+      <div class="footer-bottom" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.1);">
         <span>© 2026 छत्रपती शाहू महाराज बहुउद्देशीय संस्था. सर्व हक्क सुरक्षित. (Reg No 699/MH F 5559)</span>
         <span style="font-size: 0.88rem; color: rgba(255,255,255,0.85);">Developed by <strong style="color: var(--secondary);">Nexvora Tech Solutions, Pune</strong> | Contact: <strong style="color: var(--secondary);">+91 7219290885</strong></span>
       </div>
     </div>
   </footer>
 
+  <!-- Scroll To Top Button -->
+  <button class="back-to-top" aria-label="Back to top">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
   <!-- JavaScript Files -->
   <script src="js/security.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/gallery.js"></script>
 </body>
 
 </html>

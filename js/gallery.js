@@ -37,9 +37,9 @@ function initGalleryFilter() {
   });
 }
 
-/* --- Lightbox Viewer Popup & Document Zoom --- */
+/* --- Lightbox Viewer Popup & Document Zoom (Triggered ONLY on clicking text) --- */
 function initLightbox() {
-  const triggerItems = document.querySelectorAll('.gallery-item, .doc-preview-wrap, .zoomable-img');
+  const triggerItems = document.querySelectorAll('.zoom-trigger, .gallery-item p, .doc-card p, .zoomable-text');
 
   // Create Lightbox DOM if not exists
   let modal = document.querySelector('.lightbox-modal');
@@ -61,15 +61,17 @@ function initLightbox() {
   const closeBtn = modal.querySelector('.lightbox-close');
 
   triggerItems.forEach(item => {
+    item.style.cursor = 'pointer';
     item.addEventListener('click', (e) => {
+      e.preventDefault();
       e.stopPropagation();
-      const img = item.querySelector('img') || (item.tagName === 'IMG' ? item : null);
-      const title = item.querySelector('.gallery-title')?.innerText || item.closest('.doc-card')?.querySelector('.doc-title')?.innerText || img?.alt || 'छायाचित्र दर्शन';
-      const category = item.querySelector('.gallery-category')?.innerText || item.closest('.doc-card')?.querySelector('.doc-meta')?.innerText || '';
+      const card = item.closest('.gallery-item, .doc-card, .news-album-card, .misc-album-card, .doctor-album-card, .card');
+      const img = card ? card.querySelector('img') : null;
+      const title = card?.querySelector('h4, h3, .gallery-title, .doc-title')?.innerText || img?.alt || 'छायाचित्र दर्शन';
 
-      if (img) {
+      if (img && img.src) {
         lightboxImg.src = img.src;
-        lightboxCaption.innerHTML = `<h3>${title}</h3><p style="color: var(--accent-light); margin-top:4px;">${category}</p>`;
+        lightboxCaption.innerHTML = `<h3>${title}</h3>`;
         modal.classList.add('active');
         document.body.style.overflow = 'hidden';
       }

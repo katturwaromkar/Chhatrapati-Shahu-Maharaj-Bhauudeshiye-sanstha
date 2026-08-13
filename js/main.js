@@ -6,6 +6,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   initNavbar();
   initMobileMenu();
+  initDropdownMenus();
   initActiveNavLink();
   initScrollReveal();
   initStatCounters();
@@ -13,7 +14,60 @@ document.addEventListener('DOMContentLoaded', () => {
   initContactForm();
   initBackToTop();
   initImageLightbox();
+  initPWA();
 });
+
+/* --- PWA Service Worker Registration --- */
+function initPWA() {
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./sw.js').catch(err => {
+        console.warn('PWA ServiceWorker registration failed: ', err);
+      });
+    });
+  }
+}
+
+/* --- Dropdown Menus Auto-Close on Scroll & Click Outside --- */
+function initDropdownMenus() {
+  const dropdowns = document.querySelectorAll('.nav-dropdown');
+
+  const closeAllDropdowns = () => {
+    dropdowns.forEach(dp => dp.classList.remove('active'));
+    document.body.classList.add('scrolling-hide-dropdown');
+    setTimeout(() => {
+      document.body.classList.remove('scrolling-hide-dropdown');
+    }, 300);
+  };
+
+  dropdowns.forEach(dp => {
+    const link = dp.querySelector('.nav-link');
+    if (link) {
+      link.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isActive = dp.classList.contains('active');
+        dropdowns.forEach(d => { if (d !== dp) d.classList.remove('active'); });
+        if (!isActive) {
+          dp.classList.add('active');
+        } else {
+          dp.classList.remove('active');
+        }
+      });
+    }
+  });
+
+  // Automatically close open dropdown menus immediately when user scrolls the website!
+  window.addEventListener('scroll', () => {
+    closeAllDropdowns();
+  }, { passive: true });
+
+  // Automatically close open dropdown menus when user clicks anywhere outside
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.nav-dropdown')) {
+      dropdowns.forEach(dp => dp.classList.remove('active'));
+    }
+  });
+}
 
 /* --- Sticky Navbar --- */
 function initNavbar() {
@@ -245,7 +299,7 @@ function initBackToTop() {
   });
 }
 
-/* --- Image Lightbox Modal (Large Form View) --- */
+/* --- Image Lightbox Modal (Triggered ONLY on clicking "मोठ्या आकारात पाहण्यासाठी क्लिक करा" text) --- */
 function initImageLightbox() {
   let modal = document.getElementById('imageLightboxModal');
   if (!modal) {
@@ -280,7 +334,7 @@ function initImageLightbox() {
     document.body.style.overflow = '';
   };
 
-  closeBtn.addEventListener('click', closeLightbox);
+  if (closeBtn) closeBtn.addEventListener('click', closeLightbox);
   modal.addEventListener('click', (e) => {
     if (e.target === modal || e.target === closeBtn) closeLightbox();
   });
@@ -289,14 +343,21 @@ function initImageLightbox() {
     if (e.key === 'Escape' && modal.classList.contains('active')) closeLightbox();
   });
 
-  // Attach click listener to hospital flyers, gallery items, and any images
-  document.querySelectorAll('img').forEach(img => {
-    if (img.classList.contains('site-logo-img') || img.classList.contains('brand-logo-large')) return;
-
-    img.style.cursor = 'zoom-in';
-    img.addEventListener('click', (e) => {
+  // Attach click listener ONLY to explicit text buttons / triggers ("मोठ्या आकारात पाहण्यासाठी क्लिक करा" / "मोठी प्रत पहा")
+  const zoomTextTriggers = document.querySelectorAll('.zoom-trigger, .gallery-item p, .news-album-caption p, .misc-album-caption p, .doctor-album-caption p, .camps-gallery-grid p');
+  
+  zoomTextTriggers.forEach(textEl => {
+    textEl.style.cursor = 'pointer';
+    textEl.addEventListener('click', (e) => {
       e.preventDefault();
-      openLightbox(img.src, img.alt || img.title || 'रुग्णालय सवलत माहिती पत्रक');
+      e.stopPropagation();
+      const card = textEl.closest('.gallery-item, .news-album-card, .misc-album-card, .doctor-album-card, .card, .glass-card');
+      const img = card ? card.querySelector('img') : null;
+      const caption = card ? (card.querySelector('h4, h3, .gallery-title')?.innerText || img?.alt) : '';
+
+      if (img && img.src) {
+        openLightbox(img.src, caption);
+      }
     });
   });
 }

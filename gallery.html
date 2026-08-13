@@ -26,6 +26,7 @@
       gap: 25px;
     }
   </style>
+  <link rel="manifest" href="manifest.json">
 </head>
 <body>
 <!-- Top Info Bar -->
@@ -71,17 +72,44 @@
         <span>छत्रपती शाहू महाराज संस्था</span>
       </a>
       <ul class="nav-menu">
-        <li><a href="index.html" class="nav-link">Home</a></li>
-        <li><a href="hospitals.html" class="nav-link">Our Hospitals</a></li>
-        <li><a href="camps-photos.html" class="nav-link">Camps Photos</a></li>
-        <li><a href="family-health-card.html" class="nav-link">Family Health Card</a></li>
-        <li><a href="our-officers.html" class="nav-link">Our Officers</a></li>
-        <li><a href="doctors.html" class="nav-link">Doctors</a></li>
-        <li><a href="documents.html" class="nav-link">Documents</a></li>
-        <li><a href="find.html" class="nav-link">Find</a></li>
-        <li><a href="news.html" class="nav-link">News</a></li>
-        <li><a href="miscellaneous.html" class="nav-link">Miscellaneous</a></li>
-        <li><a href="contact.html" class="nav-link">Address and Contact Details</a></li>
+        <li><a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a></li>
+        
+        <li class="nav-dropdown">
+          <a href="hospitals.html" class="nav-link">
+            <i class="fas fa-hospital"></i> आरोग्य व रुग्णालये <i class="fas fa-chevron-down dropdown-icon"></i>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a href="hospitals.html" class="dropdown-item"><i class="fas fa-hospital-alt"></i> Our Hospitals</a></li>
+            <li><a href="doctors.html" class="dropdown-item"><i class="fas fa-user-md"></i> Doctors</a></li>
+            <li><a href="family-health-card.html" class="dropdown-item"><i class="fas fa-id-card"></i> Family Health Card</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-dropdown">
+          <a href="camps-photos.html" class="nav-link">
+            <i class="fas fa-camera"></i> गॅलरी व बातम्या <i class="fas fa-chevron-down dropdown-icon"></i>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a href="camps-photos.html" class="dropdown-item"><i class="fas fa-images"></i> Camps Photos</a></li>
+            <li><a href="news.html" class="dropdown-item"><i class="fas fa-newspaper"></i> News & Press</a></li>
+            <li><a href="miscellaneous.html" class="dropdown-item"><i class="fas fa-photo-video"></i> Miscellaneous</a></li>
+            <li><a href="documents.html" class="dropdown-item"><i class="fas fa-file-alt"></i> Documents</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-dropdown">
+          <a href="about.html" class="nav-link">
+            <i class="fas fa-users"></i> संस्थेविषयी <i class="fas fa-chevron-down dropdown-icon"></i>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a href="about.html" class="dropdown-item"><i class="fas fa-info-circle"></i> About Us</a></li>
+            <li><a href="our-officers.html" class="dropdown-item"><i class="fas fa-user-shield"></i> Our Officers</a></li>
+            <li><a href="committee.html" class="dropdown-item"><i class="fas fa-sitemap"></i> Committee</a></li>
+            <li><a href="find.html" class="dropdown-item"><i class="fas fa-search"></i> Find Members</a></li>
+          </ul>
+        </li>
+
+        <li><a href="contact.html" class="nav-link"><i class="fas fa-envelope"></i> Contact</a></li>
       </ul>
 
       <button class="hamburger" aria-label="Toggle Navigation">
@@ -94,7 +122,7 @@
 <div class="container" style="text-align: center;">
 <span class="section-badge"><i class="fas fa-camera"></i> Health Camps Photo Gallery (212 Photos)</span>
 <h1 style="font-size: 2.4rem; margin-top: 10px;">Camps Photos Gallery</h1>
-<p style="color: var(--text-muted);">विविध गावे व शहरांमध्ये आयोजित मोफत वैद्यकीय व फॅमिली हेल्थ कार्ड वाटप शिबीरांची क्षणचित्रे (एकूण 212 फोटो)</p>
+<p style="color: var(--text-muted);" class="zoom-trigger">विविध गावे व शहरांमध्ये आयोजित मोफत वैद्यकीय व फॅमिली हेल्थ कार्ड वाटप शिबीरांची क्षणचित्रे (एकूण 212 फोटो)</p>
 </div>
 </section>
 <!-- Camps Photos Grid Section -->
@@ -111,7 +139,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #1</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 <div class="gallery-item glass-card" style="overflow: hidden; border-radius: var(--radius-md); box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); display: flex; flex-direction: column;">
@@ -120,7 +148,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #2</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 <div class="gallery-item glass-card" style="overflow: hidden; border-radius: var(--radius-md); box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); display: flex; flex-direction: column;">
@@ -129,7 +157,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #3</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 <div class="gallery-item glass-card" style="overflow: hidden; border-radius: var(--radius-md); box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); display: flex; flex-direction: column;">
@@ -138,7 +166,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #4</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 <div class="gallery-item glass-card" style="overflow: hidden; border-radius: var(--radius-md); box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); display: flex; flex-direction: column;">
@@ -147,7 +175,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #5</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 <div class="gallery-item glass-card" style="overflow: hidden; border-radius: var(--radius-md); box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); display: flex; flex-direction: column;">
@@ -156,7 +184,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #6</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -166,7 +194,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #7</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 <div class="gallery-item glass-card" style="overflow: hidden; border-radius: var(--radius-md); box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); display: flex; flex-direction: column;">
@@ -175,7 +203,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #8</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -185,7 +213,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #9</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -195,7 +223,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #10</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 <div class="gallery-item glass-card" style="overflow: hidden; border-radius: var(--radius-md); box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); display: flex; flex-direction: column;">
@@ -204,7 +232,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #11</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 <div class="gallery-item glass-card" style="overflow: hidden; border-radius: var(--radius-md); box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); display: flex; flex-direction: column;">
@@ -213,7 +241,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #12</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 <div class="gallery-item glass-card" style="overflow: hidden; border-radius: var(--radius-md); box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); display: flex; flex-direction: column;">
@@ -222,7 +250,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #13</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -232,7 +260,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #14</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -242,7 +270,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #15</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 <div class="gallery-item glass-card" style="overflow: hidden; border-radius: var(--radius-md); box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); display: flex; flex-direction: column;">
@@ -251,7 +279,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #16</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -261,7 +289,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #17</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -271,7 +299,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #18</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -281,7 +309,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #19</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -291,7 +319,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #20</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -301,7 +329,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #21</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -311,7 +339,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #22</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -321,7 +349,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #23</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -331,7 +359,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #24</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -341,7 +369,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #25</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -351,7 +379,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #26</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -361,7 +389,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #27</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -371,7 +399,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #28</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -381,7 +409,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #29</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -391,7 +419,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #30</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -401,7 +429,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #31</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -411,7 +439,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #32</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -421,7 +449,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #33</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -431,7 +459,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #34</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -441,7 +469,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #35</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -451,7 +479,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #36</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -461,7 +489,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #37</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -471,7 +499,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #38</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -481,7 +509,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #39</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -491,7 +519,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #40</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -501,7 +529,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #41</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -511,7 +539,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #42</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -523,7 +551,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #43</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -533,7 +561,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #44</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -543,7 +571,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #45</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -553,7 +581,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #46</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -563,7 +591,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #47</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -573,7 +601,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #48</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -583,7 +611,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #49</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -593,7 +621,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #50</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -603,7 +631,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #51</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -613,7 +641,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #52</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -623,7 +651,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #53</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -635,7 +663,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #54</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -645,7 +673,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #55</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -655,7 +683,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #56</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -665,7 +693,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #57</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -675,7 +703,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #58</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -685,7 +713,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #59</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -695,7 +723,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #60</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -707,7 +735,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #61</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -717,7 +745,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #62</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -727,7 +755,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #63</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -737,7 +765,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #64</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -747,7 +775,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #65</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -757,7 +785,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #66</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 <div class="gallery-item glass-card" style="overflow: hidden; border-radius: var(--radius-md); box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); display: flex; flex-direction: column;">
@@ -766,7 +794,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #67</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -776,7 +804,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #68</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -786,7 +814,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #69</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -796,7 +824,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #70</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -806,7 +834,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #71</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -816,7 +844,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #72</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -826,7 +854,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #73</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -840,7 +868,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #74</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -850,7 +878,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #75</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -860,7 +888,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #76</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -870,7 +898,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #77</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -880,7 +908,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #78</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -890,7 +918,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #79</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -900,7 +928,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #80</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -910,7 +938,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #81</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -920,7 +948,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #82</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -930,7 +958,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #83</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -940,7 +968,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #84</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -950,7 +978,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #85</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -960,7 +988,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #86</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -970,7 +998,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #87</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -980,7 +1008,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #88</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -990,7 +1018,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #89</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 <div class="gallery-item glass-card" style="overflow: hidden; border-radius: var(--radius-md); box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); display: flex; flex-direction: column;">
@@ -999,7 +1027,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #90</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 <div class="gallery-item glass-card" style="overflow: hidden; border-radius: var(--radius-md); box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); display: flex; flex-direction: column;">
@@ -1008,7 +1036,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #91</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 <div class="gallery-item glass-card" style="overflow: hidden; border-radius: var(--radius-md); box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); display: flex; flex-direction: column;">
@@ -1017,7 +1045,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #92</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 <div class="gallery-item glass-card" style="overflow: hidden; border-radius: var(--radius-md); box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); display: flex; flex-direction: column;">
@@ -1026,7 +1054,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #93</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 <div class="gallery-item glass-card" style="overflow: hidden; border-radius: var(--radius-md); box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); display: flex; flex-direction: column;">
@@ -1035,7 +1063,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #94</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 <div class="gallery-item glass-card" style="overflow: hidden; border-radius: var(--radius-md); box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); display: flex; flex-direction: column;">
@@ -1044,7 +1072,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #95</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 <div class="gallery-item glass-card" style="overflow: hidden; border-radius: var(--radius-md); box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); display: flex; flex-direction: column;">
@@ -1053,7 +1081,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #96</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 <div class="gallery-item glass-card" style="overflow: hidden; border-radius: var(--radius-md); box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); display: flex; flex-direction: column;">
@@ -1062,7 +1090,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #97</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 <div class="gallery-item glass-card" style="overflow: hidden; border-radius: var(--radius-md); box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); display: flex; flex-direction: column;">
@@ -1071,7 +1099,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #98</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 <div class="gallery-item glass-card" style="overflow: hidden; border-radius: var(--radius-md); box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); display: flex; flex-direction: column;">
@@ -1080,7 +1108,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #99</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -1090,7 +1118,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #100</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -1100,7 +1128,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #101</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -1110,7 +1138,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #102</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 <div class="gallery-item glass-card" style="overflow: hidden; border-radius: var(--radius-md); box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); display: flex; flex-direction: column;">
@@ -1119,7 +1147,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #103</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -1129,7 +1157,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #104</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -1139,7 +1167,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #105</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -1149,7 +1177,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #106</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -1159,7 +1187,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #107</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -1169,7 +1197,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #108</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 <div class="gallery-item glass-card" style="overflow: hidden; border-radius: var(--radius-md); box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); display: flex; flex-direction: column;">
@@ -1178,7 +1206,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #109</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 
@@ -1188,7 +1216,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #110</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 <div class="gallery-item glass-card" style="overflow: hidden; border-radius: var(--radius-md); box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); display: flex; flex-direction: column;">
@@ -1197,7 +1225,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #111</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 <div class="gallery-item glass-card" style="overflow: hidden; border-radius: var(--radius-md); box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); display: flex; flex-direction: column;">
@@ -1206,7 +1234,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #112</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 <div class="gallery-item glass-card" style="overflow: hidden; border-radius: var(--radius-md); box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); display: flex; flex-direction: column;">
@@ -1215,7 +1243,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #113</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 <div class="gallery-item glass-card" style="overflow: hidden; border-radius: var(--radius-md); box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); display: flex; flex-direction: column;">
@@ -1224,7 +1252,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #114</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 <div class="gallery-item glass-card" style="overflow: hidden; border-radius: var(--radius-md); box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); display: flex; flex-direction: column;">
@@ -1233,7 +1261,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #115</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 <div class="gallery-item glass-card" style="overflow: hidden; border-radius: var(--radius-md); box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); display: flex; flex-direction: column;">
@@ -1242,7 +1270,7 @@
 </div>
 <div style="padding: 14px 16px; text-align: center; background: var(--bg-white); border-top: 1px solid var(--border-color);">
 <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 4px;">आरोग्य तपासणी शिबीर फोटो #116</h4>
-<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+<p style="font-size: 0.82rem; color: var(--primary); margin-bottom: 0; font-weight: 600;" class="zoom-trigger"><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
 </div>
 </div>
 </div>
