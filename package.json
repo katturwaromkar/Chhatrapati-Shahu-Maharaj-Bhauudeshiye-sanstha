@@ -14,7 +14,7 @@
     "prisma",
     "supabase"
   ],
-  "author": "Nexvora Tech Solutions",
+  "author": "Yugnex Tech Solutions",
   "license": "ISC",
   "devDependencies": {
     "prisma": "^5.22.0"

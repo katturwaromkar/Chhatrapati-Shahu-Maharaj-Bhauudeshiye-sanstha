@@ -28,7 +28,7 @@ function initPWA() {
   }
 }
 
-/* --- Dropdown Menus Auto-Close & Mobile Inline Toggle --- */
+/* --- Dropdown Menus Auto-Close & Click Toggle --- */
 function initDropdownMenus() {
   const dropdowns = document.querySelectorAll('.nav-dropdown');
 
@@ -44,19 +44,12 @@ function initDropdownMenus() {
     const link = dp.querySelector('.nav-link');
     if (link) {
       link.addEventListener('click', (e) => {
-        const isMobile = window.innerWidth <= 992;
-        if (isMobile) {
-          e.preventDefault();
-          e.stopPropagation();
-          const isActive = dp.classList.contains('active');
-          dropdowns.forEach(d => { if (d !== dp) d.classList.remove('active'); });
-          dp.classList.toggle('active', !isActive);
-        } else {
-          e.stopPropagation();
-          const isActive = dp.classList.contains('active');
-          dropdowns.forEach(d => { if (d !== dp) d.classList.remove('active'); });
-          dp.classList.toggle('active', !isActive);
-        }
+        // ALWAYS prevent direct page redirection when clicking the main menu with a dropdown
+        e.preventDefault();
+        e.stopPropagation();
+        const isActive = dp.classList.contains('active');
+        dropdowns.forEach(d => { if (d !== dp) d.classList.remove('active'); });
+        dp.classList.toggle('active', !isActive);
       });
     }
 
