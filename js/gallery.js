@@ -5,6 +5,7 @@
 
 document.addEventListener('DOMContentLoaded', () => {
   initGalleryFilter();
+  initMiscGallery();
   initLightbox();
 });
 
@@ -106,9 +107,64 @@ function initLightbox() {
     document.body.style.overflow = 'auto';
   }
 
-  // Initialize Health Card Booklet switcher if present
-  initBookletSwitcher();
+  window.initLightbox = initLightbox;
 }
+
+/* --- Dynamic Miscellaneous Gallery Loader --- */
+function initMiscGallery() {
+  const container = document.querySelector('.misc-album-grid');
+  if (!container || !window.MISC_IMAGES || !window.MISC_IMAGES.length) return;
+
+  let currentIndex = 0;
+  const BATCH_SIZE = 24;
+
+  function renderBatch() {
+    const nextBatch = window.MISC_IMAGES.slice(currentIndex, currentIndex + BATCH_SIZE);
+    
+    nextBatch.forEach((fileName, i) => {
+      const globalIdx = currentIndex + i + 1;
+      const card = document.createElement('div');
+      card.className = 'misc-album-card reveal active';
+      card.innerHTML = `
+        <div class="misc-album-img-wrap">
+          <img src="assets/images/miscellaneous/${fileName}" alt="विविध सामाजिक उपक्रम photo ${globalIdx}" class="misc-album-img" loading="lazy">
+        </div>
+        <div class="misc-album-caption">
+          <h4>संकीर्ण व विविध सामाजिक उपक्रम #${globalIdx}</h4>
+          <p><i class="fas fa-search-plus"></i> मोठ्या आकारात पाहण्यासाठी क्लिक करा</p>
+        </div>
+      `;
+      container.appendChild(card);
+    });
+
+    currentIndex += nextBatch.length;
+
+    let loadBtn = document.getElementById('loadMoreMiscBtn');
+    if (currentIndex < window.MISC_IMAGES.length) {
+      if (!loadBtn) {
+        loadBtn = document.createElement('button');
+        loadBtn.id = 'loadMoreMiscBtn';
+        loadBtn.className = 'btn btn-primary btn-lg';
+        loadBtn.style.cssText = 'display: block; margin: 35px auto 0 auto; padding: 12px 36px; cursor: pointer;';
+        loadBtn.innerHTML = `<i class="fas fa-images"></i> आणखी फोटो दाखवा (Load More Photos - ${window.MISC_IMAGES.length - currentIndex} remaining)`;
+        loadBtn.addEventListener('click', renderBatch);
+        container.parentNode.appendChild(loadBtn);
+      } else {
+        loadBtn.innerHTML = `<i class="fas fa-images"></i> आणखी फोटो दाखवा (Load More Photos - ${window.MISC_IMAGES.length - currentIndex} remaining)`;
+      }
+    } else if (loadBtn) {
+      loadBtn.remove();
+    }
+
+    if (window.initLightbox) {
+      window.initLightbox();
+    }
+  }
+
+  container.innerHTML = '';
+  renderBatch();
+}
+
 
 /* --- Health Card Booklet Interactive Viewer --- */
 function initBookletSwitcher() {

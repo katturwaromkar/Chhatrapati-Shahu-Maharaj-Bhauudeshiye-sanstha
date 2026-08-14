@@ -71,11 +71,12 @@ function initHealthCardApplication() {
       if (member1) membersList.push(member1);
       if (member2) membersList.push(member2);
 
+      const maskedAadhaar = maskAadhaar(aadhaar);
       const cardData = {
         cardId: cardId,
         name: name,
         phone: phone,
-        aadhaar: aadhaar || "xxxx-xxxx-4829",
+        aadhaar: maskedAadhaar,
         city: city,
         issued: new Date().toLocaleDateString('mr-IN', { day: '2-digit', month: 'short', year: 'numeric' }),
         validTill: "31 मार्च 2027",
@@ -94,6 +95,15 @@ function initHealthCardApplication() {
       showToast(`अभिनंदन! तुमचे फॅमिली हेल्थ कार्ड तयार झाले आहे. नोंदणी क्र: ${cardId}`, 'success');
     }
   });
+}
+
+function maskAadhaar(str) {
+  if (!str) return "XXXX-XXXX-4829";
+  const digits = str.replace(/\D/g, '');
+  if (digits.length >= 4) {
+    return `XXXX-XXXX-${digits.slice(-4)}`;
+  }
+  return "XXXX-XXXX-4829";
 }
 
 function openCardModal() {
@@ -117,6 +127,10 @@ function closeCardModal() {
 function renderDigitalCardPreview(data) {
   const previewContainer = document.getElementById('digitalCardResultWrapper');
   if (!previewContainer) return;
+
+  const currentOrigin = window.location.origin && window.location.origin !== 'null' ? window.location.origin : 'http://localhost:3000';
+  const verifyUrl = `${currentOrigin}/family-health-card.html?verify=${encodeURIComponent(data.cardId)}`;
+  const qrCodeImgSrc = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(verifyUrl)}&color=1E2432&bgcolor=FFFFFF`;
 
   previewContainer.innerHTML = `
     <div class="card-preview-container reveal active">
@@ -161,15 +175,15 @@ function renderDigitalCardPreview(data) {
             </div>
             <div class="dhc-field">
               <span class="dhc-label">समाविष्ट सदस्य:</span>
-              <span class="dhc-val">${data.members.join(', ')}</span>
+              <span class="dhc-val">${Array.isArray(data.members) ? data.members.join(', ') : data.members}</span>
             </div>
           </div>
 
           <div class="dhc-qr-box">
-            <div class="qr-placeholder">
-              <i class="fas fa-qrcode"></i>
+            <div class="qr-placeholder" style="background:#ffffff; padding:4px; border-radius:6px; border:1px solid #ddd; display:inline-block;">
+              <img src="${qrCodeImgSrc}" alt="QR Code" style="width:75px; height:75px; display:block;" onerror="this.onerror=null; this.parentElement.innerHTML='<i class=\'fas fa-qrcode\' style=\'font-size:2.5rem;\'></i>';">
             </div>
-            <span class="qr-text">Scan to Verify</span>
+            <span class="qr-text" style="font-size:0.75rem; font-weight:700; margin-top:4px; display:block; color:var(--primary);">Scan to Verify</span>
           </div>
         </div>
 
@@ -209,6 +223,20 @@ function initHealthCardVerification() {
       openVerifyModal();
     });
   });
+
+  // Check URL query parameters for auto verification (e.g. from scanned QR code)
+  const urlParams = new URLSearchParams(window.location.search);
+  const verifyParam = urlParams.get('verify');
+  if (verifyParam) {
+    openVerifyModal();
+    setTimeout(() => {
+      const input = document.getElementById('verifyCardNumberInput');
+      if (input) {
+        input.value = verifyParam;
+        window.verifyHealthCardStatus();
+      }
+    }, 400);
+  }
 }
 
 function openVerifyModal() {
