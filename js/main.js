@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initContactForm();
   initBackToTop();
   initImageLightbox();
+  initGlobalSearch();
   initPWA();
 });
 
@@ -442,4 +443,91 @@ function initImageLightbox() {
   });
 
   window.initImageLightbox = initImageLightbox;
+}
+
+/* --- Global Search Modal System (Ctrl + K) --- */
+function initGlobalSearch() {
+  let searchModal = document.getElementById('globalSearchModal');
+  if (!searchModal) {
+    searchModal = document.createElement('div');
+    searchModal.id = 'globalSearchModal';
+    searchModal.className = 'lightbox-modal';
+    searchModal.innerHTML = `
+      <div class="lightbox-close" title="Close (Esc)">&times;</div>
+      <div style="background: #ffffff; width: 92%; max-width: 650px; border-radius: var(--radius-md); padding: 24px; box-shadow: var(--shadow-lg); text-align: left; position: relative;">
+        <div style="display: flex; align-items: center; gap: 10px; border-bottom: 2px solid var(--primary); padding-bottom: 10px; margin-bottom: 16px;">
+          <i class="fas fa-search" style="font-size: 1.2rem; color: var(--primary);"></i>
+          <input type="text" id="globalSearchQuery" placeholder="शोध करा (उदा. डॉक्टर, कार्ड, रुग्णालय, शिबीर, संपर्क)..." style="width: 100%; border: none; outline: none; font-size: 1.05rem; font-weight: 600;">
+        </div>
+        <div id="globalSearchResults" style="max-height: 350px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px;">
+          <div style="font-size: 0.88rem; color: var(--text-muted); text-align: center; padding: 15px;">शोधण्यासाठी वरील बॉक्समध्ये टाईप करा (किंवा Ctrl + K दाबा)...</div>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(searchModal);
+  }
+
+  const queryInput = document.getElementById('globalSearchQuery');
+  const resultsContainer = document.getElementById('globalSearchResults');
+  const closeBtn = searchModal.querySelector('.lightbox-close');
+
+  const siteLinks = [
+    { title: 'फॅमिली हेल्थ कार्ड अर्ज व माहिती', url: 'family-health-card.html', desc: 'वैद्यकीय सवलतीसाठी अधिकृत फॅमिली हेल्थ कार्ड ऑनलाईन अर्ज करा.' },
+    { title: 'संलग्न रुग्णालये व सवलत यादी', url: 'hospitals.html', desc: 'संस्थेशी जोडलेली हॉस्पिटल्स, पॅथॉलॉजी लॅब्स व सवलत तक्ता.' },
+    { title: 'तज्ज्ञ डॉक्टर्स यादी व फोटो', url: 'doctors.html', desc: 'वैद्यकीय सल्लागार व तज्ज्ञ डॉक्टर फोटो अल्बम.' },
+    { title: 'मोफत आरोग्य व रक्तदान शिबीर फोटो', url: 'camps-photos.html', desc: 'गावोगावी आयोजित आरोग्य तपासणी व शिबीरांची क्षणचित्रे.' },
+    { title: 'वृत्तपत्र बातम्या व प्रसिद्धी', url: 'news.html', desc: 'संस्थेच्या सामाजिक उपक्रमांचे वृत्तपत्रातील प्रसिद्ध बातमी कात्रणे.' },
+    { title: 'संस्थेविषयी व नियम', url: 'about.html', desc: 'संस्थेची उद्दिष्टे, नोंदणी क्रमांक व संस्थापक मनोगत.' },
+    { title: 'अधिकारी व कार्यकारिणी समिती', url: 'our-officers.html', desc: 'संस्थेचे अधिकृत पदाधिकारी व कार्यकारिणी सदस्यांची यादी.' },
+    { title: 'मुख्य कार्यालय व संपर्क', url: 'contact.html', desc: 'छत्रपती संभाजीनगर व जळगाव कार्यालय पत्ता, फोन व फॉर्म.' }
+  ];
+
+  function openSearch() {
+    searchModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => { queryInput?.focus(); }, 100);
+  }
+
+  function closeSearch() {
+    searchModal.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  if (closeBtn) closeBtn.onclick = closeSearch;
+  searchModal.onclick = (e) => {
+    if (e.target === searchModal) closeSearch();
+  };
+
+  document.addEventListener('keydown', (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+      e.preventDefault();
+      openSearch();
+    }
+    if (e.key === 'Escape' && searchModal.classList.contains('active')) {
+      closeSearch();
+    }
+  });
+
+  queryInput?.addEventListener('input', (e) => {
+    const q = e.target.value.toLowerCase().trim();
+    if (!q) {
+      resultsContainer.innerHTML = '<div style="font-size: 0.88rem; color: var(--text-muted); text-align: center; padding: 15px;">शोधण्यासाठी वरील बॉक्समध्ये टाईप करा...</div>';
+      return;
+    }
+
+    const filtered = siteLinks.filter(item => item.title.toLowerCase().includes(q) || item.desc.toLowerCase().includes(q));
+    if (!filtered.length) {
+      resultsContainer.innerHTML = '<div style="font-size: 0.88rem; color: var(--text-muted); text-align: center; padding: 15px;">कोणतेही निकाल आढळले नाहीत.</div>';
+      return;
+    }
+
+    resultsContainer.innerHTML = filtered.map(item => `
+      <a href="${item.url}" style="padding: 12px; border-radius: var(--radius-sm); background: #F8FAFC; text-decoration: none; border-left: 3px solid var(--primary); display: block; transition: all 0.2s ease;">
+        <h4 style="font-size: 0.98rem; color: var(--text-dark); margin-bottom: 2px;">${item.title}</h4>
+        <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 0;">${item.desc}</p>
+      </a>
+    `).join('');
+  });
+
+  window.openGlobalSearch = openSearch;
 }

@@ -159,6 +159,99 @@
         </div>
       </div>
 
+      <!-- Interactive Digital Health Card Generator Section -->
+      <div class="card glass-card" style="padding: 35px 25px; margin-bottom: 50px; border-radius: var(--radius-md); background: linear-gradient(135deg, #ffffff 0%, #F8FAFC 100%);">
+        <div style="text-align: center; margin-bottom: 25px;">
+          <span class="section-badge" style="background: linear-gradient(135deg, #6F4BFF, #8E6CFF); color: #fff;"><i class="fas fa-id-card"></i> ऑनलाईन हेल्थ कार्ड अर्ज</span>
+          <h2 class="section-title" style="margin-top: 10px;">फॅमिली हेल्थ कार्ड अर्ज करा (Online Health Card Application)</h2>
+          <p class="section-subtitle">खालील फॉर्म भरा व आपले अधिकृत फॅमिली हेल्थ कार्ड त्वरित प्राप्त करा.</p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; align-items: start;">
+          <!-- Card Application Form -->
+          <form id="healthCardApplyForm" style="display: flex; flex-direction: column; gap: 16px;">
+            <div>
+              <label style="font-weight: 700; font-size: 0.9rem; margin-bottom: 6px; display: block; color: var(--text-dark);">प्रमुख कुटुंबप्रमुखाचे नाव (Full Name):</label>
+              <input type="text" id="cardHolderName" placeholder="उदा. रामराव तुकाराम पाटील" required style="width: 100%; padding: 12px 16px; border-radius: var(--radius-sm); border: 1px solid var(--border-color); font-size: 0.95rem;">
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+              <div>
+                <label style="font-weight: 700; font-size: 0.9rem; margin-bottom: 6px; display: block; color: var(--text-dark);">मोबाईल नंबर (Mobile):</label>
+                <input type="tel" id="cardHolderPhone" placeholder="10 अंकी मोबाईल नंबर" required style="width: 100%; padding: 12px 16px; border-radius: var(--radius-sm); border: 1px solid var(--border-color); font-size: 0.95rem;">
+              </div>
+              <div>
+                <label style="font-weight: 700; font-size: 0.9rem; margin-bottom: 6px; display: block; color: var(--text-dark);">सदस्य संख्या (Members):</label>
+                <select id="cardFamilyMembersCount" style="width: 100%; padding: 12px 16px; border-radius: var(--radius-sm); border: 1px solid var(--border-color); font-size: 0.95rem; background: #fff;">
+                  <option value="1">१ सदस्य</option>
+                  <option value="2">२ सदस्य</option>
+                  <option value="3">३ सदस्य</option>
+                  <option value="4" selected>४ सदस्य (कुटुंब)</option>
+                  <option value="5">५ सदस्य</option>
+                  <option value="6">६+ सदस्य</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label style="font-weight: 700; font-size: 0.9rem; margin-bottom: 6px; display: block; color: var(--text-dark);">पूर्ण पत्ता व जिल्हा (Full Address & District):</label>
+              <textarea id="cardHolderAddress" rows="3" placeholder="उदा. मयूर पार्क, जळगाव रोड, छत्रपती संभाजीनगर - 431003" required style="width: 100%; padding: 12px 16px; border-radius: var(--radius-sm); border: 1px solid var(--border-color); font-size: 0.95rem; resize: vertical;"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-lg" style="width: 100%; margin-top: 10px; font-weight: 700;">
+              <i class="fas fa-magic"></i> डिझिटल फॅमिली हेल्थ कार्ड तयार करा (Generate Card)
+            </button>
+          </form>
+
+          <!-- Live Digital Card Preview Box -->
+          <div id="digitalCardResultWrapper" style="display: flex; flex-direction: column; align-items: center; justify-content: center; background: #ffffff; border-radius: var(--radius-md); padding: 20px; border: 1px dashed var(--primary); box-shadow: var(--shadow-sm); min-height: 340px;">
+            <i class="fas fa-id-card" style="font-size: 3rem; color: var(--primary); margin-bottom: 12px; opacity: 0.7;"></i>
+            <h4 style="color: var(--text-dark); margin-bottom: 8px;">डिझिटल हेल्थ कार्ड लाईव्ह प्रिव्ह्यू</h4>
+            <p style="color: var(--text-muted); font-size: 0.88rem; text-align: center;">डावीकडील फॉर्म भरून बटनावर क्लिक केल्यास आपले अधिकृत डिझिटल हेल्थ कार्ड येथे क्यूआर कोडसह जनरेट होईल.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ Section -->
+      <div class="card glass-card" style="padding: 35px 25px; margin-bottom: 50px; border-radius: var(--radius-md);">
+        <div style="text-align: center; margin-bottom: 25px;">
+          <span class="section-badge"><i class="fas fa-question-circle"></i> सतत विचारले जाणारे प्रश्न</span>
+          <h2 class="section-title" style="margin-top: 10px;">फॅमिली हेल्थ कार्ड संबंधी शंका व उत्तरे (FAQ)</h2>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 15px; max-width: 850px; margin: 0 auto;">
+          <details style="background: #F8FAFC; border-radius: var(--radius-sm); border: 1px solid var(--border-color); padding: 16px 20px; cursor: pointer;">
+            <summary style="font-weight: 700; font-size: 1rem; color: var(--text-dark); display: flex; align-items: center; justify-content: space-between;">
+              <span>१. फॅमिली हेल्थ कार्डचा वापर कसा करावा?</span>
+              <i class="fas fa-chevron-down" style="color: var(--primary);"></i>
+            </summary>
+            <p style="margin-top: 12px; font-size: 0.92rem; color: var(--text-muted); line-height: 1.7;">
+              संस्थेशी संलग्न असलेल्या कोणत्याही रुग्णालय, लॅब किंवा मेडिकलमध्ये उपचार घेण्यापूर्वी किंवा बिल भरण्यापूर्वी आपले फॅमिली हेल्थ कार्ड दाखवा. आपणास ठरवून दिलेली सवलत त्वरित मिळेल.
+            </p>
+          </details>
+
+          <details style="background: #F8FAFC; border-radius: var(--radius-sm); border: 1px solid var(--border-color); padding: 16px 20px; cursor: pointer;">
+            <summary style="font-weight: 700; font-size: 1rem; color: var(--text-dark); display: flex; align-items: center; justify-content: space-between;">
+              <span>२. एका कार्डवर किती कुटुंबातील सदस्यांना लाभ मिळतो?</span>
+              <i class="fas fa-chevron-down" style="color: var(--primary);"></i>
+            </summary>
+            <p style="margin-top: 12px; font-size: 0.92rem; color: var(--text-muted); line-height: 1.7;">
+              एका फॅमिली हेल्थ कार्डवर कुटुंबप्रमुखासह पती/पत्नी, आई/वडील आणि मुलांचा समावेश असतो.
+            </p>
+          </details>
+
+          <details style="background: #F8FAFC; border-radius: var(--radius-sm); border: 1px solid var(--border-color); padding: 16px 20px; cursor: pointer;">
+            <summary style="font-weight: 700; font-size: 1rem; color: var(--text-dark); display: flex; align-items: center; justify-content: space-between;">
+              <span>३. कार्डची वैधता (Validity) किती काळ असते?</span>
+              <i class="fas fa-chevron-down" style="color: var(--primary);"></i>
+            </summary>
+            <p style="margin-top: 12px; font-size: 0.92rem; color: var(--text-muted); line-height: 1.7;">
+              फॅमिली हेल्थ कार्ड हे जारी केल्याच्या तारखेपासून १ वर्षासाठी वैध असते. त्यानंतर संस्था कार्यालयातून नूतनीकरण (Renew) करता येते.
+            </p>
+          </details>
+        </div>
+      </div>
+
       <!-- Large Image Showcase Container -->
       <div style="text-align: center; margin-bottom: 30px;">
         <h2 class="section-title">फॅमिली हेल्थ कार्ड अधिकृत माहिती पत्रक</h2>

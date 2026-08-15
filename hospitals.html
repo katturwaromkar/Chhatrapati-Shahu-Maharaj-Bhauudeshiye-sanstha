@@ -146,8 +146,17 @@
         <p class="section-subtitle">फॅमिली हेल्थ कार्ड धारकांसाठी विशेष सवलतीसह उपचार उपलब्ध असणारी प्रमुख रुग्णालये.</p>
       </div>
 
+      <!-- Hospital Search & Filter Bar -->
+      <div class="filter-wrapper" style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 30px;">
+        <button class="filter-btn gallery-filter-btn active" data-filter="all"><i class="fas fa-th"></i> सर्व रुग्णालये</button>
+        <button class="filter-btn gallery-filter-btn" data-filter="sambhajinagar"><i class="fas fa-map-marker-alt"></i> छत्रपती संभाजीनगर</button>
+        <button class="filter-btn gallery-filter-btn" data-filter="jalgaon"><i class="fas fa-map-marker-alt"></i> जळगाव</button>
+        <button class="filter-btn gallery-filter-btn" data-filter="pune"><i class="fas fa-map-marker-alt"></i> पुणे</button>
+        <button class="filter-btn gallery-filter-btn" data-filter="nashik"><i class="fas fa-map-marker-alt"></i> नाशिक</button>
+      </div>
+
       <!-- Hospital Flyers Grid -->
-      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px; margin-bottom: 50px;">
+      <div class="gallery-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 25px; margin-bottom: 50px;">
         
         <div class="card card-hover" style="padding: 12px; border-radius: var(--radius-md); text-align: center;">
           <img src="assets/images/docs/health_card_booklet_p1.jpg" alt="Hospital Brochure 1" style="border-radius: 8px; border: 1px solid var(--border-color); width: 100%; height: auto;">
