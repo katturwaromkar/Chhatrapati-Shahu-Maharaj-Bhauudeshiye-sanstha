@@ -9,33 +9,71 @@ document.addEventListener('DOMContentLoaded', () => {
   initLightbox();
 });
 
-/* --- Category Filter for Gallery & Projects --- */
+/* --- Category & City Filter for Gallery, Doctors, Hospitals & Projects --- */
 function initGalleryFilter() {
   const filterBtns = document.querySelectorAll('.gallery-filter-btn, .project-filter-btn');
-  const items = document.querySelectorAll('.gallery-item, .project-card');
+  const items = document.querySelectorAll('.gallery-item, .project-card, .doctor-album-card, .gallery-grid > .card, .hospitals-grid > .card');
 
-  if (filterBtns.length === 0 || items.length === 0) return;
+  if (filterBtns.length > 0 && items.length > 0) {
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
 
-  filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      filterBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
+        const filterValue = btn.getAttribute('data-filter');
 
-      const filterValue = btn.getAttribute('data-filter');
+        items.forEach(item => {
+          const category = item.getAttribute('data-category');
+          const itemText = item.innerText.toLowerCase();
+          
+          let isMatch = false;
+          if (filterValue === 'all') {
+            isMatch = true;
+          } else if (category && category === filterValue) {
+            isMatch = true;
+          } else if (filterValue === 'sambhajinagar' && (itemText.includes('संभाजीनगर') || itemText.includes('पेज १') || itemText.includes('पेज २'))) {
+            isMatch = true;
+          } else if (filterValue === 'jalgaon' && (itemText.includes('जळगाव') || itemText.includes('पेज ३') || itemText.includes('पेज ४'))) {
+            isMatch = true;
+          } else if (filterValue === 'pune' && (itemText.includes('पुणे') || itemText.includes('पेज ५') || itemText.includes('पेज ६'))) {
+            isMatch = true;
+          } else if (filterValue === 'nashik' && (itemText.includes('नाशिक') || itemText.includes('पेज ७') || itemText.includes('पेज ८'))) {
+            isMatch = true;
+          }
 
+          if (isMatch) {
+            item.style.display = '';
+            item.style.opacity = '1';
+            item.style.transform = 'scale(1)';
+          } else {
+            item.style.opacity = '0';
+            item.style.transform = 'scale(0.9)';
+            setTimeout(() => {
+              if (item.style.opacity === '0') item.style.display = 'none';
+            }, 200);
+          }
+        });
+      });
+    });
+  }
+
+  // Doctor Live Search Input Handler
+  const doctorSearchInput = document.getElementById('doctorSearchInput');
+  if (doctorSearchInput && items.length > 0) {
+    doctorSearchInput.addEventListener('input', (e) => {
+      const q = e.target.value.toLowerCase().trim();
       items.forEach(item => {
-        const category = item.getAttribute('data-category');
-        if (filterValue === 'all' || category === filterValue) {
-          item.style.display = 'block';
-          setTimeout(() => { item.style.opacity = '1'; item.style.transform = 'scale(1)'; }, 50);
+        const text = item.innerText.toLowerCase();
+        if (!q || text.includes(q)) {
+          item.style.display = '';
+          item.style.opacity = '1';
         } else {
           item.style.opacity = '0';
-          item.style.transform = 'scale(0.8)';
-          setTimeout(() => { item.style.display = 'none'; }, 300);
+          item.style.display = 'none';
         }
       });
     });
-  });
+  }
 }
 
 /* --- Lightbox Viewer Popup & Document Zoom --- */

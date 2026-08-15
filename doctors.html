@@ -200,6 +200,21 @@
 <h2 class="section-title">तज्ज्ञ डॉक्टर व वैद्यकीय सल्लागार फोटो अल्बम (60)</h2>
 <p class="section-subtitle">चित्र (Image) वर क्लिक करून मोठ्या आकारात पहा (Click any photo to view in large full-screen view).</p>
 </div>
+
+<!-- Doctor Live Search & Filter Bar -->
+<div style="max-width: 750px; margin: 0 auto 30px auto;">
+  <div style="display: flex; align-items: center; gap: 10px; background: #ffffff; padding: 12px 18px; border-radius: var(--radius-md); border: 2px solid var(--border-color); box-shadow: var(--shadow-sm); margin-bottom: 20px;">
+    <i class="fas fa-search" style="color: var(--primary); font-size: 1.1rem;"></i>
+    <input type="text" id="doctorSearchInput" placeholder="डॉक्टर किंवा उपक्रम शोधा (उदा. भेट #5, सल्लागार)..." style="width: 100%; border: none; outline: none; font-size: 1rem; font-weight: 600;">
+  </div>
+
+  <div class="filter-wrapper" style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
+    <button class="filter-btn gallery-filter-btn active" data-filter="all"><i class="fas fa-th"></i> सर्व फोटो (60)</button>
+    <button class="filter-btn gallery-filter-btn" data-filter="advisors"><i class="fas fa-user-md"></i> वैद्यकीय सल्लागार</button>
+    <button class="filter-btn gallery-filter-btn" data-filter="visits"><i class="fas fa-hospital-user"></i> तज्ज्ञ डॉक्टर भेट</button>
+  </div>
+</div>
+
 <!-- Photo Gallery Grid Album -->
 <div class="doctor-album-grid">
 <div class="doctor-album-card">
