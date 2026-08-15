@@ -125,6 +125,18 @@
     border-color: rgba(255, 255, 255, 0.3) !important;
   }
 
+  /* Back To Top Mobile Float Above Dock - No Overlap */
+  .back-to-top {
+    bottom: 75px !important;
+    right: 18px !important;
+    z-index: 10000 !important;
+  }
+
+  /* Prevent Footer & Content Clipping Below Mobile Dock */
+  body, footer {
+    padding-bottom: 65px !important;
+  }
+
   /* Full Screen Solid Opaque Mobile Menu Overlay */
   .nav-menu {
     position: fixed !important;
