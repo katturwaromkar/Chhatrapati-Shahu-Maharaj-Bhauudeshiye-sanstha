@@ -2530,5 +2530,161 @@ textarea.form-control {
   color: #ffffff !important;
 }
 
+/* --- Mobile Bottom Sticky Quick Action Dock --- */
+.mobile-sticky-dock {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  background: #ffffff;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+  border-top: 1px solid var(--border-color);
+  z-index: 99999;
+  padding: 6px 10px;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.dock-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  color: var(--text-dark);
+  text-decoration: none;
+  font-size: 0.72rem;
+  font-weight: 700;
+  flex: 1;
+  padding: 4px 0;
+  transition: all 0.2s ease;
+}
+
+.dock-item i {
+  font-size: 1.15rem;
+  color: var(--primary);
+}
+
+.dock-item.primary-dock {
+  background: var(--gradient-primary);
+  color: #ffffff;
+  border-radius: var(--radius-sm);
+  padding: 6px 0;
+}
+
+.dock-item.primary-dock i {
+  color: #ffffff;
+}
+
+.dock-item.whatsapp-dock i {
+  color: #25D366;
+}
+
+.dock-item:active {
+  transform: scale(0.95);
+}
+
+@media (max-width: 768px) {
+  .mobile-sticky-dock {
+    display: flex !important;
+  }
+  body {
+    padding-bottom: 60px !important;
+  }
+}
+
+/* --- Features Grid & Service Cards --- */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+}
+
+.feature-card {
+  background: #ffffff;
+  border-radius: var(--radius-md);
+  padding: 28px 24px;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.feature-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--primary);
+}
+
+.feature-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  margin-bottom: 18px;
+  box-shadow: var(--shadow-sm);
+}
+
+.feature-card h3 {
+  font-size: 1.2rem;
+  color: var(--text-dark);
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.feature-card p {
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  line-height: 1.6;
+  margin-bottom: 0;
+  flex-grow: 1;
+}
+
+/* --- Stats Banner Grid --- */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 30px;
+  text-align: center;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stat-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  margin-bottom: 12px;
+}
+
+.stat-number {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #ffffff;
+  font-family: var(--font-heading);
+  line-height: 1.2;
+}
+
+.stat-label {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 600;
+  margin-top: 4px;
+}
+
 
 
