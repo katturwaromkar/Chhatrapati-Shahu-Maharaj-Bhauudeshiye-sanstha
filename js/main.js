@@ -128,8 +128,8 @@ function initMobileMenu() {
     }
   });
 
-  // Close menu when clicking links
-  document.querySelectorAll('.nav-link').forEach(link => {
+  // Close mobile drawer menu ONLY when clicking standalone navigation links or sub-menu items (NOT main menu dropdown headers)
+  document.querySelectorAll('.nav-menu > li:not(.nav-dropdown) > .nav-link, .dropdown-item').forEach(link => {
     link.addEventListener('click', () => {
       closeMenu();
     });
@@ -306,7 +306,7 @@ function initBackToTop() {
   });
 }
 
-/* --- Image Lightbox Modal (Triggered ONLY on clicking "मोठ्या आकारात पाहण्यासाठी क्लिक करा" text) --- */
+/* --- Enhanced Interactive Image Lightbox Modal with Full Album Navigation --- */
 function initImageLightbox() {
   let modal = document.getElementById('imageLightboxModal');
   if (!modal) {
@@ -314,24 +314,46 @@ function initImageLightbox() {
     modal.id = 'imageLightboxModal';
     modal.className = 'lightbox-modal';
     modal.innerHTML = `
-      <div class="lightbox-close">&times;</div>
+      <div class="lightbox-close" title="Close (Esc)">&times;</div>
+      <button class="lightbox-nav-btn prev" aria-label="Previous Photo" title="मागील फोटो"><i class="fas fa-chevron-left"></i></button>
+      <button class="lightbox-nav-btn next" aria-label="Next Photo" title="पुढील फोटो"><i class="fas fa-chevron-right"></i></button>
       <div class="lightbox-content">
-        <img src="" alt="Large Image View">
+        <img src="" alt="Large Image View" id="lightboxMainImg">
         <div class="lightbox-caption">
-          <h3></h3>
+          <h3 id="lightboxMainCaption"></h3>
+          <span class="lightbox-counter" id="lightboxCounter"></span>
         </div>
       </div>
     `;
     document.body.appendChild(modal);
   }
 
-  const modalImg = modal.querySelector('.lightbox-content img');
-  const modalCaption = modal.querySelector('.lightbox-caption h3');
+  const modalImg = document.getElementById('lightboxMainImg') || modal.querySelector('.lightbox-content img');
+  const modalCaption = document.getElementById('lightboxMainCaption') || modal.querySelector('.lightbox-caption h3');
+  const modalCounter = document.getElementById('lightboxCounter') || modal.querySelector('.lightbox-counter');
   const closeBtn = modal.querySelector('.lightbox-close');
+  const prevBtn = modal.querySelector('.lightbox-nav-btn.prev');
+  const nextBtn = modal.querySelector('.lightbox-nav-btn.next');
 
-  const openLightbox = (src, caption) => {
-    modalImg.src = src;
-    modalCaption.textContent = caption || '';
+  let currentGallery = [];
+  let currentIndex = 0;
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  function updateLightboxPhoto() {
+    if (!currentGallery.length || currentIndex < 0 || currentIndex >= currentGallery.length) return;
+    const item = currentGallery[currentIndex];
+    modalImg.src = item.src;
+    modalCaption.textContent = item.caption || 'छायाचित्र दर्शन';
+    if (modalCounter) {
+      modalCounter.textContent = `फोटो ${currentIndex + 1} पैकी ${currentGallery.length}`;
+    }
+  }
+
+  const openLightboxIndex = (index, items) => {
+    currentGallery = items;
+    currentIndex = index;
+    updateLightboxPhoto();
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
   };
@@ -341,43 +363,83 @@ function initImageLightbox() {
     document.body.style.overflow = '';
   };
 
-  if (closeBtn) closeBtn.addEventListener('click', closeLightbox);
-  modal.addEventListener('click', (e) => {
+  const prevPhoto = () => {
+    if (!currentGallery.length) return;
+    currentIndex = (currentIndex - 1 + currentGallery.length) % currentGallery.length;
+    updateLightboxPhoto();
+  };
+
+  const nextPhoto = () => {
+    if (!currentGallery.length) return;
+    currentIndex = (currentIndex + 1) % currentGallery.length;
+    updateLightboxPhoto();
+  };
+
+  if (closeBtn) closeBtn.onclick = closeLightbox;
+  if (prevBtn) prevBtn.onclick = (e) => { e.stopPropagation(); prevPhoto(); };
+  if (nextBtn) nextBtn.onclick = (e) => { e.stopPropagation(); nextPhoto(); };
+
+  modal.onclick = (e) => {
     if (e.target === modal || e.target === closeBtn) closeLightbox();
-  });
+  };
 
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modal.classList.contains('active')) closeLightbox();
+    if (!modal.classList.contains('active')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') prevPhoto();
+    if (e.key === 'ArrowRight') nextPhoto();
   });
 
-  // Attach click listener to photos as well as text zoom triggers
-  const zoomTriggers = document.querySelectorAll(
-    '.zoom-trigger, .gallery-item img, .gallery-item p, .doc-card img, .doc-card p, ' +
-    '.news-album-card img, .news-album-caption p, .misc-album-card img, .misc-album-caption p, ' +
-    '.doctor-album-card img, .doctor-album-caption p, .camps-gallery-grid img, .camps-gallery-grid p, ' +
-    '.card img, .glass-card img, .zoomable-text'
-  );
-  
-  zoomTriggers.forEach(el => {
-    // Avoid triggering on non-zoomable UI icons like navbar/footer logos
-    if (el.closest('.logo-brand, .nav-brand-mobile, .header-brand-centered')) return;
+  // Touch Swipe for Mobile Devices
+  modal.ontouchstart = (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+  };
+  modal.ontouchend = (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    if (touchStartX - touchEndX > 40) nextPhoto();
+    if (touchEndX - touchStartX > 40) prevPhoto();
+  };
 
+  // Scan document for photo cards
+  const cards = document.querySelectorAll(
+    '.doctor-album-card, .news-album-card, .misc-album-card, .gallery-item, .doc-card, ' +
+    '.camps-gallery-grid > div, .zoomable-card'
+  );
+
+  let activePhotoList = [];
+  cards.forEach((card, idx) => {
+    const img = card.querySelector('img');
+    if (!img || !img.src) return;
+
+    const caption = card.querySelector('h4, h3, .gallery-title, .doc-title')?.innerText || img.alt || `फोटो #${idx + 1}`;
+    activePhotoList.push({ src: img.src, caption: caption, element: card });
+
+    card.style.cursor = 'pointer';
+    card.onclick = (e) => {
+      e.preventDefault();
+      const clickIdx = activePhotoList.findIndex(item => item.element === card || item.src === img.src);
+      openLightboxIndex(clickIdx >= 0 ? clickIdx : 0, activePhotoList);
+    };
+  });
+
+  // Attach standalone triggers (standalone zoom-trigger or img outside cards)
+  document.querySelectorAll('.zoom-trigger, img.zoomable-text').forEach(el => {
+    if (el.closest('.logo-brand, .nav-brand-mobile, .header-brand-centered')) return;
     el.style.cursor = 'pointer';
-    el.addEventListener('click', (e) => {
+    el.onclick = (e) => {
       e.preventDefault();
       e.stopPropagation();
-
-      let img = el.tagName === 'IMG' ? el : null;
-      const card = el.closest('.gallery-item, .doc-card, .news-album-card, .misc-album-card, .doctor-album-card, .card, .glass-card');
-      if (!img && card) {
-        img = card.querySelector('img');
+      const parentCard = el.closest('.doctor-album-card, .news-album-card, .misc-album-card, .gallery-item, .doc-card');
+      if (parentCard) {
+        parentCard.click();
+      } else {
+        const img = el.tagName === 'IMG' ? el : el.parentNode.querySelector('img');
+        if (img && img.src) {
+          openLightboxIndex(0, [{ src: img.src, caption: img.alt || 'छायाचित्र दर्शन' }]);
+        }
       }
-
-      const caption = card ? (card.querySelector('h4, h3, .gallery-title, .doc-title')?.innerText || img?.alt) : (img?.alt || 'छायाचित्र दर्शन');
-
-      if (img && img.src) {
-        openLightbox(img.src, caption);
-      }
-    });
+    };
   });
+
+  window.initImageLightbox = initImageLightbox;
 }

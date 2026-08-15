@@ -336,8 +336,16 @@
   .offices-grid,
   .news-album-grid,
   .misc-album-grid,
-  .doctor-album-grid {
-    grid-template-columns: 1fr;
+  .doctor-album-grid,
+  .camps-gallery-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.25rem !important;
+  }
+
+  .news-album-img, .misc-album-img, .doctor-album-img, .gallery-item img, .doc-card img {
+    height: 250px !important;
+    object-fit: cover !important;
+    object-position: top center !important;
   }
 
   .notice-card {
@@ -366,6 +374,21 @@
     width: 100%;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
+    border-radius: var(--radius-sm);
+  }
+
+  /* Full mobile touch button styling */
+  .btn, .hero-actions .btn {
+    max-width: 100%;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 18px;
+    font-size: 0.95rem;
+    white-space: normal;
+    word-break: break-word;
+    text-align: center;
   }
 }
 
@@ -381,10 +404,11 @@
 
   .nav-brand-mobile span {
     font-size: 0.85rem;
+    max-width: 170px !important;
   }
 
   .about-img-main {
-    height: 320px !important;
+    height: 280px !important;
     object-fit: cover;
     object-position: top center;
   }
@@ -392,6 +416,7 @@
   .hero-actions {
     flex-direction: column;
     width: 100%;
+    gap: 10px;
   }
 
   .hero-actions .btn {
@@ -403,13 +428,17 @@
   }
 
   .filter-wrapper {
-    flex-direction: flex-wrap;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 0.5rem;
   }
 
   .filter-btn {
     padding: 6px 12px;
     font-size: 0.78rem;
+    flex-grow: 1;
+    text-align: center;
   }
 }
 
@@ -435,7 +464,7 @@
   }
 
   .btn {
-    padding: 8px 16px !important;
+    padding: 8px 14px !important;
     font-size: 0.85rem !important;
   }
 }

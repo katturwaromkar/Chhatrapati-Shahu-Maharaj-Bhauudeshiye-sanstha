@@ -128,7 +128,7 @@ function renderDigitalCardPreview(data) {
   const previewContainer = document.getElementById('digitalCardResultWrapper');
   if (!previewContainer) return;
 
-  const currentOrigin = window.location.origin && window.location.origin !== 'null' ? window.location.origin : 'http://localhost:3000';
+  const currentOrigin = window.location.origin && window.location.origin !== 'null' ? window.location.origin : 'http://localhost:5000';
   const verifyUrl = `${currentOrigin}/family-health-card.html?verify=${encodeURIComponent(data.cardId)}`;
   const qrCodeImgSrc = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(verifyUrl)}&color=1E2432&bgcolor=FFFFFF`;
 

@@ -40,75 +40,11 @@ function initGalleryFilter() {
 
 /* --- Lightbox Viewer Popup & Document Zoom --- */
 function initLightbox() {
-  const triggerItems = document.querySelectorAll(
-    '.zoom-trigger, .gallery-item img, .gallery-item p, .doc-card img, .doc-card p, ' +
-    '.news-album-card img, .misc-album-card img, .doctor-album-card img, .card img, .zoomable-text'
-  );
-
-  let modal = document.getElementById('imageLightboxModal');
-  if (!modal) {
-    modal = document.createElement('div');
-    modal.id = 'imageLightboxModal';
-    modal.className = 'lightbox-modal';
-    modal.innerHTML = `
-      <div class="lightbox-close">&times;</div>
-      <div class="lightbox-content">
-        <img src="" alt="Image Preview" id="lightboxImg">
-        <div class="lightbox-caption" id="lightboxCaption">
-          <h3></h3>
-        </div>
-      </div>
-    `;
-    document.body.appendChild(modal);
+  if (window.initImageLightbox) {
+    window.initImageLightbox();
   }
-
-  const lightboxImg = modal.querySelector('.lightbox-content img');
-  const lightboxCaption = modal.querySelector('.lightbox-caption h3');
-  const closeBtn = modal.querySelector('.lightbox-close');
-
-  triggerItems.forEach(item => {
-    if (item.closest('.logo-brand, .nav-brand-mobile, .header-brand-centered')) return;
-
-    item.style.cursor = 'pointer';
-    item.addEventListener('click', (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-
-      let img = item.tagName === 'IMG' ? item : null;
-      const card = item.closest('.gallery-item, .doc-card, .news-album-card, .misc-album-card, .doctor-album-card, .card, .glass-card');
-      if (!img && card) {
-        img = card.querySelector('img');
-      }
-
-      const title = card?.querySelector('h4, h3, .gallery-title, .doc-title')?.innerText || img?.alt || 'छायाचित्र दर्शन';
-
-      if (img && img.src) {
-        lightboxImg.src = img.src;
-        if (lightboxCaption) lightboxCaption.textContent = title;
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-      }
-    });
-  });
-
-  if (closeBtn) closeBtn.addEventListener('click', closeModal);
-  modal.addEventListener('click', (e) => {
-    if (e.target === modal || e.target === closeBtn) closeModal();
-  });
-
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modal.classList.contains('active')) {
-      closeModal();
-    }
-  });
-
-  function closeModal() {
-    modal.classList.remove('active');
-    document.body.style.overflow = 'auto';
-  }
-
-  window.initLightbox = initLightbox;
 }
+window.initLightbox = initLightbox;
 
 /* --- Dynamic Miscellaneous Gallery Loader --- */
 function initMiscGallery() {

@@ -2312,82 +2312,144 @@ textarea.form-control {
   object-position: center;
 }
 
-/* --- Lightbox Modal Styles --- */
+/* --- Enhanced Lightbox Modal & Photo Viewer System --- */
 .lightbox-modal {
   display: none;
   position: fixed;
-  z-index: 9999;
+  z-index: 1000000;
   left: 0;
   top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(15, 23, 42, 0.92);
-  backdrop-filter: blur(10px);
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(15, 23, 42, 0.94);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: 15px;
   opacity: 0;
   transition: opacity 0.3s ease;
+  user-select: none;
 }
 
 .lightbox-modal.active {
-  display: flex;
-  opacity: 1;
+  display: flex !important;
+  opacity: 1 !important;
 }
 
 .lightbox-close {
   position: absolute;
-  top: 20px;
-  right: 30px;
+  top: 15px;
+  right: 20px;
   color: #ffffff;
-  font-size: 2.5rem;
+  font-size: 2.2rem;
   font-weight: 300;
   cursor: pointer;
-  z-index: 10000;
+  z-index: 1000002;
   line-height: 1;
-  transition: color 0.2s ease;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 50%;
+  transition: all 0.2s ease;
 }
 
 .lightbox-close:hover {
-  color: var(--accent);
+  background: var(--accent);
+  color: #ffffff;
+}
+
+.lightbox-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  border: none;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  cursor: pointer;
+  z-index: 1000002;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.lightbox-nav-btn:hover {
+  background: var(--primary);
+  color: #ffffff;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.lightbox-nav-btn.prev {
+  left: 20px;
+}
+
+.lightbox-nav-btn.next {
+  right: 20px;
 }
 
 .lightbox-content {
-  max-width: 90%;
-  max-height: 90vh;
+  position: relative;
+  max-width: 90vw;
+  max-height: 88vh;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 
 .lightbox-content img {
   max-width: 100%;
-  max-height: 75vh;
+  max-height: 72vh;
   object-fit: contain;
   border-radius: var(--radius-md);
-  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: transform 0.2s ease;
+  cursor: zoom-out;
 }
 
 .lightbox-caption {
-  margin-top: 15px;
+  margin-top: 14px;
   color: #ffffff;
+  text-align: center;
+  max-width: 90vw;
 }
 
 .lightbox-caption h3 {
   color: #ffffff;
-  font-size: 1.25rem;
-  font-weight: 600;
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 4px;
 }
 
-/* --- News & Miscellaneous Album Grid Styles --- */
-.news-album-grid, .misc-album-grid, .doctor-album-grid {
+.lightbox-counter {
+  font-size: 0.85rem;
+  color: var(--secondary);
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.12);
+  padding: 3px 14px;
+  border-radius: 999px;
+  display: inline-block;
+}
+
+/* --- News, Miscellaneous, Doctors & Gallery Album Grid Unified Styles --- */
+.news-album-grid, .misc-album-grid, .doctor-album-grid, .gallery-grid, .camps-gallery-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
   gap: 24px;
 }
 
-.news-album-card, .misc-album-card, .doctor-album-card {
+.news-album-card, .misc-album-card, .doctor-album-card, .gallery-item, .doc-card {
   background: var(--bg-card);
   border-radius: var(--radius-md);
   overflow: hidden;
@@ -2396,35 +2458,40 @@ textarea.form-control {
   transition: transform var(--transition-fast), box-shadow var(--transition-fast);
   display: flex;
   flex-direction: column;
+  cursor: pointer;
 }
 
-.news-album-card:hover, .misc-album-card:hover {
+.news-album-card:hover, .misc-album-card:hover, .doctor-album-card:hover, .gallery-item:hover, .doc-card:hover {
   transform: translateY(-6px);
   box-shadow: var(--shadow-lg);
 }
 
-.news-album-img-wrap, .misc-album-img-wrap {
+.news-album-img-wrap, .misc-album-img-wrap, .doctor-album-img-wrap {
   position: relative;
   width: 100%;
   background: #0f172a;
   overflow: hidden;
 }
 
-.news-album-img, .misc-album-img, .doctor-album-img {
+.news-album-img, .misc-album-img, .doctor-album-img, .gallery-item img, .doc-card img {
   width: 100%;
-  height: 340px;
+  height: 320px;
   object-fit: cover;
   object-position: top center;
   display: block;
-  cursor: default;
+  cursor: pointer;
   transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.news-album-card:hover .news-album-img, .misc-album-card:hover .misc-album-img {
-  transform: scale(1.03);
+.news-album-card:hover .news-album-img,
+.misc-album-card:hover .misc-album-img,
+.doctor-album-card:hover .doctor-album-img,
+.gallery-item:hover img,
+.doc-card:hover img {
+  transform: scale(1.04);
 }
 
-.news-album-caption, .misc-album-caption {
+.news-album-caption, .misc-album-caption, .doctor-album-caption {
   padding: 16px 20px;
   text-align: center;
   background: var(--bg-white);
@@ -2435,14 +2502,14 @@ textarea.form-control {
   justify-content: center;
 }
 
-.news-album-caption h4, .misc-album-caption h4 {
+.news-album-caption h4, .misc-album-caption h4, .doctor-album-caption h4 {
   font-size: 1.05rem;
   color: var(--text-dark);
   margin-bottom: 6px;
   font-weight: 700;
 }
 
-.news-album-caption p, .misc-album-caption p, .zoom-trigger, .gallery-item p, .doctor-album-caption p {
+.news-album-caption p, .misc-album-caption p, .zoom-trigger, .gallery-item p, .doctor-album-caption p, .doc-card p {
   font-size: 0.88rem;
   color: var(--primary);
   margin-bottom: 0;
@@ -2458,7 +2525,7 @@ textarea.form-control {
   transition: all 0.2s ease;
 }
 
-.news-album-caption p:hover, .misc-album-caption p:hover, .zoom-trigger:hover, .gallery-item p:hover, .doctor-album-caption p:hover {
+.news-album-caption p:hover, .misc-album-caption p:hover, .zoom-trigger:hover, .gallery-item p:hover, .doctor-album-caption p:hover, .doc-card p:hover {
   background: var(--primary);
   color: #ffffff !important;
 }

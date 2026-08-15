@@ -4,7 +4,7 @@
   "description": "Chhatrapati Shahu Maharaj Bahuuddeshiya Sanstha Web Application",
   "main": "js/main.js",
   "scripts": {
-    "start": "python -m http.server 3000",
+    "start": "python -m http.server 5000",
     "prisma:generate": "prisma generate",
     "prisma:push": "prisma db push"
   },
@@ -14,7 +14,7 @@
     "prisma",
     "supabase"
   ],
-  "author": "Yugnex Tech Solutions",
+  "author": "Yugvex Tech Solutions",
   "license": "ISC",
   "devDependencies": {
     "prisma": "^5.22.0"
