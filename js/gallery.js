@@ -39,7 +39,12 @@ function initGalleryFilter() {
             isMatch = true;
           } else if (filterValue === 'nashik' && (itemText.includes('नाशिक') || itemText.includes('पेज ७') || itemText.includes('पेज ८'))) {
             isMatch = true;
+          } else if (filterValue === 'multispeciality' && (itemText.includes('मल्टीस्पेशालिटी') || itemText.includes('पेज १') || itemText.includes('पेज २') || itemText.includes('पेज ५'))) {
+            isMatch = true;
+          } else if (filterValue === 'pathology' && (itemText.includes('पॅथॉलॉजी') || itemText.includes('लॅब') || itemText.includes('पेज ३') || itemText.includes('पेज ४'))) {
+            isMatch = true;
           }
+
 
           if (isMatch) {
             item.style.display = '';

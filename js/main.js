@@ -15,6 +15,12 @@ document.addEventListener('DOMContentLoaded', () => {
   initBackToTop();
   initImageLightbox();
   initGlobalSearch();
+  initQuickHospitalSearch();
+  initFaqAccordion();
+  initVisitorCounter();
+  initFontResizer();
+  initSavingsCalculator();
+  initLiveCardPreview();
   initPWA();
 });
 
@@ -531,3 +537,258 @@ function initGlobalSearch() {
 
   window.openGlobalSearch = openSearch;
 }
+
+/* --- Quick Hospital & Discount Search Widget Logic --- */
+function initQuickHospitalSearch() {
+  const trigger = document.getElementById('quick-search-trigger');
+  const citySelect = document.getElementById('quick-city-select');
+  const typeSelect = document.getElementById('quick-type-select');
+  const resultsContainer = document.getElementById('quick-search-results');
+
+  if (!trigger || !resultsContainer) return;
+
+  const hospitalData = [
+    { name: 'धूत हॉस्पिटल & रिसर्च सेंटर', city: 'sambhajinagar', type: 'multispeciality', discount: '२०% ते ५०% सवलत', address: 'जळगाव रोड, छत्रपती संभाजीनगर' },
+    { name: 'कासलीवाल आय इन्स्टिट्यूट', city: 'sambhajinagar', type: 'eye', discount: '१५% ते ३०% सवलत', address: 'सिडको एन-१, छत्रपती संभाजीनगर' },
+    { name: 'मेट्रोपॉलिस पॅथॉलॉजी लॅब', city: 'sambhajinagar', type: 'pathology', discount: '२५% सवलत लॅब टेस्टवर', address: 'जळगाव व छत्रपती संभाजीनगर' },
+    { name: 'ओराकल डेंटल क्लिनिक', city: 'jalgaon', type: 'dental', discount: '२०% दातांच्या उपचारावर सवलत', address: 'जीएस ग्राउंडजवळ, जळगाव' },
+    { name: 'कमलनयन बजाज हॉस्पिटल', city: 'sambhajinagar', type: 'multispeciality', discount: '१५% ते ४०% सवलत', address: 'बेगमपुरा, छत्रपती संभाजीनगर' },
+    { name: 'संजीवनी सुपर स्पेशालिटी हॉस्पिटल', city: 'pune', type: 'multispeciality', discount: '२०% कार्डधारकांना सवलत', address: 'शिवाजीनगर, पुणे' },
+    { name: 'गुप्ता आय कॉर्निया सेंटर', city: 'jalgaon', type: 'eye', discount: '२०% डोळ्यांच्या तपासणीवर', address: 'नेहरू चौक, जळगाव' },
+    { name: 'एस. आर. लॅब व डायग्नोस्टिक्स', city: 'jalgaon', type: 'pathology', discount: '३०% सर्व रक्त तपासणीवर', address: 'स्टेशन रोड, जळगाव' }
+  ];
+
+  function performSearch() {
+    const selectedCity = citySelect ? citySelect.value : 'all';
+    const selectedType = typeSelect ? typeSelect.value : 'all';
+
+    const filtered = hospitalData.filter(item => {
+      const matchCity = (selectedCity === 'all' || item.city === selectedCity);
+      const matchType = (selectedType === 'all' || item.type === selectedType);
+      return matchCity && matchType;
+    });
+
+    if (!filtered.length) {
+      resultsContainer.innerHTML = `
+        <div style="grid-column: 1 / -1; background: #FFF5F5; color: #C53030; padding: 18px; border-radius: var(--radius-sm); text-align: center; font-size: 0.92rem; font-weight: 600; border: 1px solid #FEB2B2;">
+          <i class="fas fa-info-circle"></i> या निकषांसाठी हॉस्पिटल्स उपलब्ध नाहीत. कृपया इतर शहरे किंवा सर्व सेवा निवडा.
+        </div>
+      `;
+      return;
+    }
+
+    resultsContainer.innerHTML = filtered.map(item => `
+      <div class="quick-hospital-card" style="background: #F8F7FC; border-radius: var(--radius-sm); padding: 16px; border: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 8px; transition: transform 0.2s ease, box-shadow 0.2s ease;">
+        <span style="font-size: 0.75rem; font-weight: 700; background: rgba(39, 174, 96, 0.15); color: #27AE60; padding: 2px 10px; border-radius: 999px; width: fit-content;"><i class="fas fa-check-circle"></i> ${item.discount}</span>
+        <h4 style="font-size: 1.05rem; font-weight: 700; color: var(--text-dark); margin: 0;">${item.name}</h4>
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;"><i class="fas fa-map-marker-alt" style="color: var(--primary);"></i> ${item.address}</p>
+      </div>
+    `).join('');
+  }
+
+  trigger.addEventListener('click', performSearch);
+  citySelect?.addEventListener('change', performSearch);
+  typeSelect?.addEventListener('change', performSearch);
+}
+
+/* --- FAQ Accordion Expand/Collapse Logic --- */
+function initFaqAccordion() {
+  const faqItems = document.querySelectorAll('.faq-item');
+  if (!faqItems.length) return;
+
+  faqItems.forEach(item => {
+    const question = item.querySelector('.faq-question');
+    const answer = item.querySelector('.faq-answer');
+
+    if (question && answer) {
+      question.addEventListener('click', () => {
+        const isActive = item.classList.contains('active');
+
+        // Close other FAQ items for clean single accordion toggle
+        faqItems.forEach(otherItem => {
+          otherItem.classList.remove('active');
+          const otherAnswer = otherItem.querySelector('.faq-answer');
+          if (otherAnswer) otherAnswer.style.display = 'none';
+        });
+
+        if (!isActive) {
+          item.classList.add('active');
+          answer.style.display = 'block';
+        }
+      });
+    }
+  });
+}
+
+/* --- Dynamic Footer Visitor Counter Logic --- */
+function initVisitorCounter() {
+  const counterElements = document.querySelectorAll('#visitorCountNum');
+  if (!counterElements.length) return;
+
+  const BASE_VISITOR_COUNT = 0;
+  let currentCount = parseInt(localStorage.getItem('csms_visitor_count') || '0', 10);
+
+  // Increment once per browser session
+  if (!sessionStorage.getItem('csms_session_counted')) {
+    currentCount = (currentCount || BASE_VISITOR_COUNT) + 1;
+    localStorage.setItem('csms_visitor_count', currentCount.toString());
+    sessionStorage.setItem('csms_session_counted', 'true');
+  }
+
+  const formattedCount = currentCount.toLocaleString('en-IN');
+  counterElements.forEach(el => {
+    el.textContent = formattedCount;
+  });
+}
+
+
+/* --- Font Size Accessibility Resizer Logic --- */
+function initFontResizer() {
+  const buttons = document.querySelectorAll('.font-size-btn');
+  if (!buttons.length) return;
+
+  const savedSize = localStorage.getItem('csms_font_size') || '16';
+  document.documentElement.style.fontSize = savedSize + 'px';
+
+  buttons.forEach(btn => {
+    if (btn.getAttribute('data-size') === savedSize) {
+      buttons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const targetSize = btn.getAttribute('data-size') || '16';
+      document.documentElement.style.fontSize = targetSize + 'px';
+      localStorage.setItem('csms_font_size', targetSize);
+
+      buttons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+}
+
+/* --- Hospital Bill Savings Calculator Logic --- */
+function initSavingsCalculator() {
+  const calcBtn = document.getElementById('calculateSavingsBtn');
+  const amountInput = document.getElementById('calcBillAmount');
+  const typeSelect = document.getElementById('calcServiceType');
+  const resultBox = document.getElementById('calcResultContainer');
+
+  if (!calcBtn || !amountInput || !resultBox) return;
+
+  calcBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    const amount = parseFloat(amountInput.value.trim());
+
+    if (isNaN(amount) || amount <= 0) {
+      resultBox.innerHTML = `
+        <div style="background: #FFF5F5; color: #C53030; padding: 14px; border-radius: var(--radius-sm); font-size: 0.9rem; font-weight: 600; text-align: center; border: 1px solid #FEB2B2;">
+          <i class="fas fa-exclamation-triangle"></i> कृपया वैध बिल रक्कम प्रविष्ट करा (उदा. 20000).
+        </div>
+      `;
+      return;
+    }
+
+    const serviceType = typeSelect ? typeSelect.value : 'ipd';
+    let discountPercent = 25; // Default IPD
+    let serviceLabel = 'हॉस्पिटल IPD उपचार व शस्त्रक्रिया';
+
+    if (serviceType === 'opd') {
+      discountPercent = 20;
+      serviceLabel = 'OPD डॉक्टर्स फी & कन्सलटेशन';
+    } else if (serviceType === 'pathology') {
+      discountPercent = 30;
+      serviceLabel = 'पॅथॉलॉजी लॅब व ब्लड टेस्ट्स';
+    } else if (serviceType === 'dental_eye') {
+      discountPercent = 20;
+      serviceLabel = 'नेत्ररोग & दंत तपासणी';
+    }
+
+    const savedAmount = Math.round((amount * discountPercent) / 100);
+    const finalAmount = amount - savedAmount;
+
+    resultBox.innerHTML = `
+      <div style="background: linear-gradient(135deg, #F0EBFF 0%, #E2D9FF 100%); border: 2px solid var(--primary); padding: 20px; border-radius: var(--radius-md); text-align: center;">
+        <span style="font-size: 0.8rem; font-weight: 800; background: var(--primary); color: #fff; padding: 3px 12px; border-radius: 999px;"><i class="fas fa-calculator"></i> अंदाजित बचत गणित (${serviceLabel})</span>
+        <div style="font-size: 1.8rem; font-weight: 800; color: #27AE60; margin: 12px 0 4px 0;">
+          <i class="fas fa-piggy-bank"></i> ₹${savedAmount.toLocaleString('en-IN')} ची थेट बचत!
+        </div>
+        <p style="font-size: 0.92rem; color: var(--text-dark); margin: 0;">
+          मूलभूत बिल: <s>₹${amount.toLocaleString('en-IN')}</s> | <strong>कार्डधारकांना भरावयाची रक्कम: ₹${finalAmount.toLocaleString('en-IN')}</strong> (${discountPercent}% सवलतीसह)
+        </p>
+      </div>
+    `;
+  });
+}
+
+/* --- Live Digital Health Card Real-Time Preview Generator --- */
+function initLiveCardPreview() {
+  const nameInput = document.getElementById('cardHolderName');
+  const phoneInput = document.getElementById('cardHolderPhone');
+  const membersSelect = document.getElementById('cardFamilyMembersCount');
+  const addressInput = document.getElementById('cardHolderAddress');
+  const resultWrapper = document.getElementById('digitalCardResultWrapper');
+  const applyForm = document.getElementById('healthCardApplyForm');
+
+  if (!resultWrapper) return;
+
+  function updateLiveCard() {
+    const name = nameInput?.value.trim() || 'श्री. / श्रीमती. (तुमचे नाव)';
+    const phone = phoneInput?.value.trim() || '98XXXXXXXX';
+    const members = membersSelect?.value || '4';
+    const address = addressInput?.value.trim() || 'जिल्हा संभाजीनगर / जळगाव';
+    const regNo = 'CSM-2026-' + (phone.length >= 4 ? phone.slice(-4) : '7890');
+
+    resultWrapper.innerHTML = `
+      <div class="live-digital-card" style="width: 100%; max-width: 360px; background: linear-gradient(135deg, #1E2432 0%, #4A2BC4 100%); color: #ffffff; border-radius: 16px; padding: 20px; box-shadow: var(--shadow-lg); position: relative; overflow: hidden; border: 2px solid #8E6CFF;">
+        <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 10px; margin-bottom: 12px;">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <img src="assets/images/logo.png" alt="Logo" style="height: 32px; width: 32px; object-fit: contain;">
+            <div>
+              <h5 style="font-size: 0.78rem; margin: 0; color: #EDE7FF; font-weight: 800;">छत्रपती शाहू महाराज</h5>
+              <span style="font-size: 0.65rem; color: rgba(255,255,255,0.75);">बहुउद्देशीय संस्था (Reg. 699)</span>
+            </div>
+          </div>
+          <span style="background: #27AE60; color: #fff; font-size: 0.65rem; font-weight: 800; padding: 2px 8px; border-radius: 999px;">अधिकृत हेल्थ कार्ड</span>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+          <div>
+            <span style="font-size: 0.68rem; color: rgba(255,255,255,0.7);">कार्डधारक नाव:</span>
+            <h4 style="font-size: 0.98rem; font-weight: 800; color: #ffffff; margin: 0;">${name}</h4>
+            <span style="font-size: 0.72rem; color: #8E6CFF; font-weight: 700;">Reg ID: ${regNo}</span>
+          </div>
+          <div style="width: 44px; height: 44px; background: #ffffff; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #1E2432; font-size: 1.4rem;">
+            <i class="fas fa-qrcode"></i>
+          </div>
+        </div>
+
+        <div style="font-size: 0.75rem; color: rgba(255,255,255,0.85); display: flex; flex-direction: column; gap: 4px; border-top: 1px dashed rgba(255,255,255,0.2); padding-top: 8px;">
+          <div><i class="fas fa-phone-alt" style="color:#8E6CFF;"></i> संपर्क: <strong>${phone}</strong> | सदस्य: <strong>${members} जण</strong></div>
+          <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><i class="fas fa-map-marker-alt" style="color:#8E6CFF;"></i> ${address}</div>
+          <div style="font-size: 0.68rem; color: #27AE60; font-weight: 700; margin-top: 4px;"><i class="fas fa-calendar-check"></i> वैधता: ३१ मार्च २०२७ पर्यंत (१ वर्ष वैध)</div>
+        </div>
+      </div>
+
+      <div style="margin-top: 15px; display: flex; gap: 10px; flex-wrap: wrap; width: 100%; justify-content: center;">
+        <a href="https://wa.me/918007474503?text=नमस्कार!%20मी%20फॅमिली%20हेल्थ%20कार्डसाठी%20अर्ज%20केला%20आहे.%20नाव:%20${encodeURIComponent(name)}%20मोबाईल:%20${encodeURIComponent(phone)}" target="_blank" class="btn btn-sm" style="background: #25D366; color: #ffffff; font-weight: 700; border: none;">
+          <i class="fab fa-whatsapp"></i> व्हॉट्सॲपवर पाठवा
+        </a>
+      </div>
+    `;
+  }
+
+  nameInput?.addEventListener('input', updateLiveCard);
+  phoneInput?.addEventListener('input', updateLiveCard);
+  membersSelect?.addEventListener('change', updateLiveCard);
+  addressInput?.addEventListener('input', updateLiveCard);
+
+  applyForm?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    updateLiveCard();
+    alert('आपले फॅमिली हेल्थ कार्ड प्रिव्ह्यू यशस्वीरीत्या तयार झाले आहे! संस्था प्रतिनिधी लवकरच संपर्क करतील.');
+  });
+}
+
+

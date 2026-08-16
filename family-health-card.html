@@ -51,7 +51,13 @@
           <span>Chh. Sambhajinagar & Jalgaon, Maharashtra</span>
         </div>
       </div>
-      <div style="display: flex; align-items: center; gap: 15px;">
+      <div style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
+        <div class="font-resizer-group" style="display: flex; align-items: center; gap: 4px; font-size: 0.82rem; background: rgba(255,255,255,0.15); padding: 2px 10px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.25);">
+          <span style="font-weight:700; color:#fff; font-size:0.78rem;">अक्षरांचा आकार:</span>
+          <button class="font-size-btn" data-size="15" title="लहान" style="background:transparent; border:none; color:#fff; cursor:pointer; font-weight:700; padding:1px 4px;">अ-</button>
+          <button class="font-size-btn active" data-size="16" title="सामान्य" style="background:rgba(255,255,255,0.25); border:none; color:#fff; cursor:pointer; font-weight:700; border-radius:4px; padding:1px 4px;">अ</button>
+          <button class="font-size-btn" data-size="18" title="मोठा" style="background:transparent; border:none; color:#fff; cursor:pointer; font-weight:700; padding:1px 4px;">अ+</button>
+        </div>
         <div class="top-info-item">
           <i class="fas fa-clock"></i>
           <span>सोम - शनि: 9:00 AM - 6:00 PM</span>
@@ -147,16 +153,34 @@
         <span class="section-badge">आरोग्य योजना</span>
         <h2 class="section-title" style="margin-top: 10px;">फॅमिली हेल्थ कार्डचे महत्त्व व फायदे</h2>
         <p style="font-size: 1.05rem; line-height: 1.8; color: var(--text-muted);">
-          छत्रपती शाहू महाराज बहुउद्देशीय संस्थेचे फॅमिली हेल्थ कार्ड म्हणजे तुमच्या संपूर्ण कुटुंबासाठी आरोग्य रक्षणाची हमी. या कार्डद्वारे नोंदणीकृत सदस्यांना संलग्न हॉस्पिटल्स, पॅथॉलॉजी लॅब्स आणि औषध दुकानांवर भरघोस सवलत मिळते.
-        </p>
-
-        <div style="margin: 25px 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px;">
-          <div class="about-feature-item" style="font-size: 1rem;"><i class="fas fa-check-circle" style="color: var(--primary);"></i> <strong>हॉस्पिटल आयपीडी (IPD) उपचारांवर २०% ते ५०% सवलत</strong></div>
-          <div class="about-feature-item" style="font-size: 1rem;"><i class="fas fa-check-circle" style="color: var(--primary);"></i> <strong>ओपीडी (OPD) व तज्ज्ञ डॉक्टर सल्ल्यावर २०% ते ३०% सवलत</strong></div>
-          <div class="about-feature-item" style="font-size: 1rem;"><i class="fas fa-check-circle" style="color: var(--primary);"></i> <strong>रक्त व लॅब चाचण्यांवर २०% ते ४०% सवलत</strong></div>
-          <div class="about-feature-item" style="font-size: 1rem;"><i class="fas fa-check-circle" style="color: var(--primary);"></i> <strong>औषधांच्या खरेदीवर विशेष सवलती</strong></div>
-          <div class="about-feature-item" style="font-size: 1rem;"><i class="fas fa-check-circle" style="color: var(--primary);"></i> <strong>मोफत रुग्णवाहिका मार्गदर्शन व मदत</strong></div>
+          छत्रपती शाहू महाराज बहुउद्देशीय संस्थेचे फॅमिली हेल्थ कार्ड म्हणजे तुमच्या संपूर्ण कुटुंबासाठी आरोग्य रक्षणाची हमी.       <!-- Hospital Bill Savings Calculator Card -->
+      <div class="card glass-card" style="padding: 30px 25px; margin-bottom: 40px; border-radius: var(--radius-md); background: linear-gradient(180deg, #F0EBFF 0%, #FFFFFF 100%); border: 1px solid var(--border-color);">
+        <div style="text-align: center; margin-bottom: 20px;">
+          <span class="section-badge" style="background: var(--primary-light); color: var(--primary);"><i class="fas fa-calculator"></i> बचत गणित कॅल्क्युलेटर</span>
+          <h3 style="font-size: 1.35rem; font-weight: 800; color: var(--text-dark); margin-top: 8px;">फॅमिली हेल्थ कार्डद्वारे होणारी बचत तपासा</h3>
+          <p style="color: var(--text-muted); font-size: 0.9rem;">तुमच्या अंदाजित वैद्यकीय बिलावर संस्था कार्डमुळे किती थेट रुपयांची बचत होईल ते खाली शोधा:</p>
         </div>
+
+        <div style="display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; align-items: center; max-width: 800px; margin: 0 auto 15px auto;">
+          <div style="flex: 1; min-width: 200px;">
+            <label style="font-weight: 700; font-size: 0.85rem; display: block; margin-bottom: 4px; color: var(--text-dark);">अंदाजित हॉस्पिटल बिल (रुपये):</label>
+            <input type="number" id="calcBillAmount" placeholder="उदा. 25000" style="width: 100%; padding: 10px 14px; border-radius: var(--radius-sm); border: 1px solid var(--border-color); font-size: 0.95rem; outline: none; background: #fff;">
+          </div>
+          <div style="flex: 1; min-width: 220px;">
+            <label style="font-weight: 700; font-size: 0.85rem; display: block; margin-bottom: 4px; color: var(--text-dark);">वैद्यकीय सेवेचा प्रकार:</label>
+            <select id="calcServiceType" style="width: 100%; padding: 10px 14px; border-radius: var(--radius-sm); border: 1px solid var(--border-color); font-size: 0.95rem; outline: none; background: #fff;">
+              <option value="ipd">हॉस्पिटल IPD उपचार व शस्त्रक्रिया (२५% सवलत)</option>
+              <option value="opd">OPD डॉक्टर्स फी & कन्सलटेशन (२०% सवलत)</option>
+              <option value="pathology">पॅथॉलॉजी लॅब व ब्लड टेस्ट्स (३०% सवलत)</option>
+              <option value="dental_eye">नेत्ररोग & दंत तपासणी (२०% सवलत)</option>
+            </select>
+          </div>
+          <button id="calculateSavingsBtn" class="btn btn-primary" style="margin-top: 18px; padding: 11px 22px;">
+            <i class="fas fa-coins"></i> बचत मोजा
+          </button>
+        </div>
+
+        <div id="calcResultContainer" style="max-width: 800px; margin: 0 auto;"></div>
       </div>
 
       <!-- Interactive Digital Health Card Generator Section -->
@@ -276,6 +300,76 @@
         <!-- Large Card Image 2 (Back Page & Rules) -->
         <div class="card card-hover" style="padding: 20px; border-radius: var(--radius-md); width: 100%; text-align: center; box-shadow: var(--shadow-lg);">
           <img src="assets/images/docs/official_permission_letter_2.jpg" alt="Family Health Card Rules and Info - छत्रपती शाहू महाराज बहुउद्देशीय संस्था" style="border-radius: 12px; width: 100%; height: auto; max-height: 950px; object-fit: contain; cursor: zoom-in; border: 1px solid var(--border-color);">
+          <h3 style="margin-top: 15px; font-size: 1.25rem; color: var(--text-dark);"><i class="fas fa-search-plus" style="color: var(--primary);"></i> फॅमिली हेल्थ कार्ड नियम व सविस्तर माहिती (मोठ्या आकारात पाहण्यासाठी क्लिक करा)</h3>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo-brand">
+            <img src="assets/images/logo.png" alt="छत्रपती शाहू महाराज बहुउद्देशीय संस्था" class="site-logo-img" style="height: 44px; width: 44px; max-height: 44px; object-fit: contain; flex-shrink: 0;">
+            <div class="logo-text-group">
+              <span class="logo-title">छत्रपती शाहू महाराज</span>
+              <span class="logo-subtitle">बहुउद्देशीय संस्था (Reg. 699/MH F 5559)</span>
+            </div>
+          </a>
+          <p>समाजातील सर्व घटकांच्या सर्वांगीण विकासासाठी व वैद्यकीय मदतीसाठी अविरत कार्यरत असलेली अधिकृत संस्था.</p>
+        </div>
+
+        <div>
+          <h4 class="footer-title">Navigation Links</h4>
+          <div class="footer-links">
+            <a href="index.html" class="footer-link"><i class="fas fa-chevron-right"></i> Home</a>
+            <a href="hospitals.html" class="footer-link"><i class="fas fa-chevron-right"></i> Our Hospitals</a>
+            <a href="camps-photos.html" class="footer-link"><i class="fas fa-chevron-right"></i> Camps Photos</a>
+            <a href="family-health-card.html" class="footer-link"><i class="fas fa-chevron-right"></i> Family Health Card</a>
+            <a href="our-officers.html" class="footer-link"><i class="fas fa-chevron-right"></i> Our Officers</a>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="footer-title">More Options</h4>
+          <div class="footer-links">
+            <a href="doctors.html" class="footer-link"><i class="fas fa-chevron-right"></i> Doctors</a>
+            <a href="documents.html" class="footer-link"><i class="fas fa-chevron-right"></i> Documents</a>
+            <a href="find.html" class="footer-link"><i class="fas fa-chevron-right"></i> Find</a>
+            <a href="news.html" class="footer-link"><i class="fas fa-chevron-right"></i> News</a>
+            <a href="miscellaneous.html" class="footer-link"><i class="fas fa-chevron-right"></i> Miscellaneous</a>
+            <a href="contact.html" class="footer-link"><i class="fas fa-chevron-right"></i> Address & Contact</a>
+            </div>
+        </div>
+
+        <div>
+          <h4 class="footer-title">मुख्य कार्यालय (Head Office)</h4>
+          <div style="font-size: 0.92rem; line-height: 1.8;">
+            <p><i class="fas fa-map-marker-alt" style="color: var(--accent);"></i> मयूर पार्क, जळगाव रोड, छत्रपती संभाजीनगर - 431003</p>
+            <p><i class="fas fa-phone-alt" style="color: var(--accent);"></i> +91 9021757353</p>
+            <p><i class="fas fa-envelope" style="color: var(--accent);"></i> akasharke9@gmail.com</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.1);">
+        <span>© 2026 छत्रपती शाहू महाराज बहुउद्देशीय संस्था. सर्व हक्क सुरक्षित. (Reg No 699/MH F 5559)</span>
+        <span class="visitor-counter-badge" style="background: rgba(255,255,255,0.12); padding: 4px 14px; border-radius: 999px; font-size: 0.85rem; color: #ffffff; display: inline-flex; align-items: center; gap: 6px; border: 1px solid rgba(255,255,255,0.2);"><i class="fas fa-eye" style="color: var(--secondary);"></i> एकूण भेट: <strong id="visitorCountNum" style="color: var(--secondary);">0</strong></span>
+        <span style="font-size: 0.88rem; color: rgba(255,255,255,0.85);">Developed by <a href="https://www.yugvextechsolutions.site/" target="_blank" rel="noopener noreferrer" style="color: var(--secondary); text-decoration: none;"><strong style="color: var(--secondary);">Yugvex Tech Solutions, Pune</strong></a> | Contact: <strong style="color: var(--secondary);">+91 7219290885</strong></span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript Files -->
+  <script src="js/security.js"></script>
+  <script src="js/main.js"></script>
+</body>
+
+</html>�उद्देशीय संस्था" style="border-radius: 12px; width: 100%; height: auto; max-height: 950px; object-fit: contain; cursor: zoom-in; border: 1px solid var(--border-color);">
           <h3 style="margin-top: 15px; font-size: 1.25rem; color: var(--text-dark);"><i class="fas fa-search-plus" style="color: var(--primary);"></i> फॅमिली हेल्थ कार्ड नियम व सविस्तर माहिती (मोठ्या आकारात पाहण्यासाठी क्लिक करा)</h3>
         </div>
 

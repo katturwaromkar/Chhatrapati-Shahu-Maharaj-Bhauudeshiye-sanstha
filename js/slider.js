@@ -69,6 +69,34 @@ function initHeroSlider() {
   if (nextBtn) nextBtn.addEventListener('click', () => { nextSlide(); resetTimer(); });
   if (prevBtn) prevBtn.addEventListener('click', () => { prevSlide(); resetTimer(); });
 
+  // Touch Swipe Gesture Support for Mobile Devices
+  const heroSection = document.querySelector('.hero-section');
+  if (heroSection) {
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    heroSection.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    heroSection.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    }, { passive: true });
+
+    function handleSwipe() {
+      const swipeDistance = touchEndX - touchStartX;
+      if (Math.abs(swipeDistance) > 45) {
+        if (swipeDistance < 0) {
+          nextSlide();
+        } else {
+          prevSlide();
+        }
+        resetTimer();
+      }
+    }
+  }
+
   startTimer();
 }
 

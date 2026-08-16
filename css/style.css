@@ -2715,5 +2715,171 @@ textarea.form-control {
   line-height: 1.3 !important;
 }
 
+/* --- Live Pulse Badge & Hero Floating Pills --- */
+.live-pulse-badge {
+  background: rgba(16, 185, 129, 0.2) !important;
+  color: #10B981 !important;
+  border: 1px solid rgba(16, 185, 129, 0.4) !important;
+  padding: 4px 14px !important;
+  border-radius: 999px !important;
+  font-weight: 700 !important;
+  font-size: 0.82rem !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  backdrop-filter: blur(8px) !important;
+}
+
+.pulse-dot {
+  width: 8px !important;
+  height: 8px !important;
+  background-color: #10B981 !important;
+  border-radius: 50% !important;
+  box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7) !important;
+  animation: pulse-ring 1.8s infinite !important;
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 8px rgba(16, 185, 129, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+  }
+}
+
+.floating-pill {
+  background: rgba(255, 255, 255, 0.18) !important;
+  backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.35) !important;
+  color: #ffffff !important;
+  padding: 6px 14px !important;
+  border-radius: 999px !important;
+  font-size: 0.85rem !important;
+  font-weight: 600 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+  transition: transform 0.3s ease !important;
+}
+
+.floating-pill:hover {
+  transform: translateY(-2px) !important;
+  background: rgba(255, 255, 255, 0.28) !important;
+}
+
+/* --- FAQ Accordion Active States --- */
+.faq-item.active {
+  background: #FFFFFF !important;
+  border-color: var(--primary) !important;
+  box-shadow: var(--shadow-md) !important;
+}
+
+.faq-item.active .faq-icon {
+  transform: rotate(180deg) !important;
+}
+
+/* --- Camps Card Hover Effects --- */
+.camp-card:hover {
+  transform: translateY(-6px) !important;
+  box-shadow: 0 14px 32px rgba(111, 75, 255, 0.14) !important;
+}
+
+/* --- UI/UX Enhancements & Visitor Counter Styling --- */
+.visitor-counter-badge {
+  background: rgba(255, 255, 255, 0.12);
+  padding: 5px 16px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.visitor-counter-badge:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.35);
+  transform: translateY(-1px);
+}
+
+.font-resizer-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(255, 255, 255, 0.15);
+  padding: 2px 6px;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.font-size-btn {
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 0.8rem;
+  padding: 2px 7px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.font-size-btn:hover,
+.font-size-btn.active {
+  background: #ffffff;
+  color: var(--primary);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.savings-calculator-box {
+  background: #ffffff;
+  border: 2px solid var(--primary-light);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  box-shadow: var(--shadow-md);
+  transition: border-color 0.3s ease;
+}
+
+.savings-calculator-box:hover {
+  border-color: var(--primary);
+}
+
+.filter-btn-pill {
+  padding: 8px 18px;
+  border-radius: var(--radius-pill);
+  font-size: 0.88rem;
+  font-weight: 600;
+  border: 1px solid var(--border-color);
+  background: #ffffff;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.filter-btn-pill:hover,
+.filter-btn-pill.active {
+  background: var(--gradient-primary);
+  color: #ffffff;
+  border-color: transparent;
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-1px);
+}
+
+
+
 
 
