@@ -128,7 +128,7 @@ function renderDigitalCardPreview(data) {
   const previewContainer = document.getElementById('digitalCardResultWrapper');
   if (!previewContainer) return;
 
-  const currentOrigin = window.location.origin && window.location.origin !== 'null' && !window.location.origin.includes('file://') ? window.location.origin : 'https://chhatrapati-shahu-maharaj-bhauudesh.vercel.app';
+  const currentOrigin = window.location.origin && window.location.origin !== 'null' && !window.location.origin.includes('file://') ? window.location.origin : 'https://chatrpatishahumaharajbahuuddeshiyasanstha.in';
   const verifyUrl = `${currentOrigin}/family-health-card.html?verify=${encodeURIComponent(data.cardId)}`;
   const qrCodeImgSrc = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(verifyUrl)}&color=1E2432&bgcolor=FFFFFF`;
 

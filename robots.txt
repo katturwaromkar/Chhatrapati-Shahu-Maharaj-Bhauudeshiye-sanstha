@@ -5,4 +5,4 @@ Disallow: /api/
 Disallow: /private/
 Disallow: /*.json$
 
-Sitemap: https://chhatrapati-shahu-maharaj-bhauudesh.vercel.app/sitemap.xml
+Sitemap: https://chatrpatishahumaharajbahuuddeshiyasanstha.in/sitemap.xml
