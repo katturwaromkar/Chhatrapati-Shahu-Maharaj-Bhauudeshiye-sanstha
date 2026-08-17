@@ -372,10 +372,37 @@
     gap: 1.25rem !important;
   }
 
-  .news-album-img, .misc-album-img, .doctor-album-img, .gallery-item img, .doc-card img {
-    height: 250px !important;
+  /* Mobile Image Cards Height Adjustment for All Mobile Brands & Models (Except Home Page) */
+  body:not(.home-page) .news-album-img,
+  body:not(.home-page) .misc-album-img,
+  body:not(.home-page) .doctor-album-img,
+  body:not(.home-page) .gallery-item img,
+  body:not(.home-page) .camps-gallery-grid img,
+  body:not(.home-page) .camps-gallery-grid .gallery-item img,
+  body:not(.home-page) .doc-card img,
+  body:not(.home-page) .doc-preview-img,
+  body:not(.home-page) .activity-thumb,
+  body:not(.home-page) .activity-thumb img,
+  body:not(.home-page) .project-thumb,
+  body:not(.home-page) .project-thumb img,
+  body:not(.home-page) .project-card img,
+  body:not(.home-page) .card-hover img,
+  body:not(.home-page) .gallery-item > div > img {
+    height: 380px !important;
+    max-height: 440px !important;
     object-fit: cover !important;
     object-position: top center !important;
+  }
+
+  body:not(.home-page) .gallery-item {
+    height: auto !important;
+    min-height: 380px !important;
+  }
+
+  body:not(.home-page) .news-album-img-wrap,
+  body:not(.home-page) .misc-album-img-wrap,
+  body:not(.home-page) .doctor-album-img-wrap {
+    height: 380px !important;
   }
 
   .notice-card {
@@ -438,9 +465,42 @@
   }
 
   .about-img-main {
-    height: 280px !important;
+    height: 340px !important;
     object-fit: cover;
     object-position: top center;
+  }
+
+  /* Mobile Image Cards Height Adjustment for Small Mobile Devices (Except Home Page) */
+  body:not(.home-page) .news-album-img,
+  body:not(.home-page) .misc-album-img,
+  body:not(.home-page) .doctor-album-img,
+  body:not(.home-page) .gallery-item img,
+  body:not(.home-page) .camps-gallery-grid img,
+  body:not(.home-page) .camps-gallery-grid .gallery-item img,
+  body:not(.home-page) .doc-card img,
+  body:not(.home-page) .doc-preview-img,
+  body:not(.home-page) .activity-thumb,
+  body:not(.home-page) .activity-thumb img,
+  body:not(.home-page) .project-thumb,
+  body:not(.home-page) .project-thumb img,
+  body:not(.home-page) .project-card img,
+  body:not(.home-page) .card-hover img,
+  body:not(.home-page) .gallery-item > div > img {
+    height: 360px !important;
+    max-height: 400px !important;
+    object-fit: cover !important;
+    object-position: top center !important;
+  }
+
+  body:not(.home-page) .gallery-item {
+    height: auto !important;
+    min-height: 360px !important;
+  }
+
+  body:not(.home-page) .news-album-img-wrap,
+  body:not(.home-page) .misc-album-img-wrap,
+  body:not(.home-page) .doctor-album-img-wrap {
+    height: 360px !important;
   }
 
   .hero-actions {
