@@ -718,7 +718,7 @@ function initPatientTable() {
             <button class="btn btn-sm btn-warning" onclick="openEditPatientModal('${p.regId}')" title="माहिती संपादन करा (Edit Data)" style="padding: 4px 10px; font-size: 0.8rem; background: #ff9800; color: #fff; border: none; border-radius: 6px; font-weight: 700;">
               <i class="fas fa-edit"></i> एडिट
             </button>
-            <button class="btn btn-sm btn-danger" onclick="promptDeletePatient('${p.regId}')" title="डेटा डिलीट करा (Security PIN रिक्वायर्ड)" style="padding: 4px 10px; font-size: 0.8rem; background: #dc3545; color: #fff; border: none; border-radius: 6px; font-weight: 700;">
+            <button class="btn btn-sm btn-danger" onclick="promptDeletePatient('${p.regId}')" title="डेटा डिलीट करा (Registration ID PIN रिक्वायर्ड)" style="padding: 4px 10px; font-size: 0.8rem; background: #dc3545; color: #fff; border: none; border-radius: 6px; font-weight: 700;">
               <i class="fas fa-trash-alt"></i> डिलीट
             </button>
             <button class="btn btn-sm btn-secondary" onclick="downloadFilledPatientForm('${p.regId}')" title="भरलेला फॉर्म डाउनलोड करा" style="padding: 4px 10px; font-size: 0.8rem; background: #28a745; color: #fff; border: none; border-radius: 6px; font-weight: 700;">
@@ -816,18 +816,18 @@ window.promptDeletePatient = function(regId) {
   }
 
   modal.innerHTML = `
-    <div class="modal-card" style="max-width: 480px; width: 95%; text-align: center; border-top: 5px solid #dc3545;">
+    <div class="modal-card" style="max-width: 500px; width: 95%; text-align: center; border-top: 5px solid #dc3545;">
       <div style="width: 56px; height: 56px; background: #ffebee; color: #dc3545; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; margin: 0 auto 14px;">
         <i class="fas fa-lock"></i>
       </div>
-      <h3 style="color: #dc3545; margin: 0 0 6px;">सुरक्षा पिन आवश्यक (Security PIN Required)</h3>
-      <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 20px;">
-        रुग्ण नोंदणी (<strong style="color:var(--primary);">${regId}</strong>) कायमची डिलीट करण्यासाठी अधिकृत सुरक्षा पिन प्रविष्ट करा.
+      <h3 style="color: #dc3545; margin: 0 0 6px;">सुरक्षा पिन आवश्यक (Registration ID Required)</h3>
+      <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px;">
+        रुग्णाचा डेटा डिलीट करण्यासाठी पिन म्हणून रुग्णाचा <strong>नोंदणी क्रमांक (<span style="color:var(--primary); font-weight:800;">${regId}</span>)</strong> प्रविष्ट करा.
       </p>
 
       <form onsubmit="confirmDeleteWithPin(event)" style="display: flex; flex-direction: column; gap: 15px;">
         <div>
-          <input type="password" id="deletePinInput" class="form-control" placeholder="सुरक्षा पिन टाका..." required autocomplete="off" style="width: 100%; padding: 14px; font-size: 1.1rem; border-radius: 8px; border: 2px solid #dc3545; text-align: center; letter-spacing: 2px; box-sizing: border-box;">
+          <input type="text" id="deletePinInput" class="form-control" placeholder="उदा. ${regId}" required autocomplete="off" style="width: 100%; padding: 14px; font-size: 1.05rem; border-radius: 8px; border: 2px solid #dc3545; text-align: center; letter-spacing: 1px; box-sizing: border-box;">
         </div>
 
         <div style="display: flex; justify-content: center; gap: 12px; margin-top: 5px;">
@@ -858,7 +858,13 @@ window.confirmDeleteWithPin = function(e) {
 
   const inputPin = document.getElementById('deletePinInput')?.value.trim();
 
-  if (inputPin === SECURITY_DELETE_PIN) {
+  // Patient Registration ID is the Delete PIN for deleting the registered patient's data
+  if (
+    inputPin && (
+      inputPin.toUpperCase() === pendingDeleteRegId.toUpperCase() ||
+      inputPin === SECURITY_DELETE_PIN
+    )
+  ) {
     const patients = getStoredPatients();
     const updatedList = patients.filter(p => p.regId !== pendingDeleteRegId);
     savePatients(updatedList);
@@ -872,7 +878,7 @@ window.confirmDeleteWithPin = function(e) {
 
     showToast(`रुग्ण नोंदणी (${deletedId}) सिस्टीममधून कायमची डिलीट झाली!`, 'success');
   } else {
-    showToast('चुकीचा सुरक्षा पिन! डिलीट करण्याची परवानगी नाकारली.', 'error');
+    showToast(`चुकीचा पिन! डिलीट करण्यासाठी रुग्णाचा नोंदणी क्रमांक (${pendingDeleteRegId}) टाका.`, 'error');
     const input = document.getElementById('deletePinInput');
     if (input) {
       input.value = '';
