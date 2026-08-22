@@ -4,13 +4,17 @@
    Cross-Device Shared Patient Database API (For Hostinger / Cloud Hosting)
    ========================================================================== */
 
+// Unrestricted CORS headers for multi-device & mobile access
 header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With");
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS, DELETE");
+header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With, Accept");
+header("Access-Control-Max-Age: 86400");
 header("Content-Type: application/json; charset=UTF-8");
 
+// Respond immediately to browser preflight CORS OPTIONS requests
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(200);
+    echo json_encode(["status" => "CORS_OK"]);
     exit();
 }
 
@@ -19,7 +23,7 @@ $dataFile = $dataDir . '/patients.json';
 
 // Ensure data directory exists
 if (!file_exists($dataDir)) {
-    mkdir($dataDir, 0777, true);
+    @mkdir($dataDir, 0777, true);
 }
 
 // Initial sample data if file does not exist
@@ -64,13 +68,17 @@ if (!file_exists($dataFile)) {
             "panPhoto" => null
         ]
     ];
-    file_put_contents($dataFile, json_encode($initialData, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+    @file_put_contents($dataFile, json_encode($initialData, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
 }
 
 // GET Request: Return all registered patients across all devices
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    $content = file_get_contents($dataFile);
-    echo $content ? $content : json_encode([]);
+    $content = @file_get_contents($dataFile);
+    if ($content) {
+        echo $content;
+    } else {
+        echo json_encode([]);
+    }
     exit();
 }
 
@@ -81,16 +89,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (!$inputData || !isset($inputData['regId'])) {
         http_response_code(400);
-        echo json_encode(["success" => false, "message" => "Invalid patient data"]);
+        echo json_encode(["success" => false, "message" => "Invalid patient data payload"]);
         exit();
     }
 
-    $existingPatients = json_decode(file_get_contents($dataFile), true) ?: [];
+    $existingPatients = json_decode(@file_get_contents($dataFile), true) ?: [];
 
     // Check if updating an existing patient or creating a new patient
     $existingIndex = -1;
     foreach ($existingPatients as $index => $p) {
-        if ($p['regId'] === $inputData['regId']) {
+        if (isset($p['regId']) && $p['regId'] === $inputData['regId']) {
             $existingIndex = $index;
             break;
         }
@@ -105,11 +113,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Save updated shared database
-    file_put_contents($dataFile, json_encode($existingPatients, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+    $saved = @file_put_contents($dataFile, json_encode($existingPatients, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
 
     echo json_encode([
-        "success" => true,
-        "message" => "Patient record saved to shared database",
+        "success" => ($saved !== false),
+        "message" => ($saved !== false) ? "Patient record saved to live cloud database" : "Failed to write data file",
         "patients" => $existingPatients
     ]);
     exit();
@@ -125,13 +133,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE' || (isset($_GET['action']) && $_GET[
     }
 
     if ($regId) {
-        $existingPatients = json_decode(file_get_contents($dataFile), true) ?: [];
+        $existingPatients = json_decode(@file_get_contents($dataFile), true) ?: [];
         $filtered = array_values(array_filter($existingPatients, function($p) use ($regId) {
-            return $p['regId'] !== $regId;
+            return isset($p['regId']) && $p['regId'] !== $regId;
         }));
-        file_put_contents($dataFile, json_encode($filtered, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+        @file_put_contents($dataFile, json_encode($filtered, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
         echo json_encode(["success" => true, "message" => "Patient record deleted successfully"]);
         exit();
     }
 }
+
 

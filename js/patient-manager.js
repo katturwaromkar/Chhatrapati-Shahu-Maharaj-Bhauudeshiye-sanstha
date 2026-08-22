@@ -39,11 +39,11 @@ document.addEventListener('DOMContentLoaded', () => {
   initPatientSearch();
   syncPatientsFromCloud(); // Initial cross-device sync on load
 
-  // Poll cloud database every 10 seconds so data added on any device displays to all users
-  setInterval(syncPatientsFromCloud, 10000);
+  // Poll cloud database every 4 seconds so data added on any device displays to all users
+  setInterval(syncPatientsFromCloud, 4000);
 });
 
-/* --- Pre-loaded Registered Patients Database --- */
+/* --- Pre-loaded Registered Patients Database & Storage Helpers --- */
 const initialSamplePatients = [
   {
     regId: "REG-PAT-2026-1001",
@@ -87,7 +87,6 @@ const initialSamplePatients = [
   }
 ];
 
-// Helper to safely get stored patients
 function getStoredPatients() {
   const data = localStorage.getItem('CSM_PATIENTS');
   if (!data) {
@@ -102,7 +101,6 @@ function getStoredPatients() {
   }
 }
 
-// Helper to save patients locally and mirror backup
 function savePatients(patients) {
   try {
     const jsonStr = JSON.stringify(patients);
@@ -113,57 +111,118 @@ function savePatients(patients) {
   }
 }
 
-let lastPatientHash = '';
-
-/* --- Cross-Device Cloud Sync Function --- */
-async function syncPatientsFromCloud() {
-  try {
-    const response = await fetch('api/patients.php', { method: 'GET', headers: { 'Accept': 'application/json' } });
-    if (response.ok) {
-      const cloudPatients = await response.json();
-      if (Array.isArray(cloudPatients)) {
-        const localPatients = getStoredPatients();
-        
-        const mergedMap = new Map();
-        localPatients.forEach(p => mergedMap.set(p.regId, p));
-        cloudPatients.forEach(p => mergedMap.set(p.regId, p));
-
-        const mergedList = Array.from(mergedMap.values());
-        savePatients(mergedList);
-        
-        const newHash = mergedList.length + '_' + (mergedList[0]?.regId || '');
-        if (newHash !== lastPatientHash) {
-          lastPatientHash = newHash;
-          initPatientTable();
+/* --- Image Compression Helper (Prevents HTTP 413 Payload Too Large) --- */
+function compressImageBase64(base64Str, maxWidth = 600, quality = 0.6) {
+  return new Promise((resolve) => {
+    if (!base64Str || !base64Str.startsWith('data:image')) {
+      resolve(base64Str);
+      return;
+    }
+    const img = new Image();
+    img.onload = () => {
+      let width = img.width;
+      let height = img.height;
+      if (width > maxWidth || height > maxWidth) {
+        if (width > height) {
+          height = Math.round((height * maxWidth) / width);
+          width = maxWidth;
+        } else {
+          width = Math.round((width * maxWidth) / height);
+          height = maxWidth;
         }
       }
+      const canvas = document.createElement('canvas');
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0, width, height);
+      resolve(canvas.toDataURL('image/jpeg', quality));
+    };
+    img.onerror = () => resolve(base64Str);
+    img.src = base64Str;
+  });
+}
+
+// Get candidate API endpoints (relative + live production endpoint for cross-domain/mobile access)
+function getApiEndpoints() {
+  const endpoints = ['api/patients.php'];
+  const prodUrl = 'https://chatrpatishahumaharajbahuuddeshiyasanstha.in/api/patients.php';
+  if (!window.location.href.includes('chatrpatishahumaharajbahuuddeshiyasanstha.in')) {
+    endpoints.push(prodUrl);
+  }
+  return endpoints;
+}
+
+let lastPatientHash = '';
+
+/* --- Robust Cross-Device Cloud Sync Function --- */
+async function syncPatientsFromCloud() {
+  const endpoints = getApiEndpoints();
+  for (const endpoint of endpoints) {
+    try {
+      const response = await fetch(endpoint, {
+        method: 'GET',
+        headers: { 'Accept': 'application/json' },
+        cache: 'no-store'
+      });
+
+      if (response.ok) {
+        const text = await response.text();
+        if (text.trim().startsWith('[') || text.trim().startsWith('{')) {
+          const cloudPatients = JSON.parse(text);
+          if (Array.isArray(cloudPatients)) {
+            const localPatients = getStoredPatients();
+            const mergedMap = new Map();
+
+            // Cloud records take precedence for live synchronization across devices
+            cloudPatients.forEach(p => { if (p && p.regId) mergedMap.set(p.regId, p); });
+            localPatients.forEach(p => { if (p && p.regId && !mergedMap.has(p.regId)) mergedMap.set(p.regId, p); });
+
+            const mergedList = Array.from(mergedMap.values());
+            savePatients(mergedList);
+
+            const newHash = mergedList.length + '_' + (mergedList[0]?.regId || '');
+            if (newHash !== lastPatientHash) {
+              lastPatientHash = newHash;
+              initPatientTable();
+            }
+            return; // Successful sync from working endpoint
+          }
+        }
+      }
+    } catch (err) {
+      console.warn(`Sync attempt failed for ${endpoint}:`, err);
     }
-  } catch (err) {
-    // Fallback: Continue operating seamlessly on local database if cloud server is offline
   }
 }
 
-// Post new or edited patient record to shared cloud database
+// Post new or edited patient record to shared cloud database across all candidate endpoints
 async function savePatientToCloudAPI(patientRecord) {
-  try {
-    await fetch('api/patients.php', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(patientRecord)
-    });
-  } catch (err) {
-    console.warn('Cloud API post fallback: ', err);
+  const endpoints = getApiEndpoints();
+  for (const endpoint of endpoints) {
+    try {
+      await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(patientRecord)
+      });
+    } catch (err) {
+      console.warn(`POST to ${endpoint} failed:`, err);
+    }
   }
 }
 
-// Delete patient record from shared cloud database
+// Delete patient record from shared cloud database across all candidate endpoints
 async function deletePatientFromCloudAPI(regId) {
-  try {
-    await fetch(`api/patients.php?action=delete&regId=${encodeURIComponent(regId)}`, {
-      method: 'DELETE'
-    });
-  } catch (err) {
-    console.warn('Cloud API delete fallback: ', err);
+  const endpoints = getApiEndpoints();
+  for (const endpoint of endpoints) {
+    try {
+      await fetch(`${endpoint}?action=delete&regId=${encodeURIComponent(regId)}`, {
+        method: 'DELETE'
+      });
+    } catch (err) {
+      console.warn(`DELETE to ${endpoint} failed:`, err);
+    }
   }
 }
 
@@ -181,15 +240,15 @@ function initPatientRegistration() {
   const form = document.getElementById('patientRegistrationForm');
   if (!form) return;
 
-  // Aadhaar File Upload Handler
+  // Aadhaar File Upload Handler with auto-compression
   const aadhaarFileInput = document.getElementById('aadhaarFile');
   if (aadhaarFileInput) {
     aadhaarFileInput.addEventListener('change', function(e) {
       const file = e.target.files[0];
       if (file) {
         const reader = new FileReader();
-        reader.onload = function(evt) {
-          currentAadhaarBase64 = evt.target.result;
+        reader.onload = async function(evt) {
+          currentAadhaarBase64 = await compressImageBase64(evt.target.result);
           displayImagePreview('aadhaarPreview', currentAadhaarBase64, 'आधार कार्ड फोटो जोडला');
         };
         reader.readAsDataURL(file);
@@ -197,7 +256,7 @@ function initPatientRegistration() {
     });
   }
 
-  // PAN File Upload Handler
+  // PAN File Upload Handler with auto-compression
   const panFileInput = document.getElementById('panFile');
   if (panFileInput) {
     panFileInput.addEventListener('change', function(e) {
