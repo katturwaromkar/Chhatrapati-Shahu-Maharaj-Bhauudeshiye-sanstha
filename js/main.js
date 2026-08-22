@@ -627,12 +627,13 @@ function initVisitorCounter() {
 
   const isNewSession = !sessionStorage.getItem('csms_session_counted');
 
-  // Candidate endpoints (relative + live production endpoint for cross-domain/mobile devices)
+  // Candidate endpoints (supports Vercel Serverless API + cPanel PHP backend + live production domain)
+  const actionParam = isNewSession ? '?action=hit' : '';
   const candidateEndpoints = [
-    isNewSession ? 'api/counter.php?action=hit' : 'api/counter.php',
-    isNewSession 
-      ? 'https://chatrpatishahumaharajbahuuddeshiyasanstha.in/api/counter.php?action=hit' 
-      : 'https://chatrpatishahumaharajbahuuddeshiyasanstha.in/api/counter.php'
+    `api/counter${actionParam}`,
+    `api/counter.js${actionParam}`,
+    `api/counter.php${actionParam}`,
+    `https://chatrpatishahumaharajbahuuddeshiyasanstha.in/api/counter.php${actionParam}`
   ];
 
   async function fetchRealtimeVisitorCount() {

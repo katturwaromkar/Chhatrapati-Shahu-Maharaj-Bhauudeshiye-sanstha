@@ -46,6 +46,26 @@ document.addEventListener('DOMContentLoaded', () => {
 /* --- Pre-loaded Registered Patients Database & Storage Helpers --- */
 const initialSamplePatients = [
   {
+    regId: "REG-PAT-2026-1609",
+    name: "Omkar Katturwar",
+    gender: "पुरुष",
+    age: "--",
+    phone: "7219290885",
+    emergencyPhone: "7219290885",
+    bloodGroup: "माहित नाही",
+    aadhaar: "माहित नाही",
+    rawAadhaar: "",
+    pan: "माहित नाही",
+    address: "Pune",
+    city: "Pune",
+    pincode: "",
+    notes: "सक्रिय रुग्ण नोंदणी",
+    regDate: "2026-08-22",
+    status: "सक्रिय (ACTIVE)",
+    aadhaarPhoto: null,
+    panPhoto: null
+  },
+  {
     regId: "REG-PAT-2026-1001",
     name: "रामेश्वर तुकाराम शिंदे (Rameshwar T. Shinde)",
     gender: "पुरुष",
@@ -95,7 +115,14 @@ function getStoredPatients() {
   }
   try {
     const parsed = JSON.parse(data);
-    return Array.isArray(parsed) ? parsed : initialSamplePatients;
+    if (!Array.isArray(parsed)) return initialSamplePatients;
+    // Ensure initial sample patients exist in stored data if missing
+    initialSamplePatients.forEach(initP => {
+      if (!parsed.some(p => p.regId === initP.regId)) {
+        parsed.push(initP);
+      }
+    });
+    return parsed;
   } catch (e) {
     return initialSamplePatients;
   }
@@ -143,9 +170,9 @@ function compressImageBase64(base64Str, maxWidth = 600, quality = 0.6) {
   });
 }
 
-// Get candidate API endpoints (relative + live production endpoint for cross-domain/mobile access)
+// Get candidate API endpoints (supports Vercel Serverless API + cPanel PHP backend + live production domain)
 function getApiEndpoints() {
-  const endpoints = ['api/patients.php'];
+  const endpoints = ['api/patients', 'api/patients.js', 'api/patients.php'];
   const prodUrl = 'https://chatrpatishahumaharajbahuuddeshiyasanstha.in/api/patients.php';
   if (!window.location.href.includes('chatrpatishahumaharajbahuuddeshiyasanstha.in')) {
     endpoints.push(prodUrl);
