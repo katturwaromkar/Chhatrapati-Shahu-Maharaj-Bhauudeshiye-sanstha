@@ -9,32 +9,31 @@
 
 /* --- CSS Variables / Design System Tokens --- */
 :root {
-  /* Color Palette - Official Institutional Social Trust Scheme */
-  --primary: #0F2C59;
-  --primary-hover: #0B2244;
-  --primary-light: #EBF2FA;
-  --secondary: #8B0000;
-  --secondary-hover: #700000;
-  --accent: #D97706;
-  --accent-light: #F59E0B;
+  /* Color Palette - Restored Original Scheme */
+  --primary: #6F4BFF;
+  --primary-hover: #5A35E6;
+  --primary-light: #F0EBFF;
+  --secondary: #EDE7FF;
+  --accent: #8E6CFF;
+  --accent-light: #A78BFF;
   --bg-white: #FFFFFF;
-  --bg-light: #F4F6F9;
+  --bg-light: #F8F7FC;
   --bg-card: #FFFFFF;
-  --text-dark: #0F172A;
-  --text-muted: #475569;
-  --text-light: #64748B;
-  --border-color: #E2E8F0;
-  --border-focus: #0F2C59;
-  --success: #16A34A;
-  --warning: #D97706;
-  --danger: #DC2626;
+  --text-dark: #1E2432;
+  --text-muted: #5B6475;
+  --text-light: #8C96A6;
+  --border-color: #E6E8F2;
+  --border-focus: #6F4BFF;
+  --success: #27AE60;
+  --warning: #F2994A;
+  --danger: #EB5757;
 
-  /* Gradients - Dignified Trust Gradients */
-  --gradient-primary: linear-gradient(135deg, #0F2C59 0%, #1E40AF 100%);
-  --gradient-hover: linear-gradient(135deg, #0B2244 0%, #1D4ED8 100%);
-  --gradient-maroon: linear-gradient(135deg, #8B0000 0%, #B91C1C 100%);
-  --gradient-subtle: linear-gradient(180deg, #F4F6F9 0%, #EBF2FA 100%);
-  --gradient-hero: linear-gradient(135deg, rgba(15, 44, 89, 0.92) 0%, rgba(11, 34, 68, 0.85) 100%);
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, #6F4BFF 0%, #8E6CFF 100%);
+  --gradient-hover: linear-gradient(135deg, #5A35E6 0%, #7C55FF 100%);
+  --gradient-subtle: linear-gradient(180deg, #F8F7FC 0%, #EDE7FF 100%);
+  --gradient-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.4) 100%);
+  --gradient-hero: linear-gradient(135deg, rgba(30, 36, 50, 0.85) 0%, rgba(111, 75, 255, 0.75) 100%);
 
   /* Typography */
   --font-heading: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
@@ -43,19 +42,19 @@
   /* Layout & Safe Areas */
   --container-width: 1280px;
   --section-padding: 70px;
-  --radius-sm: 6px;
-  --radius-md: 12px;
-  --radius-lg: 18px;
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
   --radius-pill: 999px;
   --safe-top: env(safe-area-inset-top, 0px);
   --safe-bottom: env(safe-area-inset-bottom, 0px);
   --safe-left: env(safe-area-inset-left, 0px);
   --safe-right: env(safe-area-inset-right, 0px);
 
-  /* Shadows - Clean Crisp Architectural Shadows */
-  --shadow-sm: 0 2px 8px rgba(15, 44, 89, 0.06);
-  --shadow-md: 0 6px 20px rgba(15, 44, 89, 0.08);
-  --shadow-lg: 0 12px 32px rgba(15, 44, 89, 0.12);
+  /* Shadows */
+  --shadow-sm: 0 4px 12px rgba(111, 75, 255, 0.05);
+  --shadow-md: 0 8px 24px rgba(30, 36, 50, 0.08);
+  --shadow-lg: 0 16px 36px rgba(111, 75, 255, 0.12);
 
   /* Transitions */
   --transition-fast: 0.2s ease;

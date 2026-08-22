@@ -92,16 +92,16 @@
   </div>
 
   <!-- Centered Main Brand Header -->
-  <header class="header-brand-centered" style="background: #ffffff; padding: 14px 0; border-bottom: 2px solid #0F2C59; text-align: center;">
+  <header class="header-brand-centered" style="background: #ffffff; padding: 14px 0; border-bottom: 2px solid var(--primary); text-align: center;">
     <div class="container" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;">
       <a href="index.html" style="display: flex; align-items: center; justify-content: center; gap: 14px; text-decoration: none; flex-wrap: wrap;">
         <img src="assets/images/logo.png" alt="छत्रपती शाहू महाराज बहुउद्देशीय संस्था" style="height: 52px; width: 52px; max-height: 52px; object-fit: contain; flex-shrink: 0; display: inline-block;">
-        <h1 style="font-family: 'Poppins', sans-serif; font-size: clamp(1.2rem, 4vw, 2.1rem); font-weight: 800; color: #0F2C59; margin: 0; line-height: 1.25; text-align: center; display: inline-block;">
+        <h1 style="font-family: 'Poppins', sans-serif; font-size: clamp(1.2rem, 4vw, 2.1rem); font-weight: 800; color: var(--text-dark); margin: 0; line-height: 1.25; text-align: center; display: inline-block;">
           छत्रपती शाहू महाराज बहुउद्देशीय संस्था
         </h1>
       </a>
-      <span class="official-reg-seal" style="background: #0F2C59; color: #ffffff; border: 1px solid #D97706; padding: 4px 18px; border-radius: 6px; font-weight: 700; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 8px;">
-        <i class="fas fa-landmark" style="color: #D97706;"></i> REG NO: 699(MH) F 5559 | महाराष्ट्र शासन नोंदणीकृत संस्था
+      <span class="official-reg-seal" style="background: var(--gradient-primary); color: #ffffff; padding: 4px 18px; border-radius: 999px; font-weight: 700; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 8px;">
+        <i class="fas fa-certificate"></i> REG NO: 699(MH) F 5559 | नोंदणीकृत सामाजिक संस्था
       </span>
     </div>
   </header>
@@ -258,17 +258,17 @@
   </section>
 
   <!-- Quick Hospital & Discount Search Widget Section -->
-  <section class="section-padding search-widget-section" style="background: #F4F6F9; padding: 50px 0 40px 0;">
+  <section class="section-padding search-widget-section" style="background: var(--bg-light); padding: 50px 0 40px 0;">
     <div class="container">
       <div class="search-widget-box reveal" style="background: #ffffff; border-radius: var(--radius-md); padding: 32px; box-shadow: var(--shadow-sm); border: 1px solid var(--border-color);">
         <div class="search-header text-center" style="text-align: center; margin-bottom: 24px;">
-          <h2 style="font-size: clamp(1.4rem, 3.5vw, 1.9rem); font-weight: 800; color: #0F2C59; margin-bottom: 8px;">आपल्या शहरातील संलग्न रुग्णालये व डॉक्टर्स शोधा</h2>
+          <h2 style="font-size: clamp(1.4rem, 3.5vw, 1.9rem); font-weight: 800; color: var(--text-dark); margin-bottom: 8px;">आपल्या शहरातील संलग्न रुग्णालये व डॉक्टर्स शोधा</h2>
           <p style="color: var(--text-muted); font-size: 0.95rem; max-width: 600px; margin: 0 auto;">संस्थेच्या फॅमिली हेल्थ कार्डद्वारे उपचार व वैद्यकीय चाचण्यांवर विशेष सवलत मिळवा</p>
         </div>
         
         <div class="search-form-row" style="display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; align-items: center; max-width: 900px; margin: 0 auto;">
           <div class="search-input-group" style="flex: 1; min-width: 220px; position: relative;">
-            <i class="fas fa-city" style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #0F2C59;"></i>
+            <i class="fas fa-city" style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--primary);"></i>
             <select id="quick-city-select" aria-label="Select City" style="width: 100%; padding: 12px 14px 12px 42px; border-radius: var(--radius-sm); border: 1px solid var(--border-color); font-size: 0.95rem; outline: none; background: #fff;">
               <option value="all">सर्व शहरे (All Cities)</option>
               <option value="sambhajinagar">छत्रपती संभाजीनगर</option>
@@ -277,7 +277,7 @@
             </select>
           </div>
           <div class="search-input-group" style="flex: 1; min-width: 220px; position: relative;">
-            <i class="fas fa-stethoscope" style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #0F2C59;"></i>
+            <i class="fas fa-stethoscope" style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--primary);"></i>
             <select id="quick-type-select" aria-label="Select Specialty" style="width: 100%; padding: 12px 14px 12px 42px; border-radius: var(--radius-sm); border: 1px solid var(--border-color); font-size: 0.95rem; outline: none; background: #fff;">
               <option value="all">सर्व वैद्यकीय सेवा (All Services)</option>
               <option value="multispeciality">मल्टीस्पेशालिटी हॉस्पिटल</option>
@@ -294,20 +294,20 @@
         <!-- Dynamic Results Container -->
         <div id="quick-search-results" class="quick-results-grid" style="margin-top: 25px; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px;">
           <!-- Default Featured Hospital Snippets -->
-          <div class="quick-hospital-card" style="background: #F4F6F9; border-radius: var(--radius-sm); padding: 16px; border: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 8px;">
-            <span style="font-size: 0.75rem; font-weight: 700; background: rgba(22, 163, 74, 0.12); color: #16A34A; padding: 2px 10px; border-radius: 4px; width: fit-content;"><i class="fas fa-check-circle"></i> २०% ते ५०% सवलत</span>
-            <h4 style="font-size: 1.05rem; font-weight: 700; color: #0F172A; margin: 0;">धूत हॉस्पिटल & रिसर्च सेंटर</h4>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;"><i class="fas fa-map-marker-alt" style="color: #0F2C59;"></i> जळगाव रोड, छत्रपती संभाजीनगर</p>
+          <div class="quick-hospital-card" style="background: var(--bg-light); border-radius: var(--radius-sm); padding: 16px; border: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 8px;">
+            <span style="font-size: 0.75rem; font-weight: 700; background: rgba(39, 174, 96, 0.12); color: #27AE60; padding: 2px 10px; border-radius: 4px; width: fit-content;"><i class="fas fa-check-circle"></i> २०% ते ५०% सवलत</span>
+            <h4 style="font-size: 1.05rem; font-weight: 700; color: var(--text-dark); margin: 0;">धूत हॉस्पिटल & रिसर्च सेंटर</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;"><i class="fas fa-map-marker-alt" style="color: var(--primary);"></i> जळगाव रोड, छत्रपती संभाजीनगर</p>
           </div>
-          <div class="quick-hospital-card" style="background: #F4F6F9; border-radius: var(--radius-sm); padding: 16px; border: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 8px;">
-            <span style="font-size: 0.75rem; font-weight: 700; background: rgba(22, 163, 74, 0.12); color: #16A34A; padding: 2px 10px; border-radius: 4px; width: fit-content;"><i class="fas fa-check-circle"></i> १५% ते ३०% सवलत</span>
-            <h4 style="font-size: 1.05rem; font-weight: 700; color: #0F172A; margin: 0;">कासलीवाल आय इन्स्टिट्यूट</h4>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;"><i class="fas fa-map-marker-alt" style="color: #0F2C59;"></i> सिडको एन-१, संभाजीनगर</p>
+          <div class="quick-hospital-card" style="background: var(--bg-light); border-radius: var(--radius-sm); padding: 16px; border: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 8px;">
+            <span style="font-size: 0.75rem; font-weight: 700; background: rgba(39, 174, 96, 0.12); color: #27AE60; padding: 2px 10px; border-radius: 4px; width: fit-content;"><i class="fas fa-check-circle"></i> १५% ते ३०% सवलत</span>
+            <h4 style="font-size: 1.05rem; font-weight: 700; color: var(--text-dark); margin: 0;">कासलीवाल आय इन्स्टिट्यूट</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;"><i class="fas fa-map-marker-alt" style="color: var(--primary);"></i> सिडको एन-१, संभाजीनगर</p>
           </div>
-          <div class="quick-hospital-card" style="background: #F4F6F9; border-radius: var(--radius-sm); padding: 16px; border: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 8px;">
-            <span style="font-size: 0.75rem; font-weight: 700; background: rgba(22, 163, 74, 0.12); color: #16A34A; padding: 2px 10px; border-radius: 4px; width: fit-content;"><i class="fas fa-check-circle"></i> २५% सवलत लॅब टेस्टवर</span>
-            <h4 style="font-size: 1.05rem; font-weight: 700; color: #0F172A; margin: 0;">मेट्रोपॉलिस पॅथॉलॉजी लॅब</h4>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;"><i class="fas fa-map-marker-alt" style="color: #0F2C59;"></i> जळगाव व संभाजीनगर</p>
+          <div class="quick-hospital-card" style="background: var(--bg-light); border-radius: var(--radius-sm); padding: 16px; border: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 8px;">
+            <span style="font-size: 0.75rem; font-weight: 700; background: rgba(39, 174, 96, 0.12); color: #27AE60; padding: 2px 10px; border-radius: 4px; width: fit-content;"><i class="fas fa-check-circle"></i> २५% सवलत लॅब टेस्टवर</span>
+            <h4 style="font-size: 1.05rem; font-weight: 700; color: var(--text-dark); margin: 0;">मेट्रोपॉलिस पॅथॉलॉजी लॅब</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;"><i class="fas fa-map-marker-alt" style="color: var(--primary);"></i> जळगाव व संभाजीनगर</p>
           </div>
         </div>
       </div>
@@ -315,7 +315,7 @@
   </section>
 
   <!-- Interactive Medical OPD & Surgery Savings Estimator Section -->
-  <section class="section-padding savings-calculator-section" style="background: #0F2C59; color: #ffffff; padding: 60px 0;">
+  <section class="section-padding savings-calculator-section" style="background: linear-gradient(135deg, #1E2432 0%, #2A324B 100%); color: #ffffff; padding: 60px 0;">
     <div class="container">
       <div class="section-title-wrap text-center" style="text-align: center; margin-bottom: 35px;">
         <h2 class="section-title" style="font-size: clamp(1.5rem, 4vw, 2.1rem); font-weight: 800; color: #ffffff;">हेल्थ कार्डद्वारे तुमची अंदाजित बचत तपासा</h2>
@@ -327,9 +327,9 @@
           <div class="calc-inputs" style="display: flex; flex-direction: column; gap: 20px;">
             <div>
               <label for="calcServiceType" style="font-weight: 700; font-size: 0.95rem; color: #ffffff; display: block; margin-bottom: 8px;">
-                <i class="fas fa-stethoscope" style="color: #D97706;"></i> वैद्यकीय सेवा प्रकार निवडा:
+                <i class="fas fa-stethoscope" style="color: var(--accent);"></i> वैद्यकीय सेवा प्रकार निवडा:
               </label>
-              <select id="calcServiceType" aria-label="Medical Service Type" style="width: 100%; padding: 12px 14px; border-radius: var(--radius-sm); border: 1px solid rgba(255, 255, 255, 0.25); background: #0B2244; color: #ffffff; font-size: 0.95rem; outline: none;">
+              <select id="calcServiceType" aria-label="Medical Service Type" style="width: 100%; padding: 12px 14px; border-radius: var(--radius-sm); border: 1px solid rgba(255, 255, 255, 0.25); background: #1E2432; color: #ffffff; font-size: 0.95rem; outline: none;">
                 <option value="opd" data-rate="20">ओपीडी डॉक्टर्स फी (२०% सवलत)</option>
                 <option value="lab" data-rate="25">पॅथॉलॉजी लॅब चाचण्या (२५% सवलत)</option>
                 <option value="eye" data-rate="30">नेत्र तपासणी व चष्मा (३०% सवलत)</option>
@@ -340,11 +340,11 @@
             <div>
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
                 <label for="calcBillAmount" style="font-weight: 700; font-size: 0.95rem; color: #ffffff; margin: 0;">
-                  <i class="fas fa-indian-rupee-sign" style="color: #16A34A;"></i> संभाव्य वैद्यकीय खर्च:
+                  <i class="fas fa-indian-rupee-sign" style="color: #27AE60;"></i> संभाव्य वैद्यकीय खर्च:
                 </label>
-                <span id="calcBillDisplay" style="font-weight: 800; font-size: 1.1rem; color: #4ADE80;">₹१०,०००</span>
+                <span id="calcBillDisplay" style="font-weight: 800; font-size: 1.1rem; color: #27AE60;">₹१०,०००</span>
               </div>
-              <input type="range" id="calcBillAmount" aria-label="Estimated Bill Amount" min="1000" max="100000" step="1000" value="10000" style="width: 100%; accent-color: #D97706; cursor: pointer;">
+              <input type="range" id="calcBillAmount" aria-label="Estimated Bill Amount" min="1000" max="100000" step="1000" value="10000" style="width: 100%; accent-color: var(--primary); cursor: pointer;">
               <div style="display: flex; justify-content: space-between; font-size: 0.78rem; color: rgba(255, 255, 255, 0.65); margin-top: 4px;">
                 <span>₹१,०००</span>
                 <span>₹५०,०००</span>
@@ -353,11 +353,11 @@
             </div>
           </div>
 
-          <div class="calc-results-box text-center" style="background: rgba(15, 23, 42, 0.5); border: 1px solid rgba(217, 119, 6, 0.4); border-radius: var(--radius-md); padding: 26px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;">
+          <div class="calc-results-box text-center" style="background: rgba(111, 75, 255, 0.15); border: 1px solid rgba(111, 75, 255, 0.3); border-radius: var(--radius-md); padding: 26px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;">
             <span style="font-size: 0.88rem; color: rgba(255, 255, 255, 0.9); font-weight: 600;">हेल्थ कार्डद्वारे होणारी थेट बचत:</span>
-            <div id="calcSavingsDisplay" style="font-size: clamp(2rem, 5vw, 2.7rem); font-weight: 900; color: #4ADE80;">₹२,०००</div>
-            <span id="calcDiscountTag" style="background: rgba(22, 163, 74, 0.25); color: #4ADE80; padding: 4px 14px; border-radius: 4px; font-size: 0.82rem; font-weight: 700; border: 1px solid rgba(74, 222, 128, 0.3);"><i class="fas fa-percent"></i> २०% सवलत लागू</span>
-            <button class="btn btn-primary open-card-apply-btn" style="margin-top: 10px; width: 100%; background: #D97706; border-color: #D97706; color: #ffffff;">
+            <div id="calcSavingsDisplay" style="font-size: clamp(2rem, 5vw, 2.7rem); font-weight: 900; color: #27AE60;">₹२,०००</div>
+            <span id="calcDiscountTag" style="background: rgba(39, 174, 96, 0.25); color: #27AE60; padding: 4px 14px; border-radius: 4px; font-size: 0.82rem; font-weight: 700; border: 1px solid rgba(39, 174, 96, 0.3);"><i class="fas fa-percent"></i> २०% सवलत लागू</span>
+            <button class="btn btn-primary open-card-apply-btn" style="margin-top: 10px; width: 100%;">
               <i class="fas fa-id-card"></i> त्वरित कार्ड अर्ज करा
             </button>
           </div>
@@ -367,46 +367,46 @@
   </section>
 
   <!-- Quick Access Services Section -->
-  <section class="section-padding" style="background: #F4F6F9; padding: 55px 0;">
+  <section class="section-padding" style="background: var(--bg-light); padding: 55px 0;">
     <div class="container">
       <div class="section-title-wrap text-center" style="text-align: center; margin-bottom: 35px;">
-        <h2 class="section-title" style="font-size: clamp(1.5rem, 4vw, 2.1rem); font-weight: 800; color: #0F2C59;">संस्थेचे प्रमुख सामाजिक उपक्रम</h2>
+        <h2 class="section-title" style="font-size: clamp(1.5rem, 4vw, 2.1rem); font-weight: 800; color: var(--text-dark);">संस्थेचे प्रमुख सामाजिक उपक्रम</h2>
         <p class="section-subtitle" style="color: var(--text-muted); font-size: 0.98rem; max-width: 650px; margin: 6px auto 0 auto;">छत्रपती शाहू महाराज बहुउद्देशीय संस्थेमार्फत राबविण्यात येणाऱ्या जनकल्याणकारी सेवा</p>
       </div>
 
       <div class="features-grid">
         <div class="feature-card reveal" style="background: #ffffff; border-radius: var(--radius-md); padding: 28px; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);">
-          <div class="feature-icon" style="background: #0F2C59; color: #fff;">
+          <div class="feature-icon" style="background: var(--gradient-primary); color: #fff;">
             <i class="fas fa-id-card-clip"></i>
           </div>
-          <h3 style="color: #0F2C59; font-weight: 700;">फॅमिली हेल्थ कार्ड योजना</h3>
+          <h3 style="color: var(--text-dark); font-weight: 700;">फॅमिली हेल्थ कार्ड योजना</h3>
           <p>सर्व कुटुंबांसाठी वैद्यकीय उपचारांवर, शस्त्रक्रियेवर व पॅथॉलॉजी लॅबवर विशेष सवलत देणारे अधिकृत कार्ड.</p>
           <a href="family-health-card.html" class="btn btn-outline btn-sm" style="margin-top: 18px;">अधिक माहिती <i class="fas fa-arrow-right"></i></a>
         </div>
 
         <div class="feature-card reveal" style="background: #ffffff; border-radius: var(--radius-md); padding: 28px; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);">
-          <div class="feature-icon" style="background: #8B0000; color: #fff;">
+          <div class="feature-icon" style="background: linear-gradient(135deg, #27AE60, #2ECC71); color: #fff;">
             <i class="fas fa-hospital-user"></i>
           </div>
-          <h3 style="color: #0F2C59; font-weight: 700;">संलग्न हॉस्पिटल्स व डॉक्टर्स</h3>
+          <h3 style="color: var(--text-dark); font-weight: 700;">संलग्न हॉस्पिटल्स व डॉक्टर्स</h3>
           <p>राज्यातील नामांकित हॉस्पिटल्स व तज्ज्ञ डॉक्टर्सचा समावेश. मोफत मार्गदर्शन व सवलतीत उपचार.</p>
           <a href="hospitals.html" class="btn btn-outline btn-sm" style="margin-top: 18px;">हॉस्पिटल यादी <i class="fas fa-arrow-right"></i></a>
         </div>
 
         <div class="feature-card reveal" style="background: #ffffff; border-radius: var(--radius-md); padding: 28px; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);">
-          <div class="feature-icon" style="background: #D97706; color: #fff;">
+          <div class="feature-icon" style="background: linear-gradient(135deg, #E67E22, #F39C12); color: #fff;">
             <i class="fas fa-hand-holding-droplet"></i>
           </div>
-          <h3 style="color: #0F2C59; font-weight: 700;">मोफत आरोग्य व रक्तदान शिबीर</h3>
+          <h3 style="color: var(--text-dark); font-weight: 700;">मोफत आरोग्य व रक्तदान शिबीर</h3>
           <p>ग्रामीण व शहरी भागात दरमहा मोफत आरोग्य तपासणी, नेत्र तपासणी व रक्तदान शिबीरांचे आयोजन.</p>
           <a href="camps-photos.html" class="btn btn-outline btn-sm" style="margin-top: 18px;">शिबीर फोटो <i class="fas fa-arrow-right"></i></a>
         </div>
 
         <div class="feature-card reveal" style="background: #ffffff; border-radius: var(--radius-md); padding: 28px; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);">
-          <div class="feature-icon" style="background: #0B2244; color: #fff;">
+          <div class="feature-icon" style="background: linear-gradient(135deg, #2980B9, #3498DB); color: #fff;">
             <i class="fas fa-book-open-reader"></i>
           </div>
-          <h3 style="color: #0F2C59; font-weight: 700;">शैक्षणिक व सामाजिक मदत</h3>
+          <h3 style="color: var(--text-dark); font-weight: 700;">शैक्षणिक व सामाजिक मदत</h3>
           <p>गरजू विद्यार्थ्यांना शैक्षणिक साहित्याचे वाटप व समाजातील दुर्बल घटकांसाठी विविध कल्याणकारी योजना.</p>
           <a href="miscellaneous.html" class="btn btn-outline btn-sm" style="margin-top: 18px;">उपक्रम पहा <i class="fas fa-arrow-right"></i></a>
         </div>
@@ -418,62 +418,62 @@
   <section class="section-padding testimonials-section" style="background: #ffffff; padding: 60px 0;">
     <div class="container">
       <div class="section-title-wrap text-center" style="text-align: center; margin-bottom: 35px;">
-        <h2 class="section-title" style="font-size: clamp(1.5rem, 4vw, 2.1rem); font-weight: 800; color: #0F2C59;">लाभार्थी कुटुंबांचे मनोगत</h2>
+        <h2 class="section-title" style="font-size: clamp(1.5rem, 4vw, 2.1rem); font-weight: 800; color: var(--text-dark);">लाभार्थी कुटुंबांचे मनोगत</h2>
         <p class="section-subtitle" style="color: var(--text-muted); font-size: 0.98rem; max-width: 650px; margin: 6px auto 0 auto;">फॅमिली हेल्थ कार्डद्वारे सवलतीचा लाभ घेतलेल्या अधिकृत कार्डधारकांचे अनुभव</p>
       </div>
 
       <div class="testimonials-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px;">
-        <div class="testimonial-card reveal" style="background: #F4F6F9; padding: 24px; border-radius: var(--radius-md); border: 1px solid var(--border-color); display: flex; flex-direction: column; justify-content: space-between;">
+        <div class="testimonial-card reveal" style="background: var(--bg-light); padding: 24px; border-radius: var(--radius-md); border: 1px solid var(--border-color); display: flex; flex-direction: column; justify-content: space-between;">
           <div>
-            <div style="font-size: 0.76rem; font-weight: 700; background: #0F2C59; color: #ffffff; padding: 3px 10px; border-radius: 4px; width: fit-content; margin-bottom: 12px;">
+            <div style="font-size: 0.76rem; font-weight: 700; background: var(--primary); color: #ffffff; padding: 3px 10px; border-radius: 4px; width: fit-content; margin-bottom: 12px;">
               <i class="fas fa-id-card"></i> कार्ड क्र: CSM-2026-5559
             </div>
-            <p class="testimonial-text" style="color: #0F172A; font-size: 0.94rem; line-height: 1.6; margin-bottom: 20px;">
+            <p class="testimonial-text" style="color: var(--text-dark); font-size: 0.94rem; line-height: 1.6; margin-bottom: 20px;">
               "छत्रपती शाहू महाराज संस्थेच्या फॅमिली हेल्थ कार्डमुळे माझ्या वडिलांच्या शस्त्रक्रियेवर २५,००० रुपयांपर्यंत थेट सवलत मिळाली. संस्थेचे कार्य अत्यंत कौतुकास्पद आहे!"
             </p>
           </div>
           <div class="testimonial-author" style="display: flex; align-items: center; justify-content: space-between; border-top: 1px solid #CBD5E1; padding-top: 12px;">
             <div>
-              <h4 class="author-name" style="font-size: 0.95rem; font-weight: 700; color: #0F2C59; margin: 0;">रवींद्र पाथरे</h4>
+              <h4 class="author-name" style="font-size: 0.95rem; font-weight: 700; color: var(--text-dark); margin: 0;">रवींद्र पाथरे</h4>
               <span class="author-loc" style="font-size: 0.82rem; color: var(--text-muted);">मयूर पार्क, संभाजीनगर</span>
             </div>
-            <span style="font-size: 0.72rem; color: #16A34A; font-weight: 700;"><i class="fas fa-check-circle"></i> पडताळणीकृत</span>
+            <span style="font-size: 0.72rem; color: #27AE60; font-weight: 700;"><i class="fas fa-check-circle"></i> पडताळणीकृत</span>
           </div>
         </div>
 
-        <div class="testimonial-card reveal" style="background: #F4F6F9; padding: 24px; border-radius: var(--radius-md); border: 1px solid var(--border-color); display: flex; flex-direction: column; justify-content: space-between;">
+        <div class="testimonial-card reveal" style="background: var(--bg-light); padding: 24px; border-radius: var(--radius-md); border: 1px solid var(--border-color); display: flex; flex-direction: column; justify-content: space-between;">
           <div>
-            <div style="font-size: 0.76rem; font-weight: 700; background: #0F2C59; color: #ffffff; padding: 3px 10px; border-radius: 4px; width: fit-content; margin-bottom: 12px;">
+            <div style="font-size: 0.76rem; font-weight: 700; background: var(--primary); color: #ffffff; padding: 3px 10px; border-radius: 4px; width: fit-content; margin-bottom: 12px;">
               <i class="fas fa-id-card"></i> कार्ड क्र: CSM-2026-8942
             </div>
-            <p class="testimonial-text" style="color: #0F172A; font-size: 0.94rem; line-height: 1.6; margin-bottom: 20px;">
+            <p class="testimonial-text" style="color: var(--text-dark); font-size: 0.94rem; line-height: 1.6; margin-bottom: 20px;">
               "मोफत आरोग्य शिबीरात माझ्या आईच्या डोळ्यांची तपासणी झाली आणि सवलतीत चष्मा व औषधे मिळाली. सर्व पदाधिकाऱ्यांचे मनःपूर्वक आभार!"
             </p>
           </div>
           <div class="testimonial-author" style="display: flex; align-items: center; justify-content: space-between; border-top: 1px solid #CBD5E1; padding-top: 12px;">
             <div>
-              <h4 class="author-name" style="font-size: 0.95rem; font-weight: 700; color: #0F2C59; margin: 0;">सुनिता पाटील</h4>
+              <h4 class="author-name" style="font-size: 0.95rem; font-weight: 700; color: var(--text-dark); margin: 0;">सुनिता पाटील</h4>
               <span class="author-loc" style="font-size: 0.82rem; color: var(--text-muted);">जळगाव रोड, जळगाव</span>
             </div>
-            <span style="font-size: 0.72rem; color: #16A34A; font-weight: 700;"><i class="fas fa-check-circle"></i> पडताळणीकृत</span>
+            <span style="font-size: 0.72rem; color: #27AE60; font-weight: 700;"><i class="fas fa-check-circle"></i> पडताळणीकृत</span>
           </div>
         </div>
 
-        <div class="testimonial-card reveal" style="background: #F4F6F9; padding: 24px; border-radius: var(--radius-md); border: 1px solid var(--border-color); display: flex; flex-direction: column; justify-content: space-between;">
+        <div class="testimonial-card reveal" style="background: var(--bg-light); padding: 24px; border-radius: var(--radius-md); border: 1px solid var(--border-color); display: flex; flex-direction: column; justify-content: space-between;">
           <div>
-            <div style="font-size: 0.76rem; font-weight: 700; background: #0F2C59; color: #ffffff; padding: 3px 10px; border-radius: 4px; width: fit-content; margin-bottom: 12px;">
+            <div style="font-size: 0.76rem; font-weight: 700; background: var(--primary); color: #ffffff; padding: 3px 10px; border-radius: 4px; width: fit-content; margin-bottom: 12px;">
               <i class="fas fa-id-card"></i> कार्ड क्र: CSM-2026-4102
             </div>
-            <p class="testimonial-text" style="color: #0F172A; font-size: 0.94rem; line-height: 1.6; margin-bottom: 20px;">
+            <p class="testimonial-text" style="color: var(--text-dark); font-size: 0.94rem; line-height: 1.6; margin-bottom: 20px;">
               "कमी खर्चात संपूर्ण कुटुंबासाठी हेल्थ कार्ड मिळाले. पॅथॉलॉजी लॅब व रेग्युलर ब्लड टेस्टवर दरवेळी मोठी बचत होते."
             </p>
           </div>
           <div class="testimonial-author" style="display: flex; align-items: center; justify-content: space-between; border-top: 1px solid #CBD5E1; padding-top: 12px;">
             <div>
-              <h4 class="author-name" style="font-size: 0.95rem; font-weight: 700; color: #0F2C59; margin: 0;">गजानन सोनावणे</h4>
+              <h4 class="author-name" style="font-size: 0.95rem; font-weight: 700; color: var(--text-dark); margin: 0;">गजानन सोनावणे</h4>
               <span class="author-loc" style="font-size: 0.82rem; color: var(--text-muted);">वैजापूर, संभाजीनगर</span>
             </div>
-            <span style="font-size: 0.72rem; color: #16A34A; font-weight: 700;"><i class="fas fa-check-circle"></i> पडताळणीकृत</span>
+            <span style="font-size: 0.72rem; color: #27AE60; font-weight: 700;"><i class="fas fa-check-circle"></i> पडताळणीकृत</span>
           </div>
         </div>
       </div>
