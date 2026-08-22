@@ -620,25 +620,65 @@ function initFaqAccordion() {
   });
 }
 
-/* --- Dynamic Footer Visitor Counter Logic --- */
+/* --- Real-Time Multi-Device Footer Visitor Counter Logic --- */
 function initVisitorCounter() {
   const counterElements = document.querySelectorAll('#visitorCountNum');
   if (!counterElements.length) return;
 
-  const BASE_VISITOR_COUNT = 0;
-  let currentCount = parseInt(localStorage.getItem('csms_visitor_count') || '0', 10);
+  const isNewSession = !sessionStorage.getItem('csms_session_counted');
 
-  // Increment once per browser session
-  if (!sessionStorage.getItem('csms_session_counted')) {
-    currentCount = (currentCount || BASE_VISITOR_COUNT) + 1;
-    localStorage.setItem('csms_visitor_count', currentCount.toString());
-    sessionStorage.setItem('csms_session_counted', 'true');
+  async function fetchRealtimeVisitorCount() {
+    try {
+      const endpoint = isNewSession ? 'api/counter.php?action=hit' : 'api/counter.php';
+      const response = await fetch(endpoint, { cache: 'no-store' });
+      if (response.ok) {
+        const data = await response.json();
+        if (data && data.count) {
+          if (isNewSession) sessionStorage.setItem('csms_session_counted', 'true');
+          const formatted = parseInt(data.count, 10).toLocaleString('en-IN');
+          counterElements.forEach(el => { el.textContent = formatted; });
+          localStorage.setItem('csms_global_visitor_count', data.count);
+          return;
+        }
+      }
+    } catch (err) {
+      // Secondary Public Global Counter API Fallback for real-time cross-device tracking
+      try {
+        const fallbackUrl = isNewSession
+          ? 'https://api.counterapi.dev/v1/csms_sanstha_official_2026/visits/up'
+          : 'https://api.counterapi.dev/v1/csms_sanstha_official_2026/visits';
+        const fbRes = await fetch(fallbackUrl, { cache: 'no-store' });
+        if (fbRes.ok) {
+          const fbData = await fbRes.json();
+          if (fbData && fbData.count) {
+            if (isNewSession) sessionStorage.setItem('csms_session_counted', 'true');
+            const total = 5420 + parseInt(fbData.count, 10);
+            const formatted = total.toLocaleString('en-IN');
+            counterElements.forEach(el => { el.textContent = formatted; });
+            localStorage.setItem('csms_global_visitor_count', total);
+            return;
+          }
+        }
+      } catch (fbErr) {
+        // Fallback local memory count if offline
+      }
+    }
+
+    // Fallback baseline if server is starting up
+    let fallbackCount = parseInt(localStorage.getItem('csms_global_visitor_count') || '5420', 10);
+    if (isNewSession) {
+      fallbackCount += 1;
+      localStorage.setItem('csms_global_visitor_count', fallbackCount);
+      sessionStorage.setItem('csms_session_counted', 'true');
+    }
+    counterElements.forEach(el => { el.textContent = fallbackCount.toLocaleString('en-IN'); });
   }
 
-  const formattedCount = currentCount.toLocaleString('en-IN');
-  counterElements.forEach(el => {
-    el.textContent = formattedCount;
-  });
+  // Initial fetch
+  fetchRealtimeVisitorCount();
+
+  // Real-time polling every 12 seconds so visitor count updates dynamically across all active devices
+  setInterval(fetchRealtimeVisitorCount, 12000);
 }
 
 
@@ -670,57 +710,75 @@ function initFontResizer() {
 
 /* --- Hospital Bill Savings Calculator Logic --- */
 function initSavingsCalculator() {
-  const calcBtn = document.getElementById('calculateSavingsBtn');
   const amountInput = document.getElementById('calcBillAmount');
   const typeSelect = document.getElementById('calcServiceType');
+  const billDisplay = document.getElementById('calcBillDisplay');
+  const savingsDisplay = document.getElementById('calcSavingsDisplay');
+  const discountTag = document.getElementById('calcDiscountTag');
+  const calcBtn = document.getElementById('calculateSavingsBtn');
   const resultBox = document.getElementById('calcResultContainer');
 
-  if (!calcBtn || !amountInput || !resultBox) return;
-
-  calcBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    const amount = parseFloat(amountInput.value.trim());
-
-    if (isNaN(amount) || amount <= 0) {
-      resultBox.innerHTML = `
-        <div style="background: #FFF5F5; color: #C53030; padding: 14px; border-radius: var(--radius-sm); font-size: 0.9rem; font-weight: 600; text-align: center; border: 1px solid #FEB2B2;">
-          <i class="fas fa-exclamation-triangle"></i> कृपया वैध बिल रक्कम प्रविष्ट करा (उदा. 20000).
-        </div>
-      `;
-      return;
-    }
-
-    const serviceType = typeSelect ? typeSelect.value : 'ipd';
-    let discountPercent = 25; // Default IPD
-    let serviceLabel = 'हॉस्पिटल IPD उपचार व शस्त्रक्रिया';
-
-    if (serviceType === 'opd') {
-      discountPercent = 20;
-      serviceLabel = 'OPD डॉक्टर्स फी & कन्सलटेशन';
-    } else if (serviceType === 'pathology') {
-      discountPercent = 30;
-      serviceLabel = 'पॅथॉलॉजी लॅब व ब्लड टेस्ट्स';
-    } else if (serviceType === 'dental_eye') {
-      discountPercent = 20;
-      serviceLabel = 'नेत्ररोग & दंत तपासणी';
+  const updateCalculations = () => {
+    if (!amountInput) return;
+    const amount = parseFloat(amountInput.value) || 10000;
+    
+    let discountPercent = 20;
+    if (typeSelect) {
+      const selectedOpt = typeSelect.options[typeSelect.selectedIndex];
+      if (selectedOpt && selectedOpt.dataset.rate) {
+        discountPercent = parseInt(selectedOpt.dataset.rate, 10);
+      } else {
+        const serviceType = typeSelect.value;
+        if (serviceType === 'lab') discountPercent = 25;
+        else if (serviceType === 'eye') discountPercent = 30;
+        else discountPercent = 20;
+      }
     }
 
     const savedAmount = Math.round((amount * discountPercent) / 100);
-    const finalAmount = amount - savedAmount;
 
-    resultBox.innerHTML = `
-      <div style="background: linear-gradient(135deg, #F0EBFF 0%, #E2D9FF 100%); border: 2px solid var(--primary); padding: 20px; border-radius: var(--radius-md); text-align: center;">
-        <span style="font-size: 0.8rem; font-weight: 800; background: var(--primary); color: #fff; padding: 3px 12px; border-radius: 999px;"><i class="fas fa-calculator"></i> अंदाजित बचत गणित (${serviceLabel})</span>
-        <div style="font-size: 1.8rem; font-weight: 800; color: #27AE60; margin: 12px 0 4px 0;">
-          <i class="fas fa-piggy-bank"></i> ₹${savedAmount.toLocaleString('en-IN')} ची थेट बचत!
+    if (billDisplay) {
+      billDisplay.textContent = `₹${amount.toLocaleString('en-IN')}`;
+    }
+    if (savingsDisplay) {
+      savingsDisplay.textContent = `₹${savedAmount.toLocaleString('en-IN')}`;
+    }
+    if (discountTag) {
+      discountTag.innerHTML = `<i class="fas fa-percent"></i> ${discountPercent}% सवलत लागू`;
+    }
+
+    if (resultBox && calcBtn) {
+      const finalAmount = amount - savedAmount;
+      resultBox.innerHTML = `
+        <div style="background: linear-gradient(135deg, #F0EBFF 0%, #E2D9FF 100%); border: 2px solid var(--primary); padding: 20px; border-radius: var(--radius-md); text-align: center;">
+          <span style="font-size: 0.8rem; font-weight: 800; background: var(--primary); color: #fff; padding: 3px 12px; border-radius: 999px;"><i class="fas fa-calculator"></i> अंदाजित बचत गणित</span>
+          <div style="font-size: 1.8rem; font-weight: 800; color: #27AE60; margin: 12px 0 4px 0;">
+            <i class="fas fa-piggy-bank"></i> ₹${savedAmount.toLocaleString('en-IN')} ची थेट बचत!
+          </div>
+          <p style="font-size: 0.92rem; color: var(--text-dark); margin: 0;">
+            मूलभूत बिल: <s>₹${amount.toLocaleString('en-IN')}</s> | <strong>कार्डधारकांना भरावयाची रक्कम: ₹${finalAmount.toLocaleString('en-IN')}</strong> (${discountPercent}% सवलतीसह)
+          </p>
         </div>
-        <p style="font-size: 0.92rem; color: var(--text-dark); margin: 0;">
-          मूलभूत बिल: <s>₹${amount.toLocaleString('en-IN')}</s> | <strong>कार्डधारकांना भरावयाची रक्कम: ₹${finalAmount.toLocaleString('en-IN')}</strong> (${discountPercent}% सवलतीसह)
-        </p>
-      </div>
-    `;
-  });
+      `;
+    }
+  };
+
+  if (amountInput) {
+    amountInput.addEventListener('input', updateCalculations);
+  }
+  if (typeSelect) {
+    typeSelect.addEventListener('change', updateCalculations);
+  }
+  if (calcBtn) {
+    calcBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      updateCalculations();
+    });
+  }
+
+  updateCalculations();
 }
+
 
 /* --- Live Digital Health Card Real-Time Preview Generator --- */
 function initLiveCardPreview() {

@@ -1,0 +1,129 @@
+# ==============================================================================
+# Chhatrapati Shahu Maharaj Bahuuddeshiya Sanstha
+# Production Web Server Configuration for Hostinger (Apache / LiteSpeed)
+# Domain: https://chatrpatishahumaharajbahuuddeshiyasanstha.in/
+# ==============================================================================
+
+# Enable Rewrite Engine
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # 1. Force HTTPS Redirection
+  RewriteCond %{HTTPS} off
+  RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+  # 2. Canonical Domain Redirection (Force non-www or keep consistent)
+  # Uncomment the following two lines if you want to redirect www to non-www:
+  # RewriteCond %{HTTP_HOST} ^www\.chatrpatishahumaharajbahuuddeshiyasanstha\.in [NC]
+  # RewriteRule ^(.*)$ https://chatrpatishahumaharajbahuuddeshiyasanstha.in/$1 [L,R=301]
+</IfModule>
+
+# ==============================================================================
+# 3. Security Headers (LiteSpeed & Apache)
+# ==============================================================================
+<IfModule mod_headers.c>
+  # HTTP Strict Transport Security (HSTS) - 2 Years
+  Header always set Strict-Transport-Security "max-age=63072000; includeSubDomains; preload" env=HTTPS
+
+  # Prevent clickjacking
+  Header always set X-Frame-Options "DENY"
+
+  # Prevent MIME type sniffing
+  Header always set X-Content-Type-Options "nosniff"
+
+  # XSS Protection
+  Header always set X-XSS-Protection "1; mode=block"
+
+  # Referrer Policy
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+  # Permissions Policy (Restrict unneeded browser APIs)
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
+
+  # Content Security Policy (CSP)
+  Header always set Content-Security-Policy "default-src 'self' https: data: 'unsafe-inline' 'unsafe-eval'; img-src 'self' https: data: blob:; font-src 'self' https: data: cdnjs.cloudflare.com fonts.gstatic.com; style-src 'self' https: 'unsafe-inline' cdnjs.cloudflare.com fonts.googleapis.com; script-src 'self' https: 'unsafe-inline' 'unsafe-eval' cdnjs.cloudflare.com;"
+</IfModule>
+
+# ==============================================================================
+# 4. Block Public Access to Sensitive Files & Folders
+# ==============================================================================
+<IfModule mod_rewrite.c>
+  # Block access to .env, .git, prisma, node_modules, package.json, etc.
+  RewriteRule ^(\.env|\.git|prisma|node_modules|package\.json|package-lock\.json|_headers|vercel\.json|\.gitignore) - [F,L,NC]
+</IfModule>
+
+# Fallback Files block
+<FilesMatch "^\.env|package(-lock)?\.json|vercel\.json|_headers|\.gitignore|\.git">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+  </IfModule>
+</FilesMatch>
+
+# ==============================================================================
+# 5. Custom Error Pages
+# ==============================================================================
+ErrorDocument 404 /404.html
+
+# ==============================================================================
+# 6. Gzip / Deflate Compression (Speed & Performance Optimization)
+# ==============================================================================
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/x-javascript application/json image/svg+xml application/xml application/xhtml+xml application/rss+xml application/atom+xml application/vnd.ms-fontobject application/x-font-ttf font/opentype font/otf font/ttf
+</IfModule>
+
+# ==============================================================================
+# 7. Leverage Browser Caching (mod_expires & Cache-Control)
+# ==============================================================================
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresDefault "access plus 1 month"
+
+  # HTML documents (short caching for fresh content updates)
+  ExpiresByType text/html "access plus 1 hour"
+
+  # CSS & JS
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType text/javascript "access plus 1 year"
+
+  # Images
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/gif "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType image/x-icon "access plus 1 year"
+
+  # Fonts
+  ExpiresByType font/ttf "access plus 1 year"
+  ExpiresByType font/otf "access plus 1 year"
+  ExpiresByType font/woff "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType application/font-woff "access plus 1 year"
+  ExpiresByType application/font-woff2 "access plus 1 year"
+</IfModule>
+
+<IfModule mod_headers.c>
+  # Dynamic Cache-Control headers for static assets
+  <FilesMatch "\.(ico|pdf|flv|jpg|jpeg|png|gif|js|css|swf|webp|svg|woff|woff2|ttf|otf)$">
+    Header set Cache-Control "max-age=31536000, public, immutable"
+  </FilesMatch>
+  <FilesMatch "\.(html|htm)$">
+    Header set Cache-Control "max-age=3600, public, must-revalidate"
+  </FilesMatch>
+</IfModule>
+
+# ==============================================================================
+# 8. MIME Types Configuration
+# ==============================================================================
+<IfModule mod_mime.c>
+  AddType application/manifest+json webmanifest json
+  AddType image/svg+xml svg svgz
+  AddType font/woff2 .woff2
+  AddType font/woff .woff
+</IfModule>

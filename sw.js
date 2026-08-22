@@ -3,13 +3,14 @@
    PWA Service Worker - Offline Cache & Fast Network First Strategy
    ========================================================================== */
 
-const CACHE_NAME = 'csm-sanstha-v2';
+const CACHE_NAME = 'csm-sanstha-v3';
 const STATIC_ASSETS = [
   './',
   './index.html',
   './hospitals.html',
   './doctors.html',
   './family-health-card.html',
+  './patient-registration.html',
   './camps-photos.html',
   './news.html',
   './miscellaneous.html',
@@ -19,6 +20,7 @@ const STATIC_ASSETS = [
   './css/style.css',
   './css/responsive.css',
   './js/main.js',
+  './js/patient-manager.js',
   './js/security.js',
   './assets/images/logo.png'
 ];

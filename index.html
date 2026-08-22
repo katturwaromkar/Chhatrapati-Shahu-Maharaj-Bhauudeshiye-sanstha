@@ -106,6 +106,23 @@
     </div>
   </header>
 
+  <!-- Live Emergency & Announcement Ticker Bar -->
+  <div class="news-ticker-bar">
+    <div class="container news-ticker-container">
+      <div class="ticker-badge">
+        <i class="fas fa-bullhorn"></i> <span>महत्वाचे अपडेट्स</span>
+      </div>
+      <div class="ticker-content-wrap">
+        <div class="ticker-items">
+          <span class="ticker-item"><i class="fas fa-hand-holding-medical" style="color: #27AE60;"></i> <strong>फॅमिली हेल्थ कार्ड:</strong> संपूर्ण कुटुंबासाठी वैद्यकीय सवलत कार्ड अर्ज प्रक्रिया सुरु! ऑनलाईन अर्ज करा.</span>
+          <span class="ticker-item"><i class="fas fa-calendar-check" style="color: #F2994A;"></i> <strong>आगामी शिबीर:</strong> भव्य मोफत सर्वोपचारी आरोग्य व नेत्र तपासणी शिबीर लवकरच.</span>
+          <span class="ticker-item"><i class="fas fa-phone-alt" style="color: #6F4BFF;"></i> <strong>२४x७ मदत कक्ष:</strong> आरोग्य सवलत व कार्ड माहितीसाठी त्वरित संपर्क: 9021757353 / 8007474503</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
   <!-- Sticky Navbar (Single Row Menus) -->
   <nav class="navbar">
     <div class="container navbar-container">
@@ -124,6 +141,7 @@
             <li><a href="hospitals.html" class="dropdown-item"><i class="fas fa-hospital-alt"></i> Our Hospitals</a></li>
             <li><a href="doctors.html" class="dropdown-item"><i class="fas fa-user-md"></i> Doctors</a></li>
             <li><a href="family-health-card.html" class="dropdown-item"><i class="fas fa-id-card"></i> Family Health Card</a></li>
+            <li><a href="patient-registration.html" class="dropdown-item"><i class="fas fa-procedures"></i> Patient Registration (रुग्ण नोंदणी)</a></li>
           </ul>
         </li>
 
@@ -311,7 +329,63 @@
     </div>
   </section>
 
+  <!-- Interactive Medical OPD & Surgery Savings Estimator Section -->
+  <section class="section-padding savings-calculator-section" style="background: linear-gradient(135deg, #1E2432 0%, #2A324B 100%); color: #ffffff; padding: 60px 0;">
+    <div class="container">
+      <div class="section-title-wrap text-center" style="text-align: center; margin-bottom: 35px;">
+        <span class="section-badge" style="background: rgba(111, 75, 255, 0.25); color: #A58BFF; border: 1px solid rgba(165, 139, 255, 0.4); padding: 5px 16px; border-radius: 999px; font-weight: 700; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 6px; margin-bottom: 10px;">
+          <i class="fas fa-calculator"></i> सवलत गणकयंत्र (Savings Calculator)
+        </span>
+        <h2 class="section-title" style="font-size: clamp(1.5rem, 4vw, 2.2rem); font-weight: 800; color: #ffffff;">हेल्थ कार्डद्वारे तुमची संभाव्य बचत तपासा</h2>
+        <p class="section-subtitle" style="color: rgba(255, 255, 255, 0.8); font-size: 0.98rem; max-width: 650px; margin: 0 auto;">संस्थेचे फॅमिली हेल्थ कार्ड वापरून हॉस्पिटल्स, पॅथॉलॉजी लॅब व उपचारांवर किती बचत होऊ शकते ते पहा</p>
+      </div>
+
+      <div class="calculator-card-wrap glass-card" style="background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: var(--radius-lg); padding: 35px; max-width: 900px; margin: 0 auto;">
+        <div class="calculator-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; align-items: center;">
+          <div class="calc-inputs" style="display: flex; flex-direction: column; gap: 20px;">
+            <div>
+              <label for="calcServiceType" style="font-weight: 700; font-size: 0.95rem; color: #ffffff; display: block; margin-bottom: 8px;">
+                <i class="fas fa-stethoscope" style="color: #A58BFF;"></i> वैद्यकीय सेवा प्रकार निवडा:
+              </label>
+              <select id="calcServiceType" aria-label="Medical Service Type" style="width: 100%; padding: 12px 14px; border-radius: var(--radius-sm); border: 1px solid rgba(255, 255, 255, 0.2); background: #1E2432; color: #ffffff; font-size: 0.95rem; outline: none;">
+                <option value="opd" data-rate="20">ओपीडी डॉक्टर्स फी (२०% सवलत)</option>
+                <option value="lab" data-rate="25">पॅथॉलॉजी लॅब चाचण्या (२५% सवलत)</option>
+                <option value="eye" data-rate="30">नेत्र तपासणी व चष्मा (३०% सवलत)</option>
+                <option value="surgery" data-rate="20">आयपीडी शस्त्रक्रिया व उपचार (२०% सवलत)</option>
+              </select>
+            </div>
+
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <label for="calcBillAmount" style="font-weight: 700; font-size: 0.95rem; color: #ffffff; margin: 0;">
+                  <i class="fas fa-indian-rupee-sign" style="color: #27AE60;"></i> संभाव्य वैद्यकीय खर्च:
+                </label>
+                <span id="calcBillDisplay" style="font-weight: 800; font-size: 1.1rem; color: #2ECC71;">₹१०,०००</span>
+              </div>
+              <input type="range" id="calcBillAmount" aria-label="Estimated Bill Amount" min="1000" max="100000" step="1000" value="10000" style="width: 100%; accent-color: #6F4BFF; cursor: pointer;">
+              <div style="display: flex; justify-content: space-between; font-size: 0.78rem; color: rgba(255, 255, 255, 0.6); margin-top: 4px;">
+                <span>₹१,०००</span>
+                <span>₹५०,०००</span>
+                <span>₹१,००,०००</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="calc-results-box text-center" style="background: linear-gradient(135deg, rgba(111, 75, 255, 0.3) 0%, rgba(39, 174, 96, 0.3) 100%); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: var(--radius-md); padding: 28px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px;">
+            <span style="font-size: 0.88rem; color: rgba(255, 255, 255, 0.9); font-weight: 600;">हेल्थ कार्डद्वारे होणारी अंदाजे बचत:</span>
+            <div id="calcSavingsDisplay" style="font-size: clamp(2rem, 5vw, 2.8rem); font-weight: 900; color: #2ECC71; text-shadow: 0 2px 10px rgba(0,0,0,0.3);">₹२,०००</div>
+            <span id="calcDiscountTag" style="background: rgba(39, 174, 96, 0.3); color: #ffffff; padding: 4px 14px; border-radius: 999px; font-size: 0.82rem; font-weight: 700;"><i class="fas fa-percent"></i> २०% सवलत लागू</span>
+            <button class="btn btn-primary open-card-apply-btn" style="margin-top: 10px; width: 100%;">
+              <i class="fas fa-id-card"></i> त्वरित कार्ड मिळवा
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Quick Access Services Section -->
+
   <section class="section-padding" style="background: #F8FAFC; padding: 55px 0;">
     <div class="container">
       <div class="section-title-wrap text-center" style="text-align: center; margin-bottom: 35px;">

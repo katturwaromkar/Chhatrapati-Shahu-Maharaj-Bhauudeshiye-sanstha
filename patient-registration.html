@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="mr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: data: 'unsafe-inline' 'unsafe-eval'; img-src 'self' https: data: blob:; font-src 'self' https: data: cdnjs.cloudflare.com fonts.gstatic.com; style-src 'self' https: 'unsafe-inline' cdnjs.cloudflare.com fonts.googleapis.com; script-src 'self' https: 'unsafe-inline' 'unsafe-eval' cdnjs.cloudflare.com;">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="X-Frame-Options" content="DENY">
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+  <title>रुग्ण नोंदणी व व्यवस्थापन (Patient Registration) | छत्रपती शाहू महाराज बहुउद्देशीय संस्था</title>
+  <meta name="description" content="छत्रपती शाहू महाराज बहुउद्देशीय संस्था - मोफत व सवलत रुग्ण नोंदणी, आधार व पॅन कार्ड जोडणी, ऑनलाईन पेशंट डॅशबोर्ड.">
+  
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="छत्रपती शाहू महाराज बहुउद्देशीय संस्था">
+  <meta property="og:title" content="रुग्ण नोंदणी प्रणाली (Patient Registration System)">
+  <meta property="og:description" content="संलग्न हॉस्पिटल्स आणि डॉक्टर्सकडे मोफत / सवलत उपचारासाठी नवीन रुग्णांची ऑनलाईन नोंदणी करा.">
+  <meta property="og:image" content="https://chatrpatishahumaharajbahuuddeshiyasanstha.in/assets/images/logo.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/images/logo.png">
+  <link rel="shortcut icon" type="image/png" href="assets/images/logo.png">
+  <link rel="apple-touch-icon" href="assets/images/logo.png">
+
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="manifest" href="manifest.json">
+</head>
+
+<body class="inner-page">
+
+  <!-- Top Info Bar -->
+  <div class="top-bar">
+    <div class="container top-bar-content">
+      <div class="top-info">
+        <div class="top-info-item">
+          <i class="fas fa-phone-alt"></i>
+          <span>+91 9021757353 / +91 8007474503</span>
+        </div>
+        <div class="top-info-item">
+          <i class="fas fa-map-marker-alt"></i>
+          <span>Chh. Sambhajinagar & Jalgaon, Maharashtra</span>
+        </div>
+      </div>
+      <div style="display: flex; align-items: center; gap: 15px;">
+        <div class="top-info-item">
+          <i class="fas fa-clock"></i>
+          <span>सोम - शनि: 9:00 AM - 6:00 PM</span>
+        </div>
+        <div class="font-resizer-group" title="अक्षर आकार बदला">
+          <span style="font-size: 0.72rem; color: #ffffff; opacity: 0.9; font-weight: 600; margin-right: 2px;">फॉन्ट:</span>
+          <button class="font-size-btn" data-size="14" title="लहान आकार">अ-</button>
+          <button class="font-size-btn active" data-size="16" title="सामान्य आकार">अ</button>
+          <button class="font-size-btn" data-size="18" title="मोठा आकार">अ+</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Centered Main Brand Header -->
+  <header class="header-brand-centered" style="background: #ffffff; padding: 14px 0; border-bottom: 1px solid #E6E8F2; text-align: center;">
+    <div class="container" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;">
+      <a href="index.html" style="display: flex; align-items: center; justify-content: center; gap: 14px; text-decoration: none; flex-wrap: wrap;">
+        <img src="assets/images/logo.png" alt="छत्रपती शाहू महाराज बहुउद्देशीय संस्था" style="height: 48px; width: 48px; object-fit: contain;">
+        <h1 style="font-family: 'Poppins', sans-serif; font-size: clamp(1.15rem, 4vw, 2rem); font-weight: 800; color: #1E2432; margin: 0;">
+          छत्रपती शाहू महाराज बहुउद्देशीय संस्था
+        </h1>
+      </a>
+      <span class="brand-badge-large" style="background: linear-gradient(135deg, #6F4BFF 0%, #8E6CFF 100%); color: #ffffff; padding: 4px 18px; border-radius: 999px; font-weight: 700; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 6px;">
+        <i class="fas fa-certificate"></i> REG NO-699(MH) F 5559
+      </span>
+    </div>
+  </header>
+
+  <!-- Sticky Navbar -->
+  <nav class="navbar">
+    <div class="container navbar-container">
+      <a href="index.html" class="nav-brand-mobile">
+        <img src="assets/images/logo.png" alt="Logo">
+        <span>छत्रपती शाहू महाराज संस्था</span>
+      </a>
+      <ul class="nav-menu">
+        <li><a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a></li>
+        
+        <li class="nav-dropdown active">
+          <a href="javascript:void(0)" class="nav-link active" role="button" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-hospital"></i> आरोग्य व रुग्णालये <i class="fas fa-chevron-down dropdown-icon"></i>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a href="hospitals.html" class="dropdown-item"><i class="fas fa-hospital-alt"></i> Our Hospitals</a></li>
+            <li><a href="doctors.html" class="dropdown-item"><i class="fas fa-user-md"></i> Doctors</a></li>
+            <li><a href="family-health-card.html" class="dropdown-item"><i class="fas fa-id-card"></i> Family Health Card</a></li>
+            <li><a href="patient-registration.html" class="dropdown-item active" style="font-weight: 700; color: var(--primary);"><i class="fas fa-procedures"></i> Patient Registration (रुग्ण नोंदणी)</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-dropdown">
+          <a href="javascript:void(0)" class="nav-link" role="button" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-camera"></i> गॅलरी व बातम्या <i class="fas fa-chevron-down dropdown-icon"></i>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a href="camps-photos.html" class="dropdown-item"><i class="fas fa-images"></i> Camps Photos</a></li>
+            <li><a href="news.html" class="dropdown-item"><i class="fas fa-newspaper"></i> News & Press</a></li>
+            <li><a href="miscellaneous.html" class="dropdown-item"><i class="fas fa-photo-video"></i> Miscellaneous</a></li>
+            <li><a href="documents.html" class="dropdown-item"><i class="fas fa-file-alt"></i> Documents</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-dropdown">
+          <a href="javascript:void(0)" class="nav-link" role="button" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-users"></i> संस्थेविषयी <i class="fas fa-chevron-down dropdown-icon"></i>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a href="about.html" class="dropdown-item"><i class="fas fa-info-circle"></i> About Us</a></li>
+            <li><a href="our-officers.html" class="dropdown-item"><i class="fas fa-user-shield"></i> Our Officers</a></li>
+            <li><a href="committee.html" class="dropdown-item"><i class="fas fa-sitemap"></i> Committee</a></li>
+            <li><a href="find.html" class="dropdown-item"><i class="fas fa-search"></i> Find Members</a></li>
+          </ul>
+        </li>
+
+        <li><a href="contact.html" class="nav-link"><i class="fas fa-envelope"></i> Contact</a></li>
+      </ul>
+
+      <button class="hamburger" aria-label="Toggle Navigation">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Page Header Banner -->
+  <section class="hero-subpage" style="background: linear-gradient(135deg, rgba(30, 36, 50, 0.92) 0%, rgba(111, 75, 255, 0.88) 100%), url('assets/images/banner_medical_camp.png') center/cover no-repeat; padding: 50px 0; color: #ffffff; text-align: center;">
+    <div class="container">
+      <span class="badge badge-accent mb-2" style="background: var(--accent); color: #ffffff; padding: 6px 16px; border-radius: 99px; font-weight: 700;">
+        <i class="fas fa-procedures"></i> Patient Registration Portal
+      </span>
+      <h1 style="font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 800; margin-top: 10px;">रुग्ण नोंदणी व व्यवस्थापन प्रणाली</h1>
+      <p style="max-width: 750px; margin: 10px auto 0; font-size: 1.05rem; opacity: 0.92;">
+        संलग्न रुग्णालये, डॉक्टर्स व पॅथॉलॉजी लॅबवर आरोग्य सवलत मिळवण्यासाठी नवीन रुग्णांची ऑनलाईन नोंदणी करा. आधार व पॅन कार्ड फोटो अपलोड सुविधा उपलब्ध.
+      </p>
+    </div>
+  </section>
+
+  <!-- Statistics Counter Cards -->
+  <section style="margin-top: -30px; position: relative; z-index: 10;">
+    <div class="container">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px;">
+        <div class="card glass-card text-center" style="padding: 20px; border-top: 4px solid var(--primary); background: #ffffff; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.06);">
+          <i class="fas fa-users-medical" style="font-size: 2.2rem; color: var(--primary); margin-bottom: 8px;"></i>
+          <h3 style="font-size: 1.8rem; font-weight: 800; color: var(--text-dark); margin: 0;" id="patientTotalCount">0</h3>
+          <span style="font-size: 0.9rem; color: var(--text-muted); font-weight: 600;">एकूण नोंदणीकृत रुग्ण (Total Patients)</span>
+        </div>
+
+        <div class="card glass-card text-center" style="padding: 20px; border-top: 4px solid var(--secondary); background: #ffffff; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.06);">
+          <i class="fas fa-user-plus" style="font-size: 2.2rem; color: var(--secondary); margin-bottom: 8px;"></i>
+          <h3 style="font-size: 1.8rem; font-weight: 800; color: var(--text-dark); margin: 0;" id="patientTodayCount">0</h3>
+          <span style="font-size: 0.9rem; color: var(--text-muted); font-weight: 600;">आजची नवीन नोंदणी (Today's New)</span>
+        </div>
+
+        <div class="card glass-card text-center" style="padding: 20px; border-top: 4px solid var(--success); background: #ffffff; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.06);">
+          <i class="fas fa-id-card" style="font-size: 2.2rem; color: var(--success); margin-bottom: 8px;"></i>
+          <h3 style="font-size: 1.8rem; font-weight: 800; color: var(--text-dark); margin: 0;">100% Verified</h3>
+          <span style="font-size: 0.9rem; color: var(--text-muted); font-weight: 600;">आधार / पॅन फोटो सुरक्षा</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Patient Registration Form & Directory Section -->
+  <section class="section" style="padding: 50px 0;">
+    <div class="container">
+
+      <!-- Patient Registration Form Card -->
+      <div class="card" style="background: #ffffff; padding: 35px; border-radius: 16px; box-shadow: 0 15px 35px rgba(0,0,0,0.07); margin-bottom: 50px; border: 1px solid #E6E8F2;">
+        <div style="border-bottom: 2px solid var(--primary); padding-bottom: 15px; margin-bottom: 25px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <div style="width: 44px; height: 44px; background: var(--primary); color: #fff; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem;">
+              <i class="fas fa-user-plus"></i>
+            </div>
+            <div>
+              <h2 style="font-size: 1.5rem; font-weight: 800; color: var(--text-dark); margin: 0;">नवीन रुग्ण नोंदणी अर्ज (New Patient Registration Form)</h2>
+              <span style="font-size: 0.88rem; color: var(--text-muted);">ॲडमिन किंवा स्वयं नागरिक खालील अर्जात रुग्णाची संपूर्ण माहिती भरावी.</span>
+            </div>
+          </div>
+
+          <button type="button" class="btn btn-sm btn-secondary" onclick="downloadBlankForm()" style="padding: 8px 16px; font-size: 0.88rem;">
+            <i class="fas fa-file-download"></i> ब्लँक नोंदणी अर्ज डाउनलोड (Download Form)
+          </button>
+        </div>
+
+        <form id="patientRegistrationForm">
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px;">
+            
+            <!-- Patient Name -->
+            <div class="form-group">
+              <label for="patName" style="font-weight: 700; color: var(--text-dark); margin-bottom: 6px; display: block;">
+                रुग्णाचे पूर्ण नाव (Full Name) <span style="color:red;">*</span>
+              </label>
+              <input type="text" id="patName" class="form-control" placeholder="उदा. रमेश तुकाराम पाटील" required style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #ccc;">
+            </div>
+
+            <!-- Gender -->
+            <div class="form-group">
+              <label for="patGender" style="font-weight: 700; color: var(--text-dark); margin-bottom: 6px; display: block;">लिंग (Gender)</label>
+              <select id="patGender" class="form-control" style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #ccc;">
+                <option value="पुरुष">पुरुष (Male)</option>
+                <option value="स्त्री">स्त्री (Female)</option>
+                <option value="इतर">इतर (Other)</option>
+              </select>
+            </div>
+
+            <!-- Age -->
+            <div class="form-group">
+              <label for="patAge" style="font-weight: 700; color: var(--text-dark); margin-bottom: 6px; display: block;">वय (Age)</label>
+              <input type="number" id="patAge" class="form-control" placeholder="उदा. 45" min="1" max="120" style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #ccc;">
+            </div>
+
+            <!-- Mobile Phone -->
+            <div class="form-group">
+              <label for="patPhone" style="font-weight: 700; color: var(--text-dark); margin-bottom: 6px; display: block;">
+                मोबाईल नंबर (Mobile) <span style="color:red;">*</span>
+              </label>
+              <input type="tel" id="patPhone" class="form-control" placeholder="10 अंकी मोबाईल क्र." maxlength="10" required style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #ccc;">
+            </div>
+
+            <!-- Emergency Phone -->
+            <div class="form-group">
+              <label for="patEmergencyPhone" style="font-weight: 700; color: var(--text-dark); margin-bottom: 6px; display: block;">पर्यायी/नातेवाईक संपर्क</label>
+              <input type="tel" id="patEmergencyPhone" class="form-control" placeholder="पर्यायी नंबर" maxlength="10" style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #ccc;">
+            </div>
+
+            <!-- Blood Group -->
+            <div class="form-group">
+              <label for="patBloodGroup" style="font-weight: 700; color: var(--text-dark); margin-bottom: 6px; display: block;">रक्तगट (Blood Group)</label>
+              <select id="patBloodGroup" class="form-control" style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #ccc;">
+                <option value="माहित नाही">माहित नाही (Unknown)</option>
+                <option value="A+">A+</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B-">B-</option>
+                <option value="O+">O+</option>
+                <option value="O-">O-</option>
+                <option value="AB+">AB+</option>
+                <option value="AB-">AB-</option>
+              </select>
+            </div>
+
+            <!-- Aadhaar Number -->
+            <div class="form-group">
+              <label for="patAadhaar" style="font-weight: 700; color: var(--text-dark); margin-bottom: 6px; display: block;">आधार कार्ड नंबर (Aadhaar No.)</label>
+              <input type="text" id="patAadhaar" class="form-control" placeholder="12 अंकी आधार क्रमांक" maxlength="14" style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #ccc;">
+            </div>
+
+            <!-- PAN Card Number -->
+            <div class="form-group">
+              <label for="patPan" style="font-weight: 700; color: var(--text-dark); margin-bottom: 6px; display: block;">पॅन कार्ड नंबर (PAN Card No.)</label>
+              <input type="text" id="patPan" class="form-control" placeholder="उदा. ABCDE1234F" maxlength="10" style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #ccc; text-transform: uppercase;">
+            </div>
+
+            <!-- City -->
+            <div class="form-group">
+              <label for="patCity" style="font-weight: 700; color: var(--text-dark); margin-bottom: 6px; display: block;">
+                शहर / जिल्हा (City/District) <span style="color:red;">*</span>
+              </label>
+              <input type="text" id="patCity" class="form-control" placeholder="उदा. छत्रपती संभाजीनगर" required style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #ccc;">
+            </div>
+
+            <!-- Pincode -->
+            <div class="form-group">
+              <label for="patPincode" style="font-weight: 700; color: var(--text-dark); margin-bottom: 6px; display: block;">पिनकोड (Pincode)</label>
+              <input type="text" id="patPincode" class="form-control" placeholder="6 अंकी पिनकोड" maxlength="6" style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #ccc;">
+            </div>
+
+            <!-- Full Address -->
+            <div class="form-group" style="grid-column: 1 / -1;">
+              <label for="patAddress" style="font-weight: 700; color: var(--text-dark); margin-bottom: 6px; display: block;">संपूर्ण पत्ता (Full Address)</label>
+              <textarea id="patAddress" class="form-control" rows="2" placeholder="घर क्र., गल्ली, परिसर, शहर/गाव..." style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #ccc;"></textarea>
+            </div>
+
+            <!-- Medical Notes -->
+            <div class="form-group" style="grid-column: 1 / -1;">
+              <label for="patNotes" style="font-weight: 700; color: var(--text-dark); margin-bottom: 6px; display: block;">आरोग्य समस्या / सवलतीचा प्रकार (Health Issue/Notes)</label>
+              <input type="text" id="patNotes" class="form-control" placeholder="उदा. ओपीडी सवलत, नेत्र तपासणी, नियमित ब्लड प्रेशर" style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #ccc;">
+            </div>
+
+          </div>
+
+          <!-- Document Upload & Live Camera Capture Section -->
+          <div style="margin-top: 30px; background: #f8f9fa; padding: 22px; border-radius: 12px; border: 1px dashed #ccc;">
+            <h4 style="color: var(--primary); margin-top: 0; font-size: 1.1rem; font-weight: 800; margin-bottom: 15px;">
+              <i class="fas fa-camera-retro"></i> ओळखपत्र फोटो जोडणे (Aadhaar & PAN Photo Upload or Camera Capture)
+            </h4>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+              
+              <!-- Aadhaar Photo Box -->
+              <div style="background: #ffffff; padding: 16px; border-radius: 10px; border: 1px solid #e0e0e0;">
+                <label style="font-weight: 700; display: block; margin-bottom: 8px; color: var(--text-dark);">
+                  <i class="fas fa-id-card" style="color:var(--primary);"></i> आधार कार्ड फोटो (Aadhaar Card)
+                </label>
+                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                  <label class="btn btn-sm btn-primary" style="margin:0; cursor:pointer;">
+                    <i class="fas fa-upload"></i> फाईल निवडा
+                    <input type="file" id="aadhaarFile" accept="image/*,.pdf" style="display: none;">
+                  </label>
+                  <button type="button" class="btn btn-sm btn-secondary" onclick="openCameraModal('aadhaar')">
+                    <i class="fas fa-camera"></i> कॅमेरा फोटो
+                  </button>
+                </div>
+                <div id="aadhaarPreview"></div>
+              </div>
+
+              <!-- PAN Photo Box -->
+              <div style="background: #ffffff; padding: 16px; border-radius: 10px; border: 1px solid #e0e0e0;">
+                <label style="font-weight: 700; display: block; margin-bottom: 8px; color: var(--text-dark);">
+                  <i class="fas fa-address-card" style="color:var(--secondary);"></i> पॅन कार्ड फोटो (PAN Card)
+                </label>
+                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                  <label class="btn btn-sm btn-primary" style="margin:0; cursor:pointer;">
+                    <i class="fas fa-upload"></i> फाईल निवडा
+                    <input type="file" id="panFile" accept="image/*,.pdf" style="display: none;">
+                  </label>
+                  <button type="button" class="btn btn-sm btn-secondary" onclick="openCameraModal('pan')">
+                    <i class="fas fa-camera"></i> कॅमेरा फोटो
+                  </button>
+                </div>
+                <div id="panPreview"></div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Form Submit Button -->
+          <div style="text-align: center; margin-top: 30px;">
+            <button type="submit" class="btn btn-primary btn-lg" style="padding: 14px 40px; font-weight: 800; font-size: 1.1rem; border-radius: 99px;">
+              <i class="fas fa-check-circle"></i> रुग्ण नोंदणी सबमिट करा (Submit Registration)
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Registered Patients Directory & Table Section -->
+      <div id="patientDirectorySection" class="card" style="background: #ffffff; padding: 30px; border-radius: 16px; box-shadow: 0 15px 35px rgba(0,0,0,0.07); border: 1px solid #E6E8F2;">
+        
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 20px; border-bottom: 2px solid #eee; padding-bottom: 15px;">
+          <div>
+            <h2 style="font-size: 1.4rem; font-weight: 800; color: var(--text-dark); margin: 0;">
+              <i class="fas fa-list-alt" style="color:var(--primary);"></i> नोंदणीकृत रुग्णांची यादी (Registered Patients List)
+            </h2>
+            <span style="font-size: 0.85rem; color: var(--text-muted);">वेबसाईटवर साठवलेल्या सर्व रुग्णांचा डॅशबोर्ड व शोध प्रणाली.</span>
+          </div>
+
+          <div style="display: flex; gap: 10px; align-items: center;">
+            <button class="btn btn-sm btn-secondary" onclick="exportPatientsToCSV()" title="Excel / CSV मध्ये डाउनलोड करा">
+              <i class="fas fa-file-excel"></i> CSV / Excel डाउनलोड
+            </button>
+          </div>
+        </div>
+
+        <!-- Search Bar Input -->
+        <div style="margin-bottom: 20px;">
+          <div style="position: relative; max-width: 450px;">
+            <input type="text" id="patientSearchInput" class="form-control" placeholder="रुग्णाचे नाव, मोबाईल, नोंदणी क्र. किंवा शहर शोधा..." style="width: 100%; padding: 12px 15px 12px 40px; border-radius: 99px; border: 1px solid #ccc;">
+            <i class="fas fa-search" style="position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #aaa;"></i>
+          </div>
+        </div>
+
+        <!-- Patients Responsive Table -->
+        <div style="overflow-x: auto;">
+          <table class="table" style="width: 100%; border-collapse: collapse; text-align: left;">
+            <thead>
+              <tr style="background: var(--bg-body); border-bottom: 2px solid #ddd;">
+                <th style="padding: 12px; font-weight: 700;">नोंदणी क्र (Reg ID)</th>
+                <th style="padding: 12px; font-weight: 700;">रुग्णाचे नाव व तपशील</th>
+                <th style="padding: 12px; font-weight: 700;">मोबाईल</th>
+                <th style="padding: 12px; font-weight: 700;">शहर / पत्ता</th>
+                <th style="padding: 12px; font-weight: 700;">तारीख</th>
+                <th style="padding: 12px; font-weight: 700;">कागदपत्रे</th>
+                <th style="padding: 12px; font-weight: 700;">ॲक्शन (Action)</th>
+              </tr>
+            </thead>
+            <tbody id="patientTableBody">
+              <!-- Dynamically rendered via patient-manager.js -->
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Full-Window Camera Modal with Snapshot Preview & Submit Confirmation -->
+  <div id="cameraCaptureModal" class="modal-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #000; z-index: 9999999; padding: 0; margin: 0;">
+    <div class="modal-card" style="width: 100vw; height: 100vh; max-width: 100%; max-height: 100%; border-radius: 0; background: #0e1117; color: #ffffff; display: flex; flex-direction: column; justify-content: space-between; padding: 18px 24px; box-sizing: border-box;">
+      
+      <!-- Top Header Bar -->
+      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.15); padding-bottom: 12px;">
+        <div style="text-align: left;">
+          <h3 style="color: #ffffff; margin: 0; font-size: 1.3rem;" id="cameraModalTitle">
+            <i class="fas fa-camera" style="color: #8E6CFF;"></i> फुल-विंडो ओळखपत्र कॅमेरा (Full Window Camera View)
+          </h3>
+          <span style="font-size: 0.85rem; color: rgba(255,255,255,0.7);" id="cameraModalDesc">
+            ओळखपत्र (Aadhaar / PAN) चौकटीमध्ये स्पष्ट ठेवून फोटो काढा व सबमिट करा.
+          </span>
+        </div>
+        <button type="button" onclick="closeCameraModal()" style="background: rgba(255,255,255,0.15); color: #fff; border: none; border-radius: 50%; width: 44px; height: 44px; font-size: 1.5rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s ease;">&times;</button>
+      </div>
+      
+      <!-- Main Center Camera View / Snapshot View Area -->
+      <div style="flex: 1; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; margin: 15px 0; background: #000; border-radius: 14px; border: 1px solid rgba(255,255,255,0.1);">
+        
+        <!-- Live Camera Stream View -->
+        <div id="cameraVideoView" style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; position: relative;">
+          <video id="cameraVideo" autoplay playsinline style="width: 100%; height: 100%; max-height: calc(100vh - 190px); object-fit: contain; background: #000;"></video>
+          <canvas id="cameraCanvas" style="display: none;"></canvas>
+
+          <!-- Card Alignment Guide Overlay Frame -->
+          <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 85%; max-width: 580px; height: 65%; max-height: 380px; border: 3px dashed #8E6CFF; border-radius: 16px; box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.45); pointer-events: none; display: flex; flex-direction: column; justify-content: space-between; padding: 12px; box-sizing: border-box;">
+            <div style="font-size: 0.8rem; color: #ffffff; background: rgba(142, 108, 255, 0.85); padding: 4px 12px; border-radius: 99px; align-self: center; font-weight: 700;">
+              <i class="fas fa-crop-alt"></i> ओळखपत्र येथे मध्यभागी ठेवा
+            </div>
+            <div style="font-size: 0.75rem; color: rgba(255,255,255,0.8); text-align: center; background: rgba(0,0,0,0.6); padding: 3px 10px; border-radius: 6px; align-self: center;">
+              सर्व माहिती व फोटो स्पष्ट दिसेल याची खात्री करा
+            </div>
+          </div>
+        </div>
+
+        <!-- Captured Photo Preview View -->
+        <div id="cameraSnapshotPreviewView" style="display: none; width: 100%; height: 100%; position: relative; text-align: center;">
+          <img id="cameraCapturedImg" src="" alt="Captured Photo" style="width: 100%; height: 100%; max-height: calc(100vh - 190px); object-fit: contain; background: #000;">
+          <div style="position: absolute; top: 15px; left: 50%; transform: translateX(-50%); background: rgba(40, 167, 69, 0.9); color: #fff; padding: 6px 18px; border-radius: 99px; font-size: 0.88rem; font-weight: 700; box-shadow: 0 4px 15px rgba(0,0,0,0.4);">
+            <i class="fas fa-check-circle"></i> काढलेला फोटो तपासा व सबमिट वर क्लिक करा
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom Action Controls Bar -->
+      <div style="border-top: 1px solid rgba(255,255,255,0.15); padding-top: 12px;">
+        
+        <!-- Live Controls (Phase 1) -->
+        <div id="cameraLiveActions" style="display: flex; justify-content: center; align-items: center; gap: 16px;">
+          <button type="button" class="btn btn-primary" onclick="takeCameraSnapshot()" style="padding: 14px 32px; font-size: 1.1rem; border-radius: 50px; background: linear-gradient(135deg, #6F4BFF, #4A2BC4); border: none; font-weight: 800; box-shadow: 0 8px 25px rgba(111,75,255,0.4);">
+            <i class="fas fa-camera"></i> फोटो काढा (Capture Photo)
+          </button>
+          <button type="button" class="btn btn-secondary" onclick="closeCameraModal()" style="padding: 14px 24px; font-size: 1rem; border-radius: 50px; background: rgba(255,255,255,0.15); color: #fff; border: none;">
+            <i class="fas fa-times"></i> रद्द करा
+          </button>
+        </div>
+
+        <!-- Confirm & Submit Controls (Phase 2) -->
+        <div id="cameraConfirmActions" style="display: none; justify-content: center; align-items: center; gap: 16px; flex-wrap: wrap;">
+          <button type="button" class="btn btn-success" onclick="confirmCameraSnapshot()" style="padding: 14px 32px; font-size: 1.1rem; border-radius: 50px; background: #28a745; color: #fff; font-weight: 800; border: none; box-shadow: 0 8px 25px rgba(40,167,69,0.4);">
+            <i class="fas fa-check-circle"></i> फोटो कन्फर्म व सबमिट करा (Confirm & Submit)
+          </button>
+          <button type="button" class="btn btn-warning" onclick="retakeCameraSnapshot()" style="padding: 14px 24px; font-size: 1rem; border-radius: 50px; background: #ff9800; color: #fff; font-weight: 800; border: none;">
+            <i class="fas fa-redo"></i> पुन्हा फोटो काढा (Retake)
+          </button>
+          <button type="button" class="btn btn-secondary" onclick="closeCameraModal()" style="padding: 14px 24px; font-size: 1rem; border-radius: 50px; background: rgba(255,255,255,0.15); color: #fff; border: none;">
+            <i class="fas fa-times"></i> रद्द करा
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand" style="margin-bottom: 12px;">
+            <img src="assets/images/logo.png" alt="Logo" style="height: 42px;">
+            <span style="font-weight: 800; font-size: 1.1rem; color: #fff;">छत्रपती शाहू महाराज संस्था</span>
+          </div>
+          <p style="font-size: 0.9rem; color: rgba(255,255,255,0.8); line-height: 1.6;">
+            आरोग्य, शिक्षण व सामाजिक विकासासाठी कटिबद्ध. Reg No: 699/MH F 5559.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="footer-title">महत्त्वाच्या लिंक्स</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">मुख्य पृष्ठ (Home)</a></li>
+            <li><a href="patient-registration.html">रुग्ण नोंदणी (Patient Registration)</a></li>
+            <li><a href="family-health-card.html">फॅमिली हेल्थ कार्ड</a></li>
+            <li><a href="hospitals.html">संलग्न हॉस्पिटल्स</a></li>
+            <li><a href="contact.html">संपर्क (Contact)</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-title">मुख्य कार्यालय</h4>
+          <div style="font-size: 0.92rem; line-height: 1.8;">
+            <p><i class="fas fa-map-marker-alt" style="color: var(--accent);"></i> मयूर पार्क, जळगाव रोड, छत्रपती संभाजीनगर - 431003</p>
+            <p><i class="fas fa-phone-alt" style="color: var(--accent);"></i> +91 9021757353</p>
+            <p><i class="fas fa-envelope" style="color: var(--accent);"></i> akasharke9@gmail.com</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.1);">
+        <span>© 2026 छत्रपती शाहू महाराज बहुउद्देशीय संस्था. सर्व हक्क सुरक्षित.</span>
+        <span style="font-size: 0.88rem; color: rgba(255,255,255,0.85);">Developed by <strong style="color: var(--secondary);">Yugvex Tech Solutions, Pune</strong></span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scroll To Top -->
+  <button class="back-to-top" aria-label="Back to top">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <!-- JavaScript Files -->
+  <script src="js/security.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/patient-manager.js"></script>
+</body>
+
+</html>

@@ -395,6 +395,75 @@ img {
   border: 1px solid rgba(142, 108, 255, 0.4);
 }
 
+/* --- Live News & Announcement Ticker Bar --- */
+.news-ticker-bar {
+  background: #11151E;
+  border-bottom: 1px solid rgba(111, 75, 255, 0.25);
+  padding: 6px 0;
+  overflow: hidden;
+  font-size: 0.86rem;
+  color: #FFFFFF;
+}
+
+.news-ticker-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ticker-badge {
+  background: var(--gradient-primary);
+  color: #FFFFFF;
+  padding: 3px 12px;
+  border-radius: var(--radius-pill);
+  font-size: 0.76rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.ticker-content-wrap {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  white-space: nowrap;
+}
+
+.ticker-items {
+  display: inline-flex;
+  gap: 40px;
+  animation: tickerScroll 28s linear infinite;
+}
+
+.ticker-items:hover {
+  animation-play-state: paused;
+}
+
+.ticker-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+@keyframes tickerScroll {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
+@media (max-width: 768px) {
+  .ticker-badge span {
+    display: none;
+  }
+  .ticker-items {
+    animation-duration: 20s;
+  }
+}
+
+
 /* --- Centered Main Brand Header --- */
 .header-brand-centered {
   background: var(--bg-white);
@@ -2878,6 +2947,53 @@ textarea.form-control {
   box-shadow: var(--shadow-sm);
   transform: translateY(-1px);
 }
+
+/* ==========================================================================
+   Global Modal Overlay & Camera Popup System
+   ========================================================================== */
+.modal-overlay {
+  display: none !important;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  z-index: 99999;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+  box-sizing: border-box;
+}
+
+.modal-overlay.active {
+  display: flex !important;
+}
+
+.modal-card {
+  position: relative;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+  animation: modalPopIn 0.25s ease-out;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+@keyframes modalPopIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
 
 
 

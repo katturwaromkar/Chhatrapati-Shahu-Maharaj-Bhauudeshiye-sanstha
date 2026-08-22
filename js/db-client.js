@@ -47,6 +47,69 @@ async function getHealthCardById(cardId) {
 }
 
 /**
+ * Saves a registered patient to Supabase PostgreSQL Database (No delete, only create & edit)
+ */
+async function createPatient(data) {
+  try {
+    const patient = await prisma.patient.create({
+      data: {
+        regId: data.regId,
+        name: data.name,
+        gender: data.gender,
+        age: data.age,
+        phone: data.phone,
+        emergencyPhone: data.emergencyPhone || null,
+        bloodGroup: data.bloodGroup || null,
+        aadhaar: data.aadhaar,
+        pan: data.pan || null,
+        city: data.city,
+        pincode: data.pincode || null,
+        address: data.address,
+        notes: data.notes || null,
+        status: data.status || "सक्रिय (ACTIVE)",
+        aadhaarPhoto: data.aadhaarPhoto || null,
+        panPhoto: data.panPhoto || null
+      }
+    });
+    return { success: true, patient: patient };
+  } catch (error) {
+    console.error('Error creating patient in Supabase:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+/**
+ * Updates an existing patient record in Supabase PostgreSQL Database
+ */
+async function updatePatient(regId, data) {
+  try {
+    const updated = await prisma.patient.update({
+      where: { regId: regId },
+      data: {
+        name: data.name,
+        gender: data.gender,
+        age: data.age,
+        phone: data.phone,
+        emergencyPhone: data.emergencyPhone,
+        bloodGroup: data.bloodGroup,
+        aadhaar: data.aadhaar,
+        pan: data.pan,
+        city: data.city,
+        pincode: data.pincode,
+        address: data.address,
+        notes: data.notes,
+        aadhaarPhoto: data.aadhaarPhoto,
+        panPhoto: data.panPhoto
+      }
+    });
+    return { success: true, patient: updated };
+  } catch (error) {
+    console.error('Error updating patient in Supabase:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+/**
  * Saves a contact form submission to Supabase PostgreSQL
  */
 async function submitContactMessage(data) {
@@ -69,5 +132,7 @@ module.exports = {
   prisma,
   createHealthCard,
   getHealthCardById,
+  createPatient,
+  updatePatient,
   submitContactMessage
 };

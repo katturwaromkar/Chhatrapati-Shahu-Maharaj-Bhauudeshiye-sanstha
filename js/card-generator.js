@@ -195,9 +195,12 @@ function renderDigitalCardPreview(data) {
       </div>
 
       <!-- Card Action Buttons -->
-      <div class="card-action-btns">
+      <div class="card-action-btns" style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;">
         <button class="btn btn-primary" onclick="printHealthCard()">
-          <i class="fas fa-print"></i> हेल्थ कार्ड प्रिंट / PDF डाउनलोड
+          <i class="fas fa-print"></i> प्रिंट / PDF डाउनलोड
+        </button>
+        <button class="btn" style="background: #25D366; color: #fff; font-weight: 700;" onclick="shareCardOnWhatsApp('${data.cardId}', '${encodeURIComponent(data.name)}')">
+          <i class="fab fa-whatsapp"></i> व्हॉट्सॲपवर पाठवा
         </button>
         <button class="btn btn-secondary" onclick="closeCardModal()">
           <i class="fas fa-times"></i> बंद करा
@@ -210,10 +213,22 @@ function renderDigitalCardPreview(data) {
   previewContainer.scrollIntoView({ behavior: 'smooth' });
 }
 
-/* --- Global Print Card Function --- */
+/* --- Global Print & Share Card Functions --- */
 window.printHealthCard = function() {
   window.print();
 };
+
+window.shareCardOnWhatsApp = function(cardId, name) {
+  const decodedName = decodeURIComponent(name);
+  const verifyUrl = `https://chatrpatishahumaharajbahuuddeshiyasanstha.in/family-health-card.html?verify=${cardId}`;
+  const text = `नमस्कार! छत्रपती शाहू महाराज बहुउद्देशीय संस्थेचे फॅमिली हेल्थ कार्ड तयार झाले आहे.\n\n` +
+               `*कार्डधारक:* ${decodedName}\n` +
+               `*कार्ड आयडी:* ${cardId}\n` +
+               `*सवलत:* २०% ओपीडी / २५% लॅब चाचण्या\n\n` +
+               `कार्ड तपासणी दुवा: ${verifyUrl}`;
+  window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
+};
+
 
 /* --- Health Card Verification Lookup --- */
 function initHealthCardVerification() {
