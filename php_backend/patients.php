@@ -4,14 +4,12 @@
    Cross-Device Shared Patient Database API (For Hostinger / Cloud Hosting)
    ========================================================================== */
 
-// Unrestricted CORS headers for multi-device & mobile access
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS, DELETE");
 header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With, Accept");
 header("Access-Control-Max-Age: 86400");
 header("Content-Type: application/json; charset=UTF-8");
 
-// Respond immediately to browser preflight CORS OPTIONS requests
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(200);
     echo json_encode(["status" => "CORS_OK"]);
@@ -21,14 +19,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 $dataDir = __DIR__ . '/data';
 $dataFile = $dataDir . '/patients.json';
 
-// Ensure data directory exists
 if (!file_exists($dataDir)) {
     @mkdir($dataDir, 0777, true);
 }
 
-// Initial sample data if file does not exist
 if (!file_exists($dataFile)) {
     $initialData = [
+        [
+            "regId" => "REG-PAT-2026-1609",
+            "name" => "Omkar Katturwar",
+            "gender" => "पुरुष",
+            "age" => "--",
+            "phone" => "7219290885",
+            "emergencyPhone" => "7219290885",
+            "bloodGroup" => "माहित नाही",
+            "aadhaar" => "माहित नाही",
+            "pan" => "माहित नाही",
+            "address" => "Pune",
+            "city" => "Pune",
+            "pincode" => "",
+            "notes" => "सक्रिय रुग्ण नोंदणी",
+            "regDate" => "2026-08-22",
+            "status" => "सक्रिय (ACTIVE)",
+            "aadhaarPhoto" => null,
+            "panPhoto" => null
+        ],
         [
             "regId" => "REG-PAT-2026-1001",
             "name" => "रामेश्वर तुकाराम शिंदे (Rameshwar T. Shinde)",
@@ -47,42 +62,17 @@ if (!file_exists($dataFile)) {
             "status" => "सक्रिय (ACTIVE)",
             "aadhaarPhoto" => null,
             "panPhoto" => null
-        ],
-        [
-            "regId" => "REG-PAT-2026-1002",
-            "name" => "सुनीता विष्णू कांबळे (Sunita V. Kamble)",
-            "gender" => "स्त्री",
-            "age" => "36",
-            "phone" => "9021123456",
-            "emergencyPhone" => "9021123457",
-            "bloodGroup" => "B+",
-            "aadhaar" => "XXXX-XXXX-7812",
-            "pan" => "XYZPD9876K",
-            "address" => "शिवजी नगर, जळगाव रोड, छत्रपती संभाजीनगर",
-            "city" => "छत्रपती संभाजीनगर",
-            "pincode" => "431003",
-            "notes" => "नेत्र चिकित्सा शिबीर नोंदणी",
-            "regDate" => "2026-08-21",
-            "status" => "सक्रिय (ACTIVE)",
-            "aadhaarPhoto" => null,
-            "panPhoto" => null
         ]
     ];
     @file_put_contents($dataFile, json_encode($initialData, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
 }
 
-// GET Request: Return all registered patients across all devices
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $content = @file_get_contents($dataFile);
-    if ($content) {
-        echo $content;
-    } else {
-        echo json_encode([]);
-    }
+    echo $content ? $content : json_encode([]);
     exit();
 }
 
-// POST Request: Save new patient or update existing patient from any device
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $inputJSON = file_get_contents('php://input');
     $inputData = json_decode($inputJSON, true);
@@ -94,8 +84,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     $existingPatients = json_decode(@file_get_contents($dataFile), true) ?: [];
-
-    // Check if updating an existing patient or creating a new patient
     $existingIndex = -1;
     foreach ($existingPatients as $index => $p) {
         if (isset($p['regId']) && $p['regId'] === $inputData['regId']) {
@@ -105,14 +93,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if ($existingIndex >= 0) {
-        // Update existing record
         $existingPatients[$existingIndex] = array_merge($existingPatients[$existingIndex], $inputData);
     } else {
-        // Add new patient to top
         array_unshift($existingPatients, $inputData);
     }
 
-    // Save updated shared database
     $saved = @file_put_contents($dataFile, json_encode($existingPatients, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
 
     echo json_encode([
@@ -122,25 +107,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     ]);
     exit();
 }
-
-// DELETE Request: Remove patient record from shared cloud database
-if ($_SERVER['REQUEST_METHOD'] === 'DELETE' || (isset($_GET['action']) && $_GET['action'] === 'delete')) {
-    $regId = $_GET['regId'] ?? null;
-    if (!$regId) {
-        $inputJSON = file_get_contents('php://input');
-        $inputData = json_decode($inputJSON, true);
-        $regId = $inputData['regId'] ?? null;
-    }
-
-    if ($regId) {
-        $existingPatients = json_decode(@file_get_contents($dataFile), true) ?: [];
-        $filtered = array_values(array_filter($existingPatients, function($p) use ($regId) {
-            return isset($p['regId']) && $p['regId'] !== $regId;
-        }));
-        @file_put_contents($dataFile, json_encode($filtered, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
-        echo json_encode(["success" => true, "message" => "Patient record deleted successfully"]);
-        exit();
-    }
-}
-
-

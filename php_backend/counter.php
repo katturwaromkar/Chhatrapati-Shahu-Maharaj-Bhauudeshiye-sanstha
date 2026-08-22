@@ -4,7 +4,6 @@
    Real-Time Global Visitor Counter API (For Hostinger / Cloud Server)
    ========================================================================== */
 
-// Unrestricted CORS headers for multi-device & mobile access
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With, Accept");
@@ -24,16 +23,13 @@ if (!file_exists($dataDir)) {
     @mkdir($dataDir, 0777, true);
 }
 
-// Initial count starting at realistic base (5,420 visits)
-$initialCount = 5420;
+$initialCount = 5432;
 
 if (!file_exists($counterFile)) {
     @file_put_contents($counterFile, json_encode(["count" => $initialCount]));
 }
 
 $data = json_decode(@file_get_contents($counterFile), true) ?: ["count" => $initialCount];
-
-// Increment counter on POST or GET query parameter action=hit
 $isHit = isset($_GET['action']) && $_GET['action'] === 'hit';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' || $isHit) {
@@ -47,4 +43,3 @@ echo json_encode([
     "formatted" => number_format(intval($data['count']))
 ]);
 exit();
-
