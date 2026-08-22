@@ -1642,8 +1642,52 @@ textarea.form-control {
   margin-bottom: 60px;
 }
 
+.footer-brand .logo-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-decoration: none;
+  margin-bottom: 16px;
+}
+
+.footer-brand .site-logo-img,
+.footer-brand .footer-logo-img {
+  height: 68px !important;
+  width: 68px !important;
+  max-height: 68px !important;
+  object-fit: contain !important;
+  flex-shrink: 0 !important;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.4));
+  transition: transform var(--transition-fast);
+}
+
+.footer-brand .logo-brand:hover .site-logo-img,
+.footer-brand .logo-brand:hover .footer-logo-img {
+  transform: scale(1.04);
+}
+
+.footer-brand .logo-text-group {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .footer-brand .logo-title {
-  color: #ffffff;
+  color: #ffffff !important;
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 1.25rem;
+  line-height: 1.25;
+  letter-spacing: -0.2px;
+  display: block;
+}
+
+.footer-brand .logo-subtitle {
+  color: var(--secondary) !important;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-top: 3px;
+  display: block;
 }
 
 .footer-brand p {
