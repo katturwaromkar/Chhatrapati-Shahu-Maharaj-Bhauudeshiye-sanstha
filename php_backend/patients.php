@@ -24,46 +24,7 @@ if (!file_exists($dataDir)) {
 }
 
 if (!file_exists($dataFile)) {
-    $initialData = [
-        [
-            "regId" => "REG-PAT-2026-1609",
-            "name" => "Omkar Katturwar",
-            "gender" => "पुरुष",
-            "age" => "--",
-            "phone" => "7219290885",
-            "emergencyPhone" => "7219290885",
-            "bloodGroup" => "माहित नाही",
-            "aadhaar" => "माहित नाही",
-            "pan" => "माहित नाही",
-            "address" => "Pune",
-            "city" => "Pune",
-            "pincode" => "",
-            "notes" => "सक्रिय रुग्ण नोंदणी",
-            "regDate" => "2026-08-22",
-            "status" => "सक्रिय (ACTIVE)",
-            "aadhaarPhoto" => null,
-            "panPhoto" => null
-        ],
-        [
-            "regId" => "REG-PAT-2026-1001",
-            "name" => "रामेश्वर तुकाराम शिंदे (Rameshwar T. Shinde)",
-            "gender" => "पुरुष",
-            "age" => "42",
-            "phone" => "9823456789",
-            "emergencyPhone" => "9823456790",
-            "bloodGroup" => "O+",
-            "aadhaar" => "XXXX-XXXX-4589",
-            "pan" => "ABCDE1234F",
-            "address" => "प्लॉट नं. 45, नक्षत्रवाडी, छत्रपती संभाजीनगर",
-            "city" => "छत्रपती संभाजीनगर",
-            "pincode" => "431002",
-            "notes" => "ओपीडी सवलतीसाठी रुग्ण नोंदणी, नियमित बीपी तपासणी",
-            "regDate" => "2026-08-20",
-            "status" => "सक्रिय (ACTIVE)",
-            "aadhaarPhoto" => null,
-            "panPhoto" => null
-        ]
-    ];
+    $initialData = [];
     @file_put_contents($dataFile, json_encode($initialData, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
 }
 

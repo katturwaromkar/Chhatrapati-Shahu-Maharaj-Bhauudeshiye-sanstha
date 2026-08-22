@@ -44,87 +44,26 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /* --- Pre-loaded Registered Patients Database & Storage Helpers --- */
-const initialSamplePatients = [
-  {
-    regId: "REG-PAT-2026-1609",
-    name: "Omkar Katturwar",
-    gender: "पुरुष",
-    age: "--",
-    phone: "7219290885",
-    emergencyPhone: "7219290885",
-    bloodGroup: "माहित नाही",
-    aadhaar: "माहित नाही",
-    rawAadhaar: "",
-    pan: "माहित नाही",
-    address: "Pune",
-    city: "Pune",
-    pincode: "",
-    notes: "सक्रिय रुग्ण नोंदणी",
-    regDate: "2026-08-22",
-    status: "सक्रिय (ACTIVE)",
-    aadhaarPhoto: null,
-    panPhoto: null
-  },
-  {
-    regId: "REG-PAT-2026-1001",
-    name: "रामेश्वर तुकाराम शिंदे (Rameshwar T. Shinde)",
-    gender: "पुरुष",
-    age: "42",
-    phone: "9823456789",
-    emergencyPhone: "9823456790",
-    bloodGroup: "O+",
-    aadhaar: "XXXX-XXXX-4589",
-    rawAadhaar: "987654324589",
-    pan: "ABCDE1234F",
-    address: "प्लॉट नं. 45, नक्षत्रवाडी, छत्रपती संभाजीनगर",
-    city: "छत्रपती संभाजीनगर",
-    pincode: "431002",
-    notes: "ओपीडी सवलतीसाठी रुग्ण नोंदणी, नियमित बीपी तपासणी",
-    regDate: "2026-08-20",
-    status: "सक्रिय (ACTIVE)",
-    aadhaarPhoto: null,
-    panPhoto: null
-  },
-  {
-    regId: "REG-PAT-2026-1002",
-    name: "सुनीता विष्णू कांबळे (Sunita V. Kamble)",
-    gender: "स्त्री",
-    age: "36",
-    phone: "9021123456",
-    emergencyPhone: "9021123457",
-    bloodGroup: "B+",
-    aadhaar: "XXXX-XXXX-7812",
-    rawAadhaar: "876543217812",
-    pan: "XYZPD9876K",
-    address: "शिवजी नगर, जळगाव रोड, छत्रपती संभाजीनगर",
-    city: "छत्रपती संभाजीनगर",
-    pincode: "431003",
-    notes: "नेत्र चिकित्सा शिबीर नोंदणी",
-    regDate: "2026-08-21",
-    status: "सक्रिय (ACTIVE)",
-    aadhaarPhoto: null,
-    panPhoto: null
-  }
-];
+const initialSamplePatients = [];
 
 function getStoredPatients() {
   const data = localStorage.getItem('CSM_PATIENTS');
   if (!data) {
-    savePatients(initialSamplePatients);
-    return initialSamplePatients;
+    savePatients([]);
+    return [];
   }
   try {
     const parsed = JSON.parse(data);
-    if (!Array.isArray(parsed)) return initialSamplePatients;
-    // Ensure initial sample patients exist in stored data if missing
-    initialSamplePatients.forEach(initP => {
-      if (!parsed.some(p => p.regId === initP.regId)) {
-        parsed.push(initP);
-      }
-    });
-    return parsed;
+    if (!Array.isArray(parsed)) return [];
+    // Filter out initial sample records if present
+    const sampleIds = ["REG-PAT-2026-1609", "REG-PAT-2026-1001", "REG-PAT-2026-1002"];
+    const filtered = parsed.filter(p => p && !sampleIds.includes(p.regId));
+    if (filtered.length !== parsed.length) {
+      savePatients(filtered);
+    }
+    return filtered;
   } catch (e) {
-    return initialSamplePatients;
+    return [];
   }
 }
 
@@ -816,18 +755,18 @@ window.promptDeletePatient = function(regId) {
   }
 
   modal.innerHTML = `
-    <div class="modal-card" style="max-width: 500px; width: 95%; text-align: center; border-top: 5px solid #dc3545;">
+    <div class="modal-card" style="max-width: 480px; width: 95%; text-align: center; border-top: 5px solid #dc3545;">
       <div style="width: 56px; height: 56px; background: #ffebee; color: #dc3545; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; margin: 0 auto 14px;">
         <i class="fas fa-lock"></i>
       </div>
-      <h3 style="color: #dc3545; margin: 0 0 6px;">सुरक्षा पिन आवश्यक (Registration ID Required)</h3>
-      <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px;">
-        रुग्णाचा डेटा डिलीट करण्यासाठी पिन म्हणून रुग्णाचा <strong>नोंदणी क्रमांक (<span style="color:var(--primary); font-weight:800;">${regId}</span>)</strong> प्रविष्ट करा.
+      <h3 style="color: #dc3545; margin: 0 0 6px;">सुरक्षा पिन आवश्यक (Security PIN Required)</h3>
+      <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 20px;">
+        रुग्ण नोंदणी (<strong style="color:var(--primary);">${regId}</strong>) कायमची डिलीट करण्यासाठी अधिकृत सुरक्षा पिन प्रविष्ट करा.
       </p>
 
       <form onsubmit="confirmDeleteWithPin(event)" style="display: flex; flex-direction: column; gap: 15px;">
         <div>
-          <input type="text" id="deletePinInput" class="form-control" placeholder="उदा. ${regId}" required autocomplete="off" style="width: 100%; padding: 14px; font-size: 1.05rem; border-radius: 8px; border: 2px solid #dc3545; text-align: center; letter-spacing: 1px; box-sizing: border-box;">
+          <input type="password" id="deletePinInput" class="form-control" placeholder="सुरक्षा पिन टाका..." required autocomplete="off" style="width: 100%; padding: 14px; font-size: 1.1rem; border-radius: 8px; border: 2px solid #dc3545; text-align: center; letter-spacing: 2px; box-sizing: border-box;">
         </div>
 
         <div style="display: flex; justify-content: center; gap: 12px; margin-top: 5px;">
@@ -858,7 +797,7 @@ window.confirmDeleteWithPin = function(e) {
 
   const inputPin = document.getElementById('deletePinInput')?.value.trim();
 
-  // Patient Registration ID is the Delete PIN for deleting the registered patient's data
+  // Validate PIN against Registration ID or master security PIN
   if (
     inputPin && (
       inputPin.toUpperCase() === pendingDeleteRegId.toUpperCase() ||
@@ -878,7 +817,7 @@ window.confirmDeleteWithPin = function(e) {
 
     showToast(`रुग्ण नोंदणी (${deletedId}) सिस्टीममधून कायमची डिलीट झाली!`, 'success');
   } else {
-    showToast(`चुकीचा पिन! डिलीट करण्यासाठी रुग्णाचा नोंदणी क्रमांक (${pendingDeleteRegId}) टाका.`, 'error');
+    showToast('चुकीचा सुरक्षा पिन! डिलीट करण्याची परवानगी नाकारली.', 'error');
     const input = document.getElementById('deletePinInput');
     if (input) {
       input.value = '';
