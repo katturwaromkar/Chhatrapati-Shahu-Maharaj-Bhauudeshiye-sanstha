@@ -180,24 +180,21 @@ function getApiEndpoints() {
   return endpoints;
 }
 
+const RESTFUL_PATIENTS_URL = 'https://api.restful-api.dev/objects/ff8081819ff5b11001a0286cc47274af';
 let lastPatientHash = '';
 
-/* --- Robust Cross-Device Cloud Sync Function --- */
+/* --- Robust Real-Time Cross-Device Cloud Sync Function --- */
 async function syncPatientsFromCloud() {
-  const endpoints = getApiEndpoints();
+  const endpoints = [RESTFUL_PATIENTS_URL, 'api/patients'];
   for (const endpoint of endpoints) {
     try {
-      const response = await fetch(endpoint, {
-        method: 'GET',
-        headers: { 'Accept': 'application/json' },
-        cache: 'no-store'
-      });
-
+      const response = await fetch(endpoint, { cache: 'no-store' });
       if (response.ok) {
         const text = await response.text();
-        if (text.trim().startsWith('[') || text.trim().startsWith('{')) {
-          const cloudPatients = JSON.parse(text);
-          if (Array.isArray(cloudPatients)) {
+        if (text.trim().startsWith('{') || text.trim().startsWith('[')) {
+          const json = JSON.parse(text);
+          let cloudPatients = Array.isArray(json) ? json : (json.data?.patients || json.patients || null);
+          if (Array.isArray(cloudPatients) && cloudPatients.length > 0) {
             const localPatients = getStoredPatients();
             const mergedMap = new Map();
 
@@ -225,31 +222,57 @@ async function syncPatientsFromCloud() {
 
 // Post new or edited patient record to shared cloud database across all candidate endpoints
 async function savePatientToCloudAPI(patientRecord) {
-  const endpoints = getApiEndpoints();
-  for (const endpoint of endpoints) {
-    try {
-      await fetch(endpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(patientRecord)
-      });
-    } catch (err) {
-      console.warn(`POST to ${endpoint} failed:`, err);
-    }
+  const currentLocal = getStoredPatients();
+  const existingIdx = currentLocal.findIndex(p => p.regId === patientRecord.regId);
+  if (existingIdx >= 0) {
+    currentLocal[existingIdx] = { ...currentLocal[existingIdx], ...patientRecord };
+  } else {
+    currentLocal.unshift(patientRecord);
   }
+  savePatients(currentLocal);
+
+  // Sync to persistent cloud database
+  try {
+    const payload = {
+      name: "CSM_SANSTHA_LIVE_DATABASE_2026",
+      data: { patients: currentLocal }
+    };
+    await fetch(RESTFUL_PATIENTS_URL, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+  } catch (err) {
+    console.warn('Cloud PUT failed:', err);
+  }
+
+  // Backup post to Vercel local endpoint if available
+  try {
+    await fetch('api/patients', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(patientRecord)
+    });
+  } catch (e) {}
 }
 
 // Delete patient record from shared cloud database across all candidate endpoints
 async function deletePatientFromCloudAPI(regId) {
-  const endpoints = getApiEndpoints();
-  for (const endpoint of endpoints) {
-    try {
-      await fetch(`${endpoint}?action=delete&regId=${encodeURIComponent(regId)}`, {
-        method: 'DELETE'
-      });
-    } catch (err) {
-      console.warn(`DELETE to ${endpoint} failed:`, err);
-    }
+  const currentLocal = getStoredPatients().filter(p => p.regId !== regId);
+  savePatients(currentLocal);
+
+  try {
+    const payload = {
+      name: "CSM_SANSTHA_LIVE_DATABASE_2026",
+      data: { patients: currentLocal }
+    };
+    await fetch(RESTFUL_PATIENTS_URL, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+  } catch (err) {
+    console.warn('Cloud delete failed:', err);
   }
 }
 

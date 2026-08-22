@@ -621,66 +621,44 @@ function initFaqAccordion() {
 }
 
 /* --- Real-Time Multi-Device Footer Visitor Counter Logic --- */
+const RESTFUL_COUNTER_URL = 'https://api.restful-api.dev/objects/ff8081819ff5b11001a0286ddd1174b2';
+
 function initVisitorCounter() {
   const counterElements = document.querySelectorAll('#visitorCountNum');
   if (!counterElements.length) return;
 
   const isNewSession = !sessionStorage.getItem('csms_session_counted');
 
-  // Candidate endpoints (supports Vercel Serverless API + cPanel PHP backend + live production domain)
-  const actionParam = isNewSession ? '?action=hit' : '';
-  const candidateEndpoints = [
-    `api/counter${actionParam}`,
-    `api/counter.js${actionParam}`,
-    `api/counter.php${actionParam}`,
-    `https://chatrpatishahumaharajbahuuddeshiyasanstha.in/api/counter.php${actionParam}`
-  ];
-
   async function fetchRealtimeVisitorCount() {
-    for (const endpoint of candidateEndpoints) {
-      try {
-        const response = await fetch(endpoint, { cache: 'no-store', headers: { 'Accept': 'application/json' } });
-        if (response.ok) {
-          const text = await response.text();
-          if (text.trim().startsWith('{')) {
-            const data = JSON.parse(text);
-            if (data && data.count) {
-              if (isNewSession) sessionStorage.setItem('csms_session_counted', 'true');
-              const formatted = parseInt(data.count, 10).toLocaleString('en-IN');
-              counterElements.forEach(el => { el.textContent = formatted; });
-              localStorage.setItem('csms_global_visitor_count', data.count);
-              return; // Successfully fetched & updated
-            }
-          }
-        }
-      } catch (err) {
-        console.warn(`Counter fetch attempt failed for ${endpoint}:`, err);
-      }
-    }
-
-    // Secondary Public Global Counter API Fallback for real-time cross-device tracking
     try {
-      const fallbackUrl = isNewSession
-        ? 'https://api.counterapi.dev/v1/csms_sanstha_official_2026/visits/up'
-        : 'https://api.counterapi.dev/v1/csms_sanstha_official_2026/visits';
-      const fbRes = await fetch(fallbackUrl, { cache: 'no-store' });
-      if (fbRes.ok) {
-        const fbData = await fbRes.json();
-        if (fbData && fbData.count) {
-          if (isNewSession) sessionStorage.setItem('csms_session_counted', 'true');
-          const total = 5420 + parseInt(fbData.count, 10);
-          const formatted = total.toLocaleString('en-IN');
-          counterElements.forEach(el => { el.textContent = formatted; });
-          localStorage.setItem('csms_global_visitor_count', total);
-          return;
+      const response = await fetch(RESTFUL_COUNTER_URL, { cache: 'no-store' });
+      if (response.ok) {
+        const json = await response.json();
+        let currentCount = parseInt(json.data?.count || '5432', 10);
+        if (isNewSession) {
+          sessionStorage.setItem('csms_session_counted', 'true');
+          currentCount += 1;
+          // PUT incremented count back to cloud DB
+          fetch(RESTFUL_COUNTER_URL, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              name: "CSM_SANSTHA_COUNTER_DB_2026",
+              data: { count: currentCount }
+            })
+          }).catch(e => {});
         }
+        const formatted = currentCount.toLocaleString('en-IN');
+        counterElements.forEach(el => { el.textContent = formatted; });
+        localStorage.setItem('csms_global_visitor_count', currentCount);
+        return;
       }
-    } catch (fbErr) {
-      // Offline fallback
+    } catch (err) {
+      console.warn('Counter fetch failed:', err);
     }
 
     // Fallback baseline if offline
-    let fallbackCount = parseInt(localStorage.getItem('csms_global_visitor_count') || '5420', 10);
+    let fallbackCount = parseInt(localStorage.getItem('csms_global_visitor_count') || '5432', 10);
     if (isNewSession) {
       fallbackCount += 1;
       localStorage.setItem('csms_global_visitor_count', fallbackCount);
@@ -692,8 +670,8 @@ function initVisitorCounter() {
   // Initial fetch
   fetchRealtimeVisitorCount();
 
-  // Real-time polling every 10 seconds so visitor count stays synchronized across all active devices
-  setInterval(fetchRealtimeVisitorCount, 10000);
+  // Real-time polling every 6 seconds so visitor count stays 100% synchronized across all active devices
+  setInterval(fetchRealtimeVisitorCount, 6000);
 }
 
 

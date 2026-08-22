@@ -12,30 +12,19 @@ document.addEventListener('DOMContentLoaded', () => {
   setInterval(syncHealthCardsFromCloud, 4000);
 });
 
-// Candidate API endpoints for Family Health Cards
-function getCardApiEndpoints() {
-  const endpoints = ['api/cards', 'api/cards.js', 'api/cards.php'];
-  const prodUrl = 'https://chatrpatishahumaharajbahuuddeshiyasanstha.in/api/cards.php';
-  if (!window.location.href.includes('chatrpatishahumaharajbahuuddeshiyasanstha.in')) {
-    endpoints.push(prodUrl);
-  }
-  return endpoints;
-}
+const RESTFUL_CARDS_URL = 'https://api.restful-api.dev/objects/ff8081819ff5b11001a0286d82a474b1';
 
 /* --- Real-Time Cross-Device Health Card Cloud Sync --- */
 async function syncHealthCardsFromCloud() {
-  const endpoints = getCardApiEndpoints();
+  const endpoints = [RESTFUL_CARDS_URL, 'api/cards'];
   for (const endpoint of endpoints) {
     try {
-      const response = await fetch(endpoint, {
-        method: 'GET',
-        headers: { 'Accept': 'application/json' },
-        cache: 'no-store'
-      });
+      const response = await fetch(endpoint, { cache: 'no-store' });
       if (response.ok) {
         const text = await response.text();
         if (text.trim().startsWith('{')) {
-          const cloudCards = JSON.parse(text);
+          const json = JSON.parse(text);
+          const cloudCards = json.data?.cards || json.cards || json;
           if (cloudCards && typeof cloudCards === 'object') {
             const storedCards = JSON.parse(localStorage.getItem('CSM_CARDS') || '{}');
             const merged = { ...sampleCardsDB, ...storedCards, ...cloudCards };
@@ -51,17 +40,22 @@ async function syncHealthCardsFromCloud() {
 }
 
 async function saveHealthCardToCloudAPI(cardData) {
-  const endpoints = getCardApiEndpoints();
-  for (const endpoint of endpoints) {
-    try {
-      await fetch(endpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(cardData)
-      });
-    } catch (err) {
-      console.warn(`Card POST failed for ${endpoint}:`, err);
-    }
+  const storedCards = JSON.parse(localStorage.getItem('CSM_CARDS') || '{}');
+  storedCards[cardData.cardId] = cardData;
+  localStorage.setItem('CSM_CARDS', JSON.stringify(storedCards));
+
+  try {
+    const payload = {
+      name: "CSM_SANSTHA_CARDS_DB_2026",
+      data: { cards: storedCards }
+    };
+    await fetch(RESTFUL_CARDS_URL, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+  } catch (err) {
+    console.warn('Card cloud PUT failed:', err);
   }
 }
 
