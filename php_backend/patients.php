@@ -68,3 +68,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     ]);
     exit();
 }
+
+if ($_SERVER['REQUEST_METHOD'] === 'DELETE' || (isset($_GET['action']) && $_GET['action'] === 'delete')) {
+    $inputJSON = file_get_contents('php://input');
+    $inputData = json_decode($inputJSON, true) ?: [];
+    $regId = isset($_GET['regId']) ? $_GET['regId'] : (isset($inputData['regId']) ? $inputData['regId'] : null);
+
+    if ($regId) {
+        $existingPatients = json_decode(@file_get_contents($dataFile), true) ?: [];
+        $existingPatients = array_values(array_filter($existingPatients, function($p) use ($regId) {
+            return isset($p['regId']) && $p['regId'] !== $regId;
+        }));
+        @file_put_contents($dataFile, json_encode($existingPatients, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+        echo json_encode(["success" => true, "patients" => $existingPatients]);
+    } else {
+        http_response_code(400);
+        echo json_encode(["success" => false, "message" => "Missing regId parameter for deletion"]);
+    }
+    exit();
+}
+

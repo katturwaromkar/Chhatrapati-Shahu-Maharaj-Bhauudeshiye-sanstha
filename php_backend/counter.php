@@ -5,7 +5,7 @@
    ========================================================================== */
 
 header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
+header("Access-Control-Allow-Methods: GET, POST, PUT, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With, Accept");
 header("Access-Control-Max-Age: 86400");
 header("Content-Type: application/json; charset=UTF-8");
@@ -30,10 +30,18 @@ if (!file_exists($counterFile)) {
 }
 
 $data = json_decode(@file_get_contents($counterFile), true) ?: ["count" => $initialCount];
-$isHit = isset($_GET['action']) && $_GET['action'] === 'hit';
+$isHit = (isset($_GET['action']) && $_GET['action'] === 'hit') || $_SERVER['REQUEST_METHOD'] === 'POST' || $_SERVER['REQUEST_METHOD'] === 'PUT';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' || $isHit) {
-    $data['count'] = intval($data['count']) + 1;
+if ($isHit) {
+    $inputJSON = file_get_contents('php://input');
+    $inputData = json_decode($inputJSON, true) ?: [];
+    $newCount = isset($inputData['data']['count']) ? $inputData['data']['count'] : (isset($inputData['count']) ? $inputData['count'] : null);
+
+    if ($newCount !== null && is_numeric($newCount)) {
+        $data['count'] = intval($newCount);
+    } else {
+        $data['count'] = intval($data['count']) + 1;
+    }
     @file_put_contents($counterFile, json_encode($data, JSON_PRETTY_PRINT));
 }
 

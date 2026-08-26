@@ -5,9 +5,17 @@
 # ==============================================================================
 
 # Enable Rewrite Engine
+# Options
+Options -Indexes
+
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
+
+  # Hostinger API Endpoints Rewrite Rules
+  RewriteRule ^api/patients/?$ php_backend/patients.php [L,QSA]
+  RewriteRule ^api/cards/?$ php_backend/cards.php [L,QSA]
+  RewriteRule ^api/counter/?$ php_backend/counter.php [L,QSA]
 
   # 1. Force HTTPS Redirection
   RewriteCond %{HTTPS} off
@@ -49,8 +57,8 @@
 # 4. Block Public Access to Sensitive Files & Folders
 # ==============================================================================
 <IfModule mod_rewrite.c>
-  # Block access to .env, .git, prisma, node_modules, package.json, etc.
-  RewriteRule ^(\.env|\.git|prisma|node_modules|package\.json|package-lock\.json|_headers|vercel\.json|\.gitignore) - [F,L,NC]
+  # Block access to .env, .git, prisma, node_modules, package.json, php_backend/data, etc.
+  RewriteRule ^(\.env|\.git|prisma|node_modules|package\.json|package-lock\.json|_headers|vercel\.json|\.gitignore|php_backend/data) - [F,L,NC]
 </IfModule>
 
 # Fallback Files block

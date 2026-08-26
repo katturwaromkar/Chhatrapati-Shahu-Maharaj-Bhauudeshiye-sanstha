@@ -630,6 +630,23 @@ function initVisitorCounter() {
   const isNewSession = !sessionStorage.getItem('csms_session_counted');
 
   async function fetchRealtimeVisitorCount() {
+    // Try local Hostinger API endpoint first
+    try {
+      const endpoint = isNewSession ? 'api/counter?action=hit' : 'api/counter';
+      const response = await fetch(endpoint, { cache: 'no-store' });
+      if (response.ok) {
+        const json = await response.json();
+        if (json.count) {
+          if (isNewSession) sessionStorage.setItem('csms_session_counted', 'true');
+          counterElements.forEach(el => { el.textContent = json.formatted || json.count.toLocaleString('en-IN'); });
+          localStorage.setItem('csms_global_visitor_count', json.count);
+          return;
+        }
+      }
+    } catch (err) {
+      console.warn('Local counter fetch failed, trying cloud fallback:', err);
+    }
+
     try {
       const response = await fetch(RESTFUL_COUNTER_URL, { cache: 'no-store' });
       if (response.ok) {

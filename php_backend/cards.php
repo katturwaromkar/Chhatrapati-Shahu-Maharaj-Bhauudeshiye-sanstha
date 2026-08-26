@@ -65,3 +65,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     echo json_encode(["success" => true, "cards" => $existingCards]);
     exit();
 }
+
+if ($_SERVER['REQUEST_METHOD'] === 'DELETE' || (isset($_GET['action']) && $_GET['action'] === 'delete')) {
+    $inputJSON = file_get_contents('php://input');
+    $inputData = json_decode($inputJSON, true) ?: [];
+    $cardId = isset($_GET['cardId']) ? $_GET['cardId'] : (isset($inputData['cardId']) ? $inputData['cardId'] : null);
+
+    $existingCards = json_decode(@file_get_contents($dataFile), true) ?: [];
+    if ($cardId && isset($existingCards[$cardId])) {
+        unset($existingCards[$cardId]);
+        @file_put_contents($dataFile, json_encode($existingCards, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+    }
+    echo json_encode(["success" => true, "cards" => $existingCards]);
+    exit();
+}
+

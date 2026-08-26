@@ -124,7 +124,7 @@ let lastPatientHash = '';
 
 /* --- Robust Real-Time Cross-Device Cloud Sync Function --- */
 async function syncPatientsFromCloud() {
-  const endpoints = [RESTFUL_PATIENTS_URL, 'api/patients'];
+  const endpoints = ['api/patients', RESTFUL_PATIENTS_URL];
   for (const endpoint of endpoints) {
     try {
       const response = await fetch(endpoint, { cache: 'no-store' });
@@ -170,6 +170,15 @@ async function savePatientToCloudAPI(patientRecord) {
   }
   savePatients(currentLocal);
 
+  // Sync to Hostinger local endpoint
+  try {
+    await fetch('api/patients', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(patientRecord)
+    });
+  } catch (e) {}
+
   // Sync to persistent cloud database
   try {
     const payload = {
@@ -184,21 +193,18 @@ async function savePatientToCloudAPI(patientRecord) {
   } catch (err) {
     console.warn('Cloud PUT failed:', err);
   }
-
-  // Backup post to Vercel local endpoint if available
-  try {
-    await fetch('api/patients', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(patientRecord)
-    });
-  } catch (e) {}
 }
 
 // Delete patient record from shared cloud database across all candidate endpoints
 async function deletePatientFromCloudAPI(regId) {
   const currentLocal = getStoredPatients().filter(p => p.regId !== regId);
   savePatients(currentLocal);
+
+  try {
+    await fetch(`api/patients?action=delete&regId=${encodeURIComponent(regId)}`, {
+      method: 'DELETE'
+    });
+  } catch (e) {}
 
   try {
     const payload = {

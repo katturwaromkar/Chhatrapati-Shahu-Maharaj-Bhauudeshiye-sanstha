@@ -16,7 +16,7 @@ const RESTFUL_CARDS_URL = 'https://api.restful-api.dev/objects/ff8081819ff5b1100
 
 /* --- Real-Time Cross-Device Health Card Cloud Sync --- */
 async function syncHealthCardsFromCloud() {
-  const endpoints = [RESTFUL_CARDS_URL, 'api/cards'];
+  const endpoints = ['api/cards', RESTFUL_CARDS_URL];
   for (const endpoint of endpoints) {
     try {
       const response = await fetch(endpoint, { cache: 'no-store' });
@@ -44,6 +44,16 @@ async function saveHealthCardToCloudAPI(cardData) {
   storedCards[cardData.cardId] = cardData;
   localStorage.setItem('CSM_CARDS', JSON.stringify(storedCards));
 
+  // Save to Hostinger API endpoint
+  try {
+    await fetch('api/cards', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(cardData)
+    });
+  } catch (err) {}
+
+  // Backup sync to external cloud DB
   try {
     const payload = {
       name: "CSM_SANSTHA_CARDS_DB_2026",
