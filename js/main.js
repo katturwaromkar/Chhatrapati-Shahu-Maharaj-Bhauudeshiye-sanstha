@@ -1189,16 +1189,25 @@ function initHospitalsPage() {
 }
 
 /* --- Donation & Support Modal --- */
+function closeDonationModal() {
+  const modal = document.getElementById('donationModal');
+  if (modal) {
+    modal.classList.remove('active');
+    modal.style.setProperty('display', 'none', 'important');
+  }
+}
+window.closeDonationModal = closeDonationModal;
+
 function openDonationModal() {
   let modal = document.getElementById('donationModal');
   if (!modal) {
     modal = document.createElement('div');
     modal.id = 'donationModal';
-    modal.className = 'modal-overlay';
-    modal.style.cssText = 'position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(15,23,42,0.8); backdrop-filter:blur(6px); display:flex; align-items:center; justify-content:center; z-index:9999999; padding:15px;';
+    modal.className = 'modal-overlay active';
+    modal.style.cssText = 'position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(15,23,42,0.8); backdrop-filter:blur(6px); display:flex !important; align-items:center; justify-content:center; z-index:9999999; padding:15px;';
     modal.innerHTML = `
       <div class="modal-card" style="background:#ffffff; border-radius:16px; max-width:520px; width:100%; max-height:90vh; overflow-y:auto; box-shadow:0 25px 50px -12px rgba(0,0,0,0.3); position:relative; animation:modalPopIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);">
-        <button class="close-modal-btn" onclick="document.getElementById('donationModal').style.display='none';" aria-label="Close" style="position:absolute; top:16px; right:16px; background:rgba(255,255,255,0.2); border:none; width:36px; height:36px; border-radius:50%; font-size:1.4rem; cursor:pointer; color:#ffffff; display:flex; align-items:center; justify-content:center; transition:0.2s;">&times;</button>
+        <button class="close-modal-btn" onclick="closeDonationModal();" aria-label="Close" style="position:absolute; top:16px; right:16px; background:rgba(255,255,255,0.2); border:none; width:36px; height:36px; border-radius:50%; font-size:1.4rem; cursor:pointer; color:#ffffff; display:flex; align-items:center; justify-content:center; transition:0.2s;">&times;</button>
         <div style="padding:24px 24px 18px; background:linear-gradient(135deg, #059669 0%, #047857 100%); color:#ffffff; border-top-left-radius:16px; border-top-right-radius:16px; text-align:center;">
           <i class="fas fa-hand-holding-heart" style="font-size:2.5rem; margin-bottom:8px; color:#A7F3D0;"></i>
           <h2 style="font-size:1.4rem; font-weight:800; margin:0 0 4px; color:#ffffff;">देणगी व सामाजिक मदत केंद्र</h2>
@@ -1244,11 +1253,12 @@ function openDonationModal() {
 
     modal.addEventListener('click', (e) => {
       if (e.target === modal) {
-        modal.style.display = 'none';
+        closeDonationModal();
       }
     });
   } else {
-    modal.style.display = 'flex';
+    modal.classList.add('active');
+    modal.style.setProperty('display', 'flex', 'important');
   }
 
   const navMenu = document.querySelector('.nav-menu');
