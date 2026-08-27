@@ -555,6 +555,42 @@ function initCameraCapture() {
   };
 }
 
+/* --- Export Patient Records to CSV Spreadsheet --- */
+window.exportPatientsToCSV = function() {
+  const patients = getStoredPatients();
+  if (!patients || !patients.length) {
+    showToast('डाउनलोड करण्यासाठी कोणतेही रुग्ण रेकॉर्ड उपलब्ध नाहीत.', 'warning');
+    return;
+  }
+
+  const headers = ["Reg ID", "Name", "Gender", "Age", "Phone", "Emergency Phone", "Blood Group", "Aadhaar", "PAN", "City", "Address", "Registration Date"];
+  const rows = patients.map(p => [
+    p.regId || '',
+    `"${(p.name || '').replace(/"/g, '""')}"`,
+    p.gender || '',
+    p.age || '',
+    p.phone || '',
+    p.emergencyPhone || '',
+    p.bloodGroup || '',
+    p.aadhaar || '',
+    p.pan || '',
+    `"${(p.city || '').replace(/"/g, '""')}"`,
+    `"${(p.address || '').replace(/"/g, '""')}"`,
+    p.regDate || ''
+  ]);
+
+  const csvContent = "\uFEFF" + [headers.join(','), ...rows.map(e => e.join(','))].join('\n');
+  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.setAttribute('href', url);
+  link.setAttribute('download', `CSM-Registered-Patients-${new Date().toISOString().slice(0,10)}.csv`);
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  showToast('रुग्ण नोंदणी यादी CSV रिपोर्ट यशस्वीरीत्या डाउनलोड झाली आहे.', 'success');
+};
+
 function startCameraStream() {
   const video = document.getElementById('cameraVideo');
   if (!video) return;

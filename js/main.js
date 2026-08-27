@@ -957,11 +957,56 @@ function initHospitalsPage() {
   const container = document.getElementById('hospitalCardsContainer');
   const searchInput = document.getElementById('hospitalSearchInput');
   const filterBtns = document.querySelectorAll('.gallery-filter-btn[data-filter]');
+  const mapElement = document.getElementById('hospitalMap');
 
   if (!container) return;
 
   let currentFilter = 'all';
   let currentSearch = '';
+  let leafletMap = null;
+  let markersGroup = null;
+
+  const cityCoords = {
+    sambhajinagar: [19.8762, 75.3433],
+    jalgaon: [21.0077, 75.5626],
+    bhadgaon: [20.6658, 75.2289],
+    chalisgaon: [20.4633, 75.0135],
+    erandol: [20.9167, 75.3333],
+    pachora: [20.6500, 75.3500],
+    bhusawal: [21.0455, 75.8011]
+  };
+
+  // Initialize Interactive Leaflet.js Hospital Map
+  if (mapElement && typeof L !== 'undefined') {
+    try {
+      leafletMap = L.map('hospitalMap').setView([20.65, 75.4], 9);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 18,
+        attribution: '© OpenStreetMap'
+      }).addTo(leafletMap);
+      markersGroup = L.layerGroup().addTo(leafletMap);
+
+      const locateBtn = document.getElementById('locateUserBtn');
+      if (locateBtn) {
+        locateBtn.addEventListener('click', () => {
+          if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(pos => {
+              const uLat = pos.coords.latitude;
+              const uLng = pos.coords.longitude;
+              leafletMap.setView([uLat, uLng], 12);
+              L.circle([uLat, uLng], { radius: 4000, color: '#4A2BC4', fillColor: '#6F4BFF', fillOpacity: 0.25 }).addTo(leafletMap)
+                .bindPopup('<b>तुमचे वर्तमान स्थान</b>').openPopup();
+              if (window.showToast) window.showToast('आपले स्थान नकाशामध्ये दर्शवले आहे.', 'success');
+            }, () => {
+              if (window.showToast) window.showToast('स्थान मिळवता आले नाही. कृपया जीपीएस परवानगी तपासा.', 'warning');
+            });
+          }
+        });
+      }
+    } catch (e) {
+      console.warn('Map initialization skipped:', e);
+    }
+  }
 
   function renderHospitals() {
     const query = currentSearch.trim().toLowerCase();
@@ -977,6 +1022,26 @@ function initHospitalsPage() {
       );
       return matchCity && matchQuery;
     });
+
+    // Update map markers
+    if (markersGroup) {
+      markersGroup.clearLayers();
+      filtered.forEach((h, i) => {
+        const coords = cityCoords[h.city] || [20.65, 75.4];
+        const lat = coords[0] + (Math.sin(i + 1) * 0.015);
+        const lng = coords[1] + (Math.cos(i + 1) * 0.015);
+        const marker = L.marker([lat, lng]);
+        marker.bindPopup(`
+          <div style="font-family: sans-serif; padding: 4px; max-width: 220px;">
+            <strong style="color: #4A2BC4; font-size: 0.92rem; display: block; margin-bottom: 2px;">${h.name}</strong>
+            <span style="font-size: 0.8rem; color: #166534; font-weight: 600;">${h.doctor} (${h.spec})</span><br>
+            <span style="font-size: 0.78rem; color: #27AE60; font-weight: 700;">${h.discount}</span><br>
+            <span style="font-size: 0.75rem; color: #64748B;">${h.address}</span>
+          </div>
+        `);
+        markersGroup.addLayer(marker);
+      });
+    }
 
     if (!filtered.length) {
       container.innerHTML = `
