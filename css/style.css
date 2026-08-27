@@ -3425,6 +3425,27 @@ textarea.form-control {
   color: #94A3B8;
 }
 
+/* --- Donation CTA Navigation Button --- */
+.open-donation-modal-btn {
+  background: linear-gradient(135deg, #059669 0%, #10B981 100%) !important;
+  color: #ffffff !important;
+  padding: 8px 16px !important;
+  border-radius: 8px !important;
+  font-weight: 700 !important;
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35) !important;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 7px !important;
+}
+
+.open-donation-modal-btn:hover {
+  transform: translateY(-2px) scale(1.03) !important;
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.5) !important;
+  background: linear-gradient(135deg, #047857 0%, #059669 100%) !important;
+}
+
+
 
 
 
