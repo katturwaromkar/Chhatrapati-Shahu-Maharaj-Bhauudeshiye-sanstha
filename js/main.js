@@ -1002,14 +1002,30 @@ function initHospitalsPage() {
     });
   }
 
-  // Initialize Interactive Leaflet.js Hospital Map
+  // Initialize Interactive Leaflet.js Hospital Map with Google Maps Integration
   if (mapElement && typeof L !== 'undefined') {
     try {
       leafletMap = L.map('hospitalMap').setView([20.65, 75.4], 9);
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+
+      // Google Maps Streets & Hybrid Tile Layers
+      const googleStreets = L.tileLayer('https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
+        maxZoom: 20,
+        subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
+        attribution: '© Google Maps'
+      }).addTo(leafletMap);
+
+      const osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 18,
         attribution: '© OpenStreetMap'
-      }).addTo(leafletMap);
+      });
+
+      const baseMaps = {
+        "🗺️ गूगल मॅप्स (Google Maps)": googleStreets,
+        "🌍 ओपन स्ट्रीट मॅप (Standard OSM)": osmLayer
+      };
+
+      L.control.layers(baseMaps).addTo(leafletMap);
+
       markersGroup = L.layerGroup().addTo(leafletMap);
 
       const locateBtn = document.getElementById('locateUserBtn');
@@ -1020,8 +1036,8 @@ function initHospitalsPage() {
               const uLat = pos.coords.latitude;
               const uLng = pos.coords.longitude;
               leafletMap.flyTo([uLat, uLng], 12, { duration: 1.2 });
-              L.circle([uLat, uLng], { radius: 4000, color: '#4A2BC4', fillColor: '#6F4BFF', fillOpacity: 0.25 }).addTo(leafletMap)
-                .bindPopup('<b>आपले वर्तमान स्थान</b>').openPopup();
+              L.circle([uLat, uLng], { radius: 4000, color: '#4285F4', fillColor: '#34A853', fillOpacity: 0.25 }).addTo(leafletMap)
+                .bindPopup('<b>आपले वर्तमान स्थान (Your Location)</b>').openPopup();
               if (window.showToast) window.showToast('आपले स्थान नकाशामध्ये दर्शवले आहे.', 'success');
             }, () => {
               if (window.showToast) window.showToast('स्थान मिळवता आले नाही. कृपया जीपीएस परवानगी तपासा.', 'warning');
