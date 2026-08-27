@@ -372,7 +372,7 @@
     gap: 1.25rem !important;
   }
 
-  /* Mobile Image Cards Height Adjustment for All Mobile Brands & Models (Except Home Page) */
+  /* Mobile Image Cards Height Adjustment for All Mobile Brands & Models (Except Home Page, Officers, and Booklet/Docs) */
   body:not(.home-page) .news-album-img,
   body:not(.home-page) .misc-album-img,
   body:not(.home-page) .doctor-album-img,
@@ -380,18 +380,54 @@
   body:not(.home-page) .camps-gallery-grid img,
   body:not(.home-page) .camps-gallery-grid .gallery-item img,
   body:not(.home-page) .doc-card img,
-  body:not(.home-page) .doc-preview-img,
   body:not(.home-page) .activity-thumb,
   body:not(.home-page) .activity-thumb img,
   body:not(.home-page) .project-thumb,
   body:not(.home-page) .project-thumb img,
   body:not(.home-page) .project-card img,
-  body:not(.home-page) .card-hover img,
   body:not(.home-page) .gallery-item > div > img {
     height: 380px !important;
     max-height: 440px !important;
     object-fit: cover !important;
     object-position: top center !important;
+  }
+
+  /* Specific override for Officers Profile Images in Mobile View */
+  .officer-avatar,
+  .officer-card div[style*="border-radius: 50%"],
+  .officer-card .officer-avatar-box {
+    width: 140px !important;
+    height: 140px !important;
+    max-width: 140px !important;
+    max-height: 140px !important;
+    min-width: 140px !important;
+    min-height: 140px !important;
+    margin: 0 auto 15px auto !important;
+    border-radius: 50% !important;
+    overflow: hidden !important;
+  }
+
+  .officer-card img,
+  .officer-avatar img {
+    width: 100% !important;
+    height: 100% !important;
+    max-height: 100% !important;
+    object-fit: cover !important;
+    object-position: top center !important;
+    border-radius: 50% !important;
+  }
+
+  /* Specific override for Hospital Flyer & Booklet Images on Mobile (Full Page Display without Clipping) */
+  .hospital-booklet-img,
+  .hospital-flyer-card img,
+  body:not(.home-page) .hospital-booklet-img,
+  body:not(.home-page) .doc-preview-img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: none !important;
+    object-fit: contain !important;
+    display: block !important;
+    border-radius: 8px !important;
   }
 
   body:not(.home-page) .gallery-item {
