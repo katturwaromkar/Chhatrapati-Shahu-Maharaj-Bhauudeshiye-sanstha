@@ -123,6 +123,7 @@ function initMobileMenu() {
     document.body.classList.remove('menu-open');
     const icon = hamburger.querySelector('i');
     if (icon) icon.className = 'fas fa-bars';
+    window.scrollTo(0, currentScrollY);
   }
 
   hamburger.addEventListener('click', (e) => {
@@ -139,6 +140,15 @@ function initMobileMenu() {
     link.addEventListener('click', () => {
       closeMenu();
     });
+  });
+
+  // Automatically close mobile navigation drawer when tapping anywhere outside (screens <= 992px)
+  document.addEventListener('click', (e) => {
+    if (window.innerWidth <= 992 && navMenu.classList.contains('active')) {
+      if (!navMenu.contains(e.target) && !hamburger.contains(e.target)) {
+        closeMenu();
+      }
+    }
   });
 
   // Block touch scrolling on body background when mobile menu is active

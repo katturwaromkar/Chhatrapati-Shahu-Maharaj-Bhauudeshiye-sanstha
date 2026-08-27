@@ -595,6 +595,53 @@
   }
 }
 
+/* --- Mobile Modals, Digital Cards & Lightbox Viewer Adjustments --- */
+@media (max-width: 768px) {
+  .lightbox-modal > div,
+  #cardApplyModal > div,
+  #cardVerifyModal > div,
+  #patientModal > div,
+  #cameraCaptureModal > div {
+    width: 95vw !important;
+    max-width: 95vw !important;
+    max-height: 90vh !important;
+    overflow-y: auto !important;
+    margin: 0 auto !important;
+    padding: 18px 14px !important;
+    border-radius: var(--radius-md) !important;
+  }
+
+  .lightbox-nav-btn {
+    width: 38px !important;
+    height: 38px !important;
+    font-size: 1rem !important;
+  }
+
+  .lightbox-nav-btn.prev {
+    left: 8px !important;
+  }
+
+  .lightbox-nav-btn.next {
+    right: 8px !important;
+  }
+
+  .lightbox-close {
+    top: 10px !important;
+    right: 10px !important;
+    width: 38px !important;
+    height: 38px !important;
+    font-size: 1.8rem !important;
+  }
+
+  .live-digital-card,
+  .digital-health-card-box,
+  .card-preview-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+}
+
 /* --- iOS Safe Area Insets & Landscape Mode --- */
 @supports (padding: max(0px)) {
   body {
@@ -607,4 +654,5 @@
     padding-bottom: max(30px, env(safe-area-inset-bottom)) !important;
   }
 }
+
 
