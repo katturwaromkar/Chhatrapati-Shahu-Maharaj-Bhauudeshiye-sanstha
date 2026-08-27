@@ -150,12 +150,12 @@
   <section class="section-padding">
     <div class="container">
       <div class="section-title-wrap">
-        <h2 class="section-title">संलग्न रुग्णालये व सवलत पत्रके</h2>
+        <h2 class="section-title">संलग्न रुग्णालये व सवलत तक्ता</h2>
         <p class="section-subtitle">फॅमिली हेल्थ कार्ड धारकांसाठी विशेष सवलतीसह उपचार उपलब्ध असणारी प्रमुख रुग्णालये.</p>
       </div>
 
       <!-- Interactive Hospital Bill Savings Calculator Widget -->
-      <div class="savings-calculator-box" style="margin-bottom: 45px; background: linear-gradient(135deg, #ffffff 0%, #F8F7FC 100%);">
+      <div class="savings-calculator-box" style="margin-bottom: 40px; background: linear-gradient(135deg, #ffffff 0%, #F8F7FC 100%); border-radius: var(--radius-md); padding: 24px; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);">
         <div style="text-align: center; margin-bottom: 20px;">
           <span class="brand-badge-large" style="background: var(--gradient-primary); color: #fff; padding: 4px 16px; border-radius: 999px; font-size: 0.82rem; font-weight: 700;">
             <i class="fas fa-calculator"></i> सवलत कॅल्क्युलेटर
@@ -188,73 +188,92 @@
         <div id="calcResultContainer"></div>
       </div>
 
-      <!-- Hospital Search & Filter Bar -->
-      <div class="filter-wrapper" style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 30px;">
-        <button class="filter-btn gallery-filter-btn active" data-filter="all"><i class="fas fa-th"></i> सर्व रुग्णालये</button>
-        <button class="filter-btn gallery-filter-btn" data-filter="sambhajinagar"><i class="fas fa-map-marker-alt"></i> छत्रपती संभाजीनगर</button>
-        <button class="filter-btn gallery-filter-btn" data-filter="jalgaon"><i class="fas fa-map-marker-alt"></i> जळगाव</button>
-        <button class="filter-btn gallery-filter-btn" data-filter="multispeciality"><i class="fas fa-notes-medical"></i> मल्टीस्पेशालिटी</button>
-        <button class="filter-btn gallery-filter-btn" data-filter="pathology"><i class="fas fa-vials"></i> पॅथॉलॉजी लॅब</button>
+      <!-- Realtime Search Bar & Taluka Filter Tabs -->
+      <div style="margin-bottom: 35px; background: #ffffff; padding: 20px; border-radius: var(--radius-md); border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);">
+        <div style="max-width: 600px; margin: 0 auto 20px auto; position: relative;">
+          <i class="fas fa-search" style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: var(--primary); font-size: 1.1rem;"></i>
+          <input type="text" id="hospitalSearchInput" placeholder="रुग्णालय, डॉक्टर, शहर किंवा उपचाराचे नाव शोधा..." style="width: 100%; padding: 12px 16px 12px 48px; border: 2px solid var(--primary-light); border-radius: 999px; font-size: 1rem; outline: none; transition: border-color 0.2s ease;">
+        </div>
+
+        <div class="filter-wrapper" style="display: flex; justify-content: center; gap: 8px; flex-wrap: wrap;">
+          <button class="filter-btn gallery-filter-btn active" data-filter="all"><i class="fas fa-th"></i> सर्व रुग्णालये</button>
+          <button class="filter-btn gallery-filter-btn" data-filter="jalgaon"><i class="fas fa-map-marker-alt"></i> जळगाव</button>
+          <button class="filter-btn gallery-filter-btn" data-filter="chalisgaon"><i class="fas fa-map-marker-alt"></i> चाळीसगाव</button>
+          <button class="filter-btn gallery-filter-btn" data-filter="pachora"><i class="fas fa-map-marker-alt"></i> पाचोरा</button>
+          <button class="filter-btn gallery-filter-btn" data-filter="bhadgaon"><i class="fas fa-map-marker-alt"></i> भडगाव</button>
+          <button class="filter-btn gallery-filter-btn" data-filter="bhusawal"><i class="fas fa-map-marker-alt"></i> भुसावळ</button>
+          <button class="filter-btn gallery-filter-btn" data-filter="erandol"><i class="fas fa-map-marker-alt"></i> एरंडोल</button>
+          <button class="filter-btn gallery-filter-btn" data-filter="sambhajinagar"><i class="fas fa-map-marker-alt"></i> संभाजीनगर</button>
+        </div>
       </div>
 
+      <!-- Structured Hospital Cards Container -->
+      <div id="hospitalCardsContainer" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 22px; margin-bottom: 50px;">
+        <!-- Dynamic Cards rendered via JS -->
+      </div>
 
-      <!-- Hospital Flyers Grid -->
-      <!-- Hospital Flyers Grid (Pages 6 to 16 from Official Health Card Booklet) -->
+      <!-- Section Title for Official Booklet Image Gallery -->
+      <div class="section-title-wrap" style="margin-top: 50px;">
+        <h3 class="section-title" style="font-size: 1.8rem;"><i class="fas fa-book-open" style="color: var(--primary);"></i> अधिकृत हेल्थ कार्ड बुकलेट पत्रके (JPG स्वरूपात)</h3>
+        <p class="section-subtitle">विविध तालुक्यातील सहभागी वैद्यकीय व्यावसायिकांची अधिकृत यादी पत्रके.</p>
+      </div>
+
+      <!-- Official Booklet JPG Image Gallery Grid -->
       <div class="gallery-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 25px; margin-bottom: 50px;">
         
-        <div class="card card-hover hospital-flyer-card" style="padding: 12px; border-radius: var(--radius-md); text-align: center;">
-          <img src="assets/images/docs/health_card_booklet_p6.jpg" alt="रुग्णालय सवलत यादी - जळगाव (पेज ४)" class="hospital-booklet-img" style="border-radius: 8px; border: 1px solid var(--border-color); width: 100%; height: auto;">
-          <h4 style="margin-top: 12px; font-size: 1rem;">रुग्णालय सवलत यादी - जळगाव (पेज ६)</h4>
+        <div class="card card-hover hospital-flyer-card" style="padding: 14px; border-radius: var(--radius-md); text-align: center; background: #ffffff; border: 1px solid var(--border-color);">
+          <div style="overflow: hidden; border-radius: 8px; position: relative;">
+            <img src="assets/images/docs/health_card_booklet_p7.jpg" alt="जिल्हा जळगाव रुग्णालय यादी (पेज ७)" class="hospital-booklet-img" style="border-radius: 8px; border: 1px solid var(--border-color); width: 100%; height: auto; cursor: pointer;">
+          </div>
+          <h4 style="margin-top: 12px; font-size: 1rem; font-weight: 700; color: var(--text-dark);">जिल्हा - जळगाव (पेज ७)</h4>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin: 4px 0 10px 0;">सार्थक, शिवनेरी, जागृती डोळ्याचे, पार्श्व नेत्रालय</p>
+          <a href="assets/images/docs/health_card_booklet_p7.jpg" class="btn lightbox-trigger" style="background: var(--gradient-primary); color: #ffffff; padding: 8px 16px; border-radius: var(--radius-sm); font-size: 0.88rem; display: inline-flex; align-items: center; gap: 6px; text-decoration: none;">
+            <i class="fas fa-search-plus"></i> पूर्ण आकारात पहा (JPG)
+          </a>
         </div>
 
-        <div class="card card-hover hospital-flyer-card" style="padding: 12px; border-radius: var(--radius-md); text-align: center;">
-          <img src="assets/images/docs/health_card_booklet_p7.jpg" alt="रुग्णालय सवलत यादी - जळगाव (पेज ५)" class="hospital-booklet-img" style="border-radius: 8px; border: 1px solid var(--border-color); width: 100%; height: auto;">
-          <h4 style="margin-top: 12px; font-size: 1rem;">रुग्णालय सवलत यादी - जळगाव (पेज ७)</h4>
+        <div class="card card-hover hospital-flyer-card" style="padding: 14px; border-radius: var(--radius-md); text-align: center; background: #ffffff; border: 1px solid var(--border-color);">
+          <div style="overflow: hidden; border-radius: 8px; position: relative;">
+            <img src="assets/images/docs/health_card_booklet_p8.jpg" alt="जिल्हा जळगाव व भडगाव रुग्णालय यादी (पेज ८)" class="hospital-booklet-img" style="border-radius: 8px; border: 1px solid var(--border-color); width: 100%; height: auto; cursor: pointer;">
+          </div>
+          <h4 style="margin-top: 12px; font-size: 1rem; font-weight: 700; color: var(--text-dark);">जिल्हा जळगाव व भडगाव तालुका (पेज ८)</h4>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin: 4px 0 10px 0;">सर्जिकल, रुबिकलेव्ह, कोच्चर, अंजली, समर्थ, सिद्धिविनायक</p>
+          <a href="assets/images/docs/health_card_booklet_p8.jpg" class="btn lightbox-trigger" style="background: var(--gradient-primary); color: #ffffff; padding: 8px 16px; border-radius: var(--radius-sm); font-size: 0.88rem; display: inline-flex; align-items: center; gap: 6px; text-decoration: none;">
+            <i class="fas fa-search-plus"></i> पूर्ण आकारात पहा (JPG)
+          </a>
         </div>
 
-        <div class="card card-hover hospital-flyer-card" style="padding: 12px; border-radius: var(--radius-md); text-align: center;">
-          <img src="assets/images/docs/health_card_booklet_p8.jpg" alt="रुग्णालय सवलत यादी - जळगाव (पेज ६)" class="hospital-booklet-img" style="border-radius: 8px; border: 1px solid var(--border-color); width: 100%; height: auto;">
-          <h4 style="margin-top: 12px; font-size: 1rem;">रुग्णालय सवलत यादी - जळगाव (पेज ८)</h4>
+        <div class="card card-hover hospital-flyer-card" style="padding: 14px; border-radius: var(--radius-md); text-align: center; background: #ffffff; border: 1px solid var(--border-color);">
+          <div style="overflow: hidden; border-radius: 8px; position: relative;">
+            <img src="assets/images/docs/health_card_booklet_p9.jpg" alt="तालुका चाळीसगाव व एरंडोल रुग्णालय यादी (पेज ९)" class="hospital-booklet-img" style="border-radius: 8px; border: 1px solid var(--border-color); width: 100%; height: auto; cursor: pointer;">
+          </div>
+          <h4 style="margin-top: 12px; font-size: 1rem; font-weight: 700; color: var(--text-dark);">तालुका चाळीसगाव व एरंडोल (पेज ९)</h4>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin: 4px 0 10px 0;">संजीवनी, शिंदे, जाम दवाखाना, शिबाय लॅब, वेदांत, आई हॉस्पिटल</p>
+          <a href="assets/images/docs/health_card_booklet_p9.jpg" class="btn lightbox-trigger" style="background: var(--gradient-primary); color: #ffffff; padding: 8px 16px; border-radius: var(--radius-sm); font-size: 0.88rem; display: inline-flex; align-items: center; gap: 6px; text-decoration: none;">
+            <i class="fas fa-search-plus"></i> पूर्ण आकारात पहा (JPG)
+          </a>
         </div>
 
-        <div class="card card-hover hospital-flyer-card" style="padding: 12px; border-radius: var(--radius-md); text-align: center;">
-          <img src="assets/images/docs/health_card_booklet_p9.jpg" alt="रुग्णालय सवलत यादी - जळगाव (पेज ७)" class="hospital-booklet-img" style="border-radius: 8px; border: 1px solid var(--border-color); width: 100%; height: auto;">
-          <h4 style="margin-top: 12px; font-size: 1rem;">रुग्णालय सवलत यादी - जळगाव (पेज ९)</h4>
+        <div class="card card-hover hospital-flyer-card" style="padding: 14px; border-radius: var(--radius-md); text-align: center; background: #ffffff; border: 1px solid var(--border-color);">
+          <div style="overflow: hidden; border-radius: 8px; position: relative;">
+            <img src="assets/images/docs/health_card_booklet_p10.jpg" alt="तालुका पाचोरा रुग्णालय यादी (पेज १०)" class="hospital-booklet-img" style="border-radius: 8px; border: 1px solid var(--border-color); width: 100%; height: auto; cursor: pointer;">
+          </div>
+          <h4 style="margin-top: 12px; font-size: 1rem; font-weight: 700; color: var(--text-dark);">तालुका पाचोरा (पेज १०)</h4>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin: 4px 0 10px 0;">वृंदावन, लीलावती, सिद्धिविनायक, विघ्नहर्ता, ओम, निरामय</p>
+          <a href="assets/images/docs/health_card_booklet_p10.jpg" class="btn lightbox-trigger" style="background: var(--gradient-primary); color: #ffffff; padding: 8px 16px; border-radius: var(--radius-sm); font-size: 0.88rem; display: inline-flex; align-items: center; gap: 6px; text-decoration: none;">
+            <i class="fas fa-search-plus"></i> पूर्ण आकारात पहा (JPG)
+          </a>
         </div>
 
-        <div class="card card-hover hospital-flyer-card" style="padding: 12px; border-radius: var(--radius-md); text-align: center;">
-          <img src="assets/images/docs/health_card_booklet_p10.jpg" alt="रुग्णालय सवलत यादी - भडगाव तालुका (पेज ८)" class="hospital-booklet-img" style="border-radius: 8px; border: 1px solid var(--border-color); width: 100%; height: auto;">
-          <h4 style="margin-top: 12px; font-size: 1rem;">रुग्णालय सवलत यादी - जळगाव व भडगाव (पेज १०)</h4>
-        </div>
-
-        <div class="card card-hover hospital-flyer-card" style="padding: 12px; border-radius: var(--radius-md); text-align: center;">
-          <img src="assets/images/docs/health_card_booklet_p11.jpg" alt="रुग्णालय सवलत यादी - चाळीसगाव व एरंडोल (पेज ९)" class="hospital-booklet-img" style="border-radius: 8px; border: 1px solid var(--border-color); width: 100%; height: auto;">
-          <h4 style="margin-top: 12px; font-size: 1rem;">रुग्णालय सवलत यादी - चाळीसगाव व एरंडोल (पेज ११)</h4>
-        </div>
-
-        <div class="card card-hover hospital-flyer-card" style="padding: 12px; border-radius: var(--radius-md); text-align: center;">
-          <img src="assets/images/docs/health_card_booklet_p12.jpg" alt="रुग्णालय सवलत यादी - पाचोरा तालुका (पेज १०)" class="hospital-booklet-img" style="border-radius: 8px; border: 1px solid var(--border-color); width: 100%; height: auto;">
-          <h4 style="margin-top: 12px; font-size: 1rem;">रुग्णालय सवलत यादी - पाचोरा (पेज १२)</h4>
-        </div>
-
-        <div class="card card-hover hospital-flyer-card" style="padding: 12px; border-radius: var(--radius-md); text-align: center;">
-          <img src="assets/images/docs/health_card_booklet_p13.jpg" alt="रुग्णालय सवलत यादी - भुसावळ व छत्रपती संभाजीनगर (पेज ११)" class="hospital-booklet-img" style="border-radius: 8px; border: 1px solid var(--border-color); width: 100%; height: auto;">
-          <h4 style="margin-top: 12px; font-size: 1rem;">रुग्णालय सवलत यादी - भुसावळ व संभाजीनगर (पेज १३)</h4>
-        </div>
-
-        <div class="card card-hover hospital-flyer-card" style="padding: 12px; border-radius: var(--radius-md); text-align: center;">
-          <img src="assets/images/docs/health_card_booklet_p14.jpg" alt="रुग्णालय सवलत यादी - छत्रपती संभाजीनगर (पेज १२)" class="hospital-booklet-img" style="border-radius: 8px; border: 1px solid var(--border-color); width: 100%; height: auto;">
-          <h4 style="margin-top: 12px; font-size: 1rem;">रुग्णालय सवलत यादी - संभाजीनगर (पेज १४)</h4>
-        </div>
-
-        <div class="card card-hover hospital-flyer-card" style="padding: 12px; border-radius: var(--radius-md); text-align: center;">
-          <img src="assets/images/docs/health_card_booklet_p15.jpg" alt="रुग्णालय सवलत यादी - छत्रपती संभाजीनगर (पेज १३)" class="hospital-booklet-img" style="border-radius: 8px; border: 1px solid var(--border-color); width: 100%; height: auto;">
-          <h4 style="margin-top: 12px; font-size: 1rem;">रुग्णालय सवलत यादी - संभाजीनगर (पेज १५)</h4>
-        </div>
-
-        <div class="card card-hover hospital-flyer-card" style="padding: 12px; border-radius: var(--radius-md); text-align: center;">
-          <img src="assets/images/docs/health_card_booklet_p16.jpg" alt="रुग्णालय सवलत यादी - छत्रपती संभाजीनगर (पेज १४)" class="hospital-booklet-img" style="border-radius: 8px; border: 1px solid var(--border-color); width: 100%; height: auto;">
-          <h4 style="margin-top: 12px; font-size: 1rem;">रुग्णालय सवलत यादी - संभाजीनगर (पेज १६)</h4>
+        <div class="card card-hover hospital-flyer-card" style="padding: 14px; border-radius: var(--radius-md); text-align: center; background: #ffffff; border: 1px solid var(--border-color);">
+          <div style="overflow: hidden; border-radius: 8px; position: relative;">
+            <img src="assets/images/docs/health_card_booklet_p11.jpg" alt="तालुका भुसावळ व संभाजीनगर रुग्णालय यादी (पेज ११)" class="hospital-booklet-img" style="border-radius: 8px; border: 1px solid var(--border-color); width: 100%; height: auto; cursor: pointer;">
+          </div>
+          <h4 style="margin-top: 12px; font-size: 1rem; font-weight: 700; color: var(--text-dark);">तालुका भुसावळ व संभाजीनगर (पेज ११)</h4>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin: 4px 0 10px 0;">जयवंत, श्री साई, सरोदे, स्पंदन, वडगावकर, आनंदी हॉस्पिटल</p>
+          <a href="assets/images/docs/health_card_booklet_p11.jpg" class="btn lightbox-trigger" style="background: var(--gradient-primary); color: #ffffff; padding: 8px 16px; border-radius: var(--radius-sm); font-size: 0.88rem; display: inline-flex; align-items: center; gap: 6px; text-decoration: none;">
+            <i class="fas fa-search-plus"></i> पूर्ण आकारात पहा (JPG)
+          </a>
         </div>
 
       </div>

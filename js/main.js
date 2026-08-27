@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initDropdownMenus();
   initActiveNavLink();
   initMobileStickyDock();
+  initHospitalsPage();
   initScrollReveal();
   initStatCounters();
   initNoticeSearch();
@@ -890,6 +891,152 @@ function initLiveCardPreview() {
     e.preventDefault();
     updateLiveCard();
     alert('आपले फॅमिली हेल्थ कार्ड प्रिव्ह्यू यशस्वीरीत्या तयार झाले आहे! संस्था प्रतिनिधी लवकरच संपर्क करतील.');
+  });
+}
+
+/* --- Hospitals Page Interactive Renderer & Filter --- */
+const fullHospitalList = [
+  // जिल्हा - जळगाव
+  { name: 'सार्थक सर्जिकल क्लिनिक लॅपरो एण्डोस्कोपी सेंटर', doctor: 'डॉ. सुशिलकुमार शरद राणे (M.S.)', spec: 'जनरल सर्जन', city: 'jalgaon', discount: 'OPD: २०% | IPD: २०% | HDU: २०% | Operation: २०%', address: 'पंचमुखी हनुमान मंदिरा जवळ, सिंधी कॉलनी रोड, जळगाव', phone: '02572239238' },
+  { name: 'शिवनेरी ऑर्थोपेडिक मल्टीस्पेशालिटी हॉस्पिटल', doctor: 'डॉ. शंतनु भारद्वाज / डॉ. अमृता सोनवणे', spec: 'अस्थिरोग तज्ञ (Ortho)', city: 'jalgaon', discount: 'OPD: २०% | IPD: २०% | Operation: २०% | X-ray/ECG: २०%', address: 'विवेकानंद नगर, पंचमुखी हनुमान मंदिरा जवळ, जळगाव', phone: '' },
+  { name: 'जागृती डोळ्याचे हॉस्पिटल लेसर व फेको सेंटर', doctor: 'डॉ. जगदिश दे. पाटील / डॉ. आरती ज. पाटील', spec: 'नेत्ररोग तज्ञ', city: 'jalgaon', discount: 'OPD: २०% | IPD: २०% | Operation: २०%', address: 'पंचमुखी हनुमान मंदिरा पुढे, सिंधी कॉलनी रोड, जळगाव', phone: '8080949922' },
+  { name: 'पार्श्व नेत्रालय', doctor: 'डॉ. स्वप्नील कोठारी (M.B.D.N.B.)', spec: 'नेत्र रोग तज्ञ', city: 'jalgaon', discount: 'OPD: २०% | IPD: २०% | Operation: २०%', address: 'आंबेडकर मार्केट जवळ, साईबाबा मंदिर रोड, जळगाव', phone: '9561088332' },
+  { name: 'सर्जिकल मॅटर्निटी हॉस्पिटल', doctor: 'डॉ. तुषार पी. चव्हाण (M.B.B.S., M.S.)', spec: 'जनरल सर्जन', city: 'jalgaon', discount: 'OPD: ५०% | IPD: ३०% | ICU: ३०% | लॅब/ECG: ३०%', address: 'शिव कॉलनी स्टॉप, मुंबई हायवे, जळगाव', phone: '9421629494' },
+  { name: 'रुबिकलेव्ह हॉस्पिटल', doctor: 'डॉ. अलविण राणे (M.S.)', spec: 'नेत्ररोग तज्ञ', city: 'jalgaon', discount: 'OPD: ५०% | Operation: ३०%', address: 'पंचमुख हनुमान मंदिराजवळ, सिंधी कॉलनी रोड, जळगाव', phone: '9503811084' },
+  { name: 'कोच्चर हॉस्पिटल', doctor: 'डॉ. पंकज कोच्चर (M.Ch.Ortho, D.Ortho)', spec: 'अस्थिरोग तज्ञ', city: 'jalgaon', discount: 'OPD: २०% | IPD: २०% | ICU: २०% | Operation: २०%', address: 'आकाशवाणी चौक, जळगाव', phone: '9422771072' },
+
+  // भडगाव तालुका
+  { name: 'अंजली आय.सी.यु. ॲण्ड मल्टीस्पेशालिटी हॉस्पिटल', doctor: 'डॉ. पल्लवी सुर्यवंशी (M.B.B.S., M.D.)', spec: 'सर्व तज्ञ (ICU)', city: 'bhadgaon', discount: 'OPD: ५०% | IPD: ३०% | Operation: ३०% | X-ray/ECG: ३०%', address: 'चाळीसगाव रोड, भडगाव', phone: '9764468777' },
+  { name: 'समर्थ मल्टीस्पेशालिटी हॉस्पिटल', doctor: 'डॉ. राहुल प्रकाश पाटील / डॉ. शितल आर. पाटील', spec: 'जनरल फिजिशियन व त्वचा रोग तज्ञ', city: 'bhadgaon', discount: 'OPD: ५०% | IPD: ३०% | ECG: २०%', address: 'ओंकार विहार कॉलनी, बाळध रोड, भडगाव', phone: '8007220097' },
+  { name: 'सिद्धिविनायक हॉस्पिटल (भडगाव)', doctor: 'डॉ. साहेबराव राजेंद्र आहेर (M.B.B.S., D.C.H.)', spec: 'बालरोग तज्ञ', city: 'bhadgaon', discount: 'OPD: ३०% | IPD: ३०% | Operation: २०%', address: 'भडगाव', phone: '8422915175' },
+  { name: 'सुगोविंद हॉस्पिटल', doctor: 'डॉ. स्वप्नील जी. बैरागी (Physiotherapy)', spec: 'फिजियो-थेरपी तज्ञ', city: 'bhadgaon', discount: 'OPD: ५०% सवलत', address: 'भडगाव', phone: '8956381064' },
+
+  // तालुका - चाळीसगाव
+  { name: 'संजीवनी हॉस्पिटल (चाळीसगाव)', doctor: 'डॉ. शैलेंद्र व्ही. सुर्यवंशी (M.B.B.S., D.C.H.)', spec: 'बालरोग तज्ञ', city: 'chalisgaon', discount: 'OPD: २५% | IPD: २५% | NICU: २५%', address: 'भडगाव रोड, चाळीसगाव', phone: '' },
+  { name: 'शिंदे हॉस्पिटल', doctor: 'डॉ. जितेंद्र शिंदे (M.S. Ortho)', spec: 'अस्थिरोग तज्ञ', city: 'chalisgaon', discount: 'Operation: २०% | ECG: २०% | X-ray: २०%', address: 'भडगाव रोड, चाळीसगाव', phone: '' },
+  { name: 'जाम धर्मार्थ दातांचा दवाखाना', doctor: 'डॉ. सौ. सुधा ललित जाम', spec: 'दंतरोग तज्ञ', city: 'chalisgaon', discount: 'दंतउत्पादन: ५०% | RCT: ५०% | OPD: ₹१०', address: 'पोलिस स्टेशन जवळ, चाळीसगाव', phone: '' },
+  { name: 'शिबाय पॅथॉलॉजी लॅबोरेटरी', doctor: 'नितीन सुभाष देवरे (M.B.B.S., M.D. Path)', spec: 'पॅथॉलॉजी लॅब', city: 'chalisgaon', discount: 'सर्व चाचण्यांवर ३०% सवलत', address: 'भडगाव रोड, चाळीसगाव', phone: '' },
+  { name: 'वेदांत बाळ रुग्णालय', doctor: 'डॉ. प्रशांत अशोक शिनकर (M.B.B.S., D.C.H.)', spec: 'बालरोग तज्ञ', city: 'chalisgaon', discount: 'OPD: २०% | IPD: २०% | NICU: २०%', address: 'चाळीसगाव', phone: '' },
+  { name: 'विघ्नहर्ता सोनोग्राफी सेंटर', doctor: 'डॉ. राजेश कुमार के. सोनार (M.B.B.S., D.M.R.E.)', spec: 'सोनोग्राफी तज्ञ', city: 'chalisgaon', discount: 'सोनोग्राफीवर १०% सवलत', address: 'लक्ष्मी नगर, चाळीसगाव', phone: '' },
+
+  // एरंडोल तालुका
+  { name: 'आई हॉस्पिटल व सोनोग्राफी सेंटर', doctor: 'डॉ. किरण आर. पाटील (M.B.B.S., D.G.O.)', spec: 'स्त्री रोग तज्ञ', city: 'erandol', discount: 'OPD: ३०% | IPD: २५% | Operation: २५% | Sono: २०%', address: '२५, पदमाई पार्क, पोस्ट ऑफीस शेजारी, एरंडोल', phone: '' },
+
+  // तालुका - पाचोरा
+  { name: 'वृंदावन हॉस्पिटल मल्टीस्पेशालिटी सेंटर', doctor: 'डॉ. विजय नरहर पाटील (M.B.B.S., D.G.O.)', spec: 'सर्व तज्ञ उपलब्ध', city: 'pachora', discount: 'OPD: ५०% | IPD: ३०% | ICU: ३०% | Operation: ३०%', address: 'चाळीसगाव-भडगाव हायवे, उड्डाणपुलाजवळ, पाचोरा', phone: '' },
+  { name: 'लीलावती हॉस्पिटल', doctor: 'डॉ. वैभव सुर्यवंशी (B.A.M.S., D.G.O.)', spec: 'स्त्रीरोग तज्ञ', city: 'pachora', discount: 'OPD: ५०% | IPD: ३०% | ICU: ३०% | Operation: ३०%', address: 'महाराणा प्रताप चौक, एम.एम. कॉलेज जवळ, पाचोरा', phone: '' },
+  { name: 'सिद्धिविनायक मल्टीस्पेशालिटी हॉस्पिटल', doctor: 'डॉ. स्वप्नील पाटील / डॉ. ग्रिष्मा पाटील', spec: 'मेडिसिन व बालरोग तज्ञ', city: 'pachora', discount: 'OPD: ५०% | IPD: ३०% | ICU: ३०% | X-ray: ३०%', address: 'पाचोरा', phone: '' },
+  { name: 'विघ्नहर्ता मल्टीस्पेशालिटी हॉस्पिटल', doctor: 'डॉ. सागर एस. गरुड (M.B.B.S., D.A.)', spec: 'सर्व तज्ञ', city: 'pachora', discount: 'OPD: १०% | IPD: २०% | ICU: २०% | CT-Scan: १०%', address: 'पाचोरा', phone: '' },
+  { name: 'ओम हॉस्पिटल ॲण्ड क्रिटीकल केअर', doctor: 'डॉ. अजयसिंग परदेशी (B.A.M.S., M.D.)', spec: 'हृदययोग, दमा, लकवा, थायरॉईड', city: 'pachora', discount: 'OPD: ५०% | IPD: ३०% | ICU: ३०% | ECG/Xray: ४०%', address: 'छत्रपती संभाजी महाराज चौक, रिंग रोड, पाचोरा', phone: '' },
+  { name: 'डॉ. भंडारी दातांचा दवाखाना', doctor: 'डॉ. तुषार एस. भंडारी (B.D.S., MUHS)', spec: 'दंतरोग तज्ञ', city: 'pachora', discount: 'OPD: ५०% | X-ray: ५०% | रूटकॅनल/कवळी: २०%', address: 'तुळसी कॉम्पलेक्स, भडगाव रोड, पाचोरा', phone: '' },
+  { name: 'निरामय हॉस्पिटल', doctor: 'डॉ. शुभम पी. पाटील (M.D. Medicen)', spec: 'हृदययोग, दमा, मधुमेह', city: 'pachora', discount: 'OPD: ३०% | IPD: ३०% | ICU: ३०% | ECG/Xray: २०%', address: 'शेंदूर्णी, पाचोरा', phone: '9284484260' },
+
+  // तालुका - भुसावळ
+  { name: 'जयवंत हॉस्पिटल', doctor: 'डॉ. मिलींद आर. पाटील (M.S.)', spec: 'जनरल सर्जन', city: 'bhusawal', discount: 'OPD: २५% | IPD: २५% | Operation: २५%', address: 'त्र्यंबक मार्केट रोड, पांडुरंग टॉकीज जवळ, भुसावळ', phone: '' },
+  { name: 'श्री साई नेत्रालय', doctor: 'डॉ. शैलेंद्र बहाटे (M.S. Ayu.)', spec: 'नेत्ररोग तज्ञ', city: 'bhusawal', discount: 'OPD: २०% | Operation: २०%', address: 'एचडीएफसी बँक समोर, जामनेर रोड, भुसावळ', phone: '' },
+  { name: 'सरोदे हॉस्पिटल व अतिदक्षता विभाग', doctor: 'डॉ. विनित सरोदे (M.B.B.S., M.D.)', spec: 'फिजिशियन व मधुमेह तज्ञ', city: 'bhusawal', discount: 'OPD: २०% | IPD: २०% | ICU: १५% | ECG/Xray: २०%', address: 'प्रोफेसर कॉलनी, बियाणी स्कूल मागे, भुसावळ', phone: '7767937460' },
+  { name: 'स्पंदन हॉस्पिटल', doctor: 'डॉ. चेतन ढाके / डॉ. अवनी ढाके', spec: 'स्त्रीरोग व बालरोग तज्ञ', city: 'bhusawal', discount: 'OPD: २०% | IPD: २०%', address: 'प्रोफेसर कॉलनी, भुसावळ', phone: '8625085837' },
+  { name: 'स्पंदन हॉस्पिटल डेंटल केअर', doctor: 'डॉ. रोहंत ढाके (B.D.S.)', spec: 'दंतरोग तज्ञ', city: 'bhusawal', discount: 'OPD: ५०% | दंत उपचार/रूटकॅनल: २०%', address: 'प्रोफेसर कॉलनी, भुसावळ', phone: '9270027448' },
+
+  // जिल्हा - छत्रपती संभाजीनगर
+  { name: 'वडगावकर नेत्र रुग्णालय', doctor: 'डॉ. स्वप्नील वडगावकर (M.B.B.S., D.O.M.S.)', spec: 'नेत्र विकार तज्ञ', city: 'sambhajinagar', discount: 'OPD: २०% | Operation: २०%', address: 'समर्थ नगर, छ. संभाजीनगर', phone: '' },
+  { name: 'आनंदी मल्टीस्पेशालिटी हॉस्पिटल', doctor: 'डॉ. गिरीष सोळंके (M.B.B.S., M.S. OBGY)', spec: 'सर्व तज्ञ (स्त्रीरोग व मल्टीस्पेशालिटी)', city: 'sambhajinagar', discount: 'OPD: २५% | IPD: २०% | ICU: २०% | Operation: २०%', address: 'प्लॉट ४, सुतगिरणी चौक, गारखेडा, छ. संभाजीनगर', phone: '8261999769' }
+];
+
+function initHospitalsPage() {
+  const container = document.getElementById('hospitalCardsContainer');
+  const searchInput = document.getElementById('hospitalSearchInput');
+  const filterBtns = document.querySelectorAll('.gallery-filter-btn[data-filter]');
+
+  if (!container) return;
+
+  let currentFilter = 'all';
+  let currentSearch = '';
+
+  function renderHospitals() {
+    const query = currentSearch.trim().toLowerCase();
+
+    const filtered = fullHospitalList.filter(item => {
+      const matchCity = (currentFilter === 'all' || item.city === currentFilter);
+      const matchQuery = !query || (
+        item.name.toLowerCase().includes(query) ||
+        item.doctor.toLowerCase().includes(query) ||
+        item.spec.toLowerCase().includes(query) ||
+        item.address.toLowerCase().includes(query) ||
+        item.discount.toLowerCase().includes(query)
+      );
+      return matchCity && matchQuery;
+    });
+
+    if (!filtered.length) {
+      container.innerHTML = `
+        <div style="grid-column: 1 / -1; background: #FFF5F5; color: #C53030; padding: 25px; border-radius: var(--radius-md); text-align: center; font-weight: 600; border: 1px solid #FEB2B2;">
+          <i class="fas fa-exclamation-circle" style="font-size: 1.4rem; margin-bottom: 8px; display: block;"></i>
+          कोणतेही हॉस्पिटल सापडले नाही. कृपया शोध शब्द किंवा फिल्टर बदला.
+        </div>
+      `;
+      return;
+    }
+
+    container.innerHTML = filtered.map(h => `
+      <div class="hospital-card-item" style="background: #ffffff; border-radius: var(--radius-md); border: 1px solid var(--border-color); padding: 18px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.2s ease, box-shadow 0.2s ease;">
+        <div>
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; margin-bottom: 10px; flex-wrap: wrap;">
+            <span style="font-size: 0.78rem; font-weight: 700; background: var(--primary-light); color: var(--primary); padding: 3px 10px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px;">
+              <i class="fas fa-stethoscope"></i> ${h.spec}
+            </span>
+            <span style="font-size: 0.75rem; font-weight: 700; background: #F1F5F9; color: var(--text-dark); padding: 3px 10px; border-radius: 999px; text-transform: uppercase;">
+              <i class="fas fa-map-pin"></i> ${h.city.toUpperCase()}
+            </span>
+          </div>
+
+          <h3 style="font-size: 1.12rem; font-weight: 700; color: var(--text-dark); margin: 0 0 6px 0; line-height: 1.35;">${h.name}</h3>
+          
+          <p style="font-size: 0.9rem; font-weight: 600; color: #166534; margin: 0 0 10px 0; display: flex; align-items: center; gap: 6px;">
+            <i class="fas fa-user-md"></i> ${h.doctor}
+          </p>
+
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0 0 14px 0; line-height: 1.4;">
+            <i class="fas fa-map-marker-alt" style="color: var(--primary);"></i> ${h.address}
+          </p>
+
+          <div style="background: #F8FAFC; border-left: 3px solid var(--primary); padding: 8px 12px; border-radius: 4px; margin-bottom: 14px;">
+            <span style="font-size: 0.78rem; font-weight: 700; color: var(--text-dark); display: block; margin-bottom: 2px;"><i class="fas fa-tags"></i> सवलतीचा तपशील:</span>
+            <span style="font-size: 0.84rem; font-weight: 700; color: #15803D;">${h.discount}</span>
+          </div>
+        </div>
+
+        <div>
+          ${h.phone ? `
+            <a href="tel:${h.phone}" class="btn" style="width: 100%; background: var(--gradient-primary); color: #ffffff; text-decoration: none; padding: 8px 12px; font-size: 0.88rem; font-weight: 700; border-radius: var(--radius-sm); text-align: center; display: inline-flex; align-items: center; justify-content: center; gap: 6px;">
+              <i class="fas fa-phone-alt"></i> कॉल करा (${h.phone})
+            </a>
+          ` : `
+            <span style="font-size: 0.82rem; color: var(--text-muted); text-align: center; display: block; padding: 6px 0;">
+              <i class="fas fa-info-circle"></i> प्रत्यक्ष भेटीसाठी पत्त्यावर संपर्क साधा
+            </span>
+          `}
+        </div>
+      </div>
+    `).join('');
+  }
+
+  renderHospitals();
+
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      currentSearch = e.target.value;
+      renderHospitals();
+    });
+  }
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentFilter = btn.getAttribute('data-filter') || 'all';
+      renderHospitals();
+    });
   });
 }
 
