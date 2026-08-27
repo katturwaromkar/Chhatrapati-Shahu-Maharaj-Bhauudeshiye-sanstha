@@ -655,4 +655,41 @@
   }
 }
 
+/* --- Enhanced Footer Mobile Responsiveness --- */
+@media (max-width: 992px) {
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 2rem !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .footer-grid {
+    grid-template-columns: 1fr !important;
+    gap: 2rem !important;
+  }
+
+  .footer-bottom {
+    flex-direction: column !important;
+    text-align: center !important;
+    gap: 12px !important;
+  }
+
+  #hospitalMap {
+    height: 320px !important;
+  }
+
+  .dhc-header, .dhc-body, .dhc-footer {
+    padding: 10px 12px !important;
+  }
+
+  .dhc-info {
+    font-size: 0.8rem !important;
+  }
+
+  .dhc-id-number {
+    font-size: 0.95rem !important;
+  }
+}
+
 

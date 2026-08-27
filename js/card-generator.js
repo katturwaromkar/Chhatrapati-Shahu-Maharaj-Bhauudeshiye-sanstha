@@ -259,6 +259,9 @@ function renderDigitalCardPreview(data) {
         <button class="btn btn-primary" onclick="printHealthCard()">
           <i class="fas fa-print"></i> प्रिंट / PDF डाउनलोड
         </button>
+        <button class="btn" style="background: #4A2BC4; color: #fff; font-weight: 700;" onclick="flipDigitalCard()">
+          <i class="fas fa-rotate"></i> मागची बाजू (Flip Card)
+        </button>
         <button class="btn" style="background: #25D366; color: #fff; font-weight: 700;" onclick="shareCardOnWhatsApp('${data.cardId}', '${encodeURIComponent(data.name)}')">
           <i class="fab fa-whatsapp"></i> व्हॉट्सॲपवर पाठवा
         </button>
@@ -272,6 +275,13 @@ function renderDigitalCardPreview(data) {
   // Scroll to preview
   previewContainer.scrollIntoView({ behavior: 'smooth' });
 }
+
+window.flipDigitalCard = function() {
+  const card = document.getElementById('printableHealthCard');
+  if (card) {
+    card.classList.toggle('flipped');
+  }
+};
 
 /* --- Global Print & Share Card Functions --- */
 window.printHealthCard = function() {
