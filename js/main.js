@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initMobileMenu();
   initDropdownMenus();
   initActiveNavLink();
+  initMobileStickyDock();
   initScrollReveal();
   initStatCounters();
   initNoticeSearch();
@@ -111,7 +112,6 @@ function initMobileMenu() {
     navMenu.classList.add('active');
     hamburger.classList.add('active-toggle');
     document.body.classList.add('menu-open');
-    document.body.style.top = `-${currentScrollY}px`;
     const icon = hamburger.querySelector('i');
     if (icon) icon.className = 'fas fa-times';
   }
@@ -120,8 +120,6 @@ function initMobileMenu() {
     navMenu.classList.remove('active');
     hamburger.classList.remove('active-toggle');
     document.body.classList.remove('menu-open');
-    document.body.style.top = '';
-    window.scrollTo(0, currentScrollY);
     const icon = hamburger.querySelector('i');
     if (icon) icon.className = 'fas fa-bars';
   }
@@ -155,16 +153,52 @@ function initMobileMenu() {
 /* --- Active Nav Link Highlighting --- */
 function initActiveNavLink() {
   const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-  const navLinks = document.querySelectorAll('.nav-link');
+  
+  // Clear all previous active states
+  document.querySelectorAll('.nav-menu .active').forEach(el => el.classList.remove('active'));
+
+  const navLinks = document.querySelectorAll('.nav-menu a[href]');
 
   navLinks.forEach(link => {
     const href = link.getAttribute('href');
     if (href === currentPage || (currentPage === '' && href === 'index.html')) {
       link.classList.add('active');
-    } else {
-      link.classList.remove('active');
+
+      const parentDropdown = link.closest('.nav-dropdown');
+      if (parentDropdown) {
+        parentDropdown.classList.add('active');
+        const mainDropdownLink = parentDropdown.querySelector('.nav-link');
+        if (mainDropdownLink) mainDropdownLink.classList.add('active');
+      }
     }
   });
+}
+
+/* --- Automatic Mobile Sticky Bottom Dock --- */
+function initMobileStickyDock() {
+  if (document.querySelector('.mobile-sticky-dock')) return;
+
+  const dock = document.createElement('div');
+  dock.className = 'mobile-sticky-dock';
+  dock.innerHTML = `
+    <a href="tel:+919021757353" class="dock-item">
+      <i class="fas fa-phone-alt"></i>
+      <span>फोन करा</span>
+    </a>
+    <a href="family-health-card.html" class="dock-item primary-dock">
+      <i class="fas fa-id-card"></i>
+      <span>हेल्थ कार्ड</span>
+    </a>
+    <a href="hospitals.html" class="dock-item">
+      <i class="fas fa-hospital"></i>
+      <span>रुग्णालये</span>
+    </a>
+    <a href="https://wa.me/918007474503?text=%E0%A4%A8%E0%A4%AE%E0%A4%B8%E0%A5%8D%E0%A4%95%E0%A4%BE%E0%A4%B0!%20%E0%A4%AE%E0%A4%B2%E0%A4%BE%E0%A4%AE%E0%A4%BE%E0%A4%B9%E0%A4%BF%E0%A4%A4%E0%A4%AF%E0%A5%8D%E0%A4%AF%E0%A4%BE%20%E0%A4%B9%E0%A4%B5%E0%A5%80%E0%A4%AF%E0%A4%BE%E0%A4%A6%E0%A5%80%E0%A4%A4." target="_blank" class="dock-item whatsapp-dock">
+      <i class="fab fa-whatsapp"></i>
+      <span>व्हॉट्सॲप</span>
+    </a>
+  `;
+  document.body.appendChild(dock);
 }
 
 /* --- Scroll Reveal Animations --- */
