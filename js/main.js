@@ -1189,88 +1189,84 @@ function initHospitalsPage() {
 }
 
 /* --- Donation & Support Modal --- */
-function initDonationModal() {
-  const getModal = () => {
-    let modal = document.getElementById('donationModal');
-    if (!modal) {
-      modal = document.createElement('div');
-      modal.id = 'donationModal';
-      modal.className = 'modal-overlay';
-      modal.style.cssText = 'position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(15,23,42,0.75); backdrop-filter:blur(5px); display:none; align-items:center; justify-content:center; z-index:999999; padding:15px;';
-      modal.innerHTML = `
-        <div class="modal-card" style="background:#ffffff; border-radius:16px; max-width:520px; width:100%; max-height:90vh; overflow-y:auto; box-shadow:0 25px 50px -12px rgba(0,0,0,0.25); position:relative; animation:modalPopIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);">
-          <button class="close-modal-btn" aria-label="Close" style="position:absolute; top:16px; right:16px; background:rgba(255,255,255,0.2); border:none; width:36px; height:36px; border-radius:50%; font-size:1.2rem; cursor:pointer; color:#ffffff; display:flex; align-items:center; justify-content:center; transition:0.2s;">&times;</button>
-          <div style="padding:24px 24px 18px; background:linear-gradient(135deg, #059669 0%, #047857 100%); color:#ffffff; border-top-left-radius:16px; border-top-right-radius:16px; text-align:center;">
-            <i class="fas fa-hand-holding-heart" style="font-size:2.5rem; margin-bottom:8px; color:#A7F3D0;"></i>
-            <h2 style="font-size:1.4rem; font-weight:800; margin:0 0 4px; color:#ffffff;">देणगी व सामाजिक मदत केंद्र</h2>
-            <p style="font-size:0.85rem; margin:0; opacity:0.95;">छत्रपती शाहू महाराज बहुउद्देशीय संस्था (Reg. No. 699/MH F 5559)</p>
+function openDonationModal() {
+  let modal = document.getElementById('donationModal');
+  if (!modal) {
+    modal = document.createElement('div');
+    modal.id = 'donationModal';
+    modal.className = 'modal-overlay';
+    modal.style.cssText = 'position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(15,23,42,0.8); backdrop-filter:blur(6px); display:flex; align-items:center; justify-content:center; z-index:9999999; padding:15px;';
+    modal.innerHTML = `
+      <div class="modal-card" style="background:#ffffff; border-radius:16px; max-width:520px; width:100%; max-height:90vh; overflow-y:auto; box-shadow:0 25px 50px -12px rgba(0,0,0,0.3); position:relative; animation:modalPopIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);">
+        <button class="close-modal-btn" onclick="document.getElementById('donationModal').style.display='none';" aria-label="Close" style="position:absolute; top:16px; right:16px; background:rgba(255,255,255,0.2); border:none; width:36px; height:36px; border-radius:50%; font-size:1.4rem; cursor:pointer; color:#ffffff; display:flex; align-items:center; justify-content:center; transition:0.2s;">&times;</button>
+        <div style="padding:24px 24px 18px; background:linear-gradient(135deg, #059669 0%, #047857 100%); color:#ffffff; border-top-left-radius:16px; border-top-right-radius:16px; text-align:center;">
+          <i class="fas fa-hand-holding-heart" style="font-size:2.5rem; margin-bottom:8px; color:#A7F3D0;"></i>
+          <h2 style="font-size:1.4rem; font-weight:800; margin:0 0 4px; color:#ffffff;">देणगी व सामाजिक मदत केंद्र</h2>
+          <p style="font-size:0.85rem; margin:0; opacity:0.95;">छत्रपती शाहू महाराज बहुउद्देशीय संस्था (Reg. No. 699/MH F 5559)</p>
+        </div>
+        <div style="padding:20px;">
+          <div style="background:#ECFDF5; border:1px solid #A7F3D0; padding:12px 14px; border-radius:10px; margin-bottom:16px; font-size:0.85rem; color:#065F46; line-height:1.4; display:flex; align-items:flex-start; gap:8px;">
+            <i class="fas fa-shield-alt" style="font-size:1.1rem; color:#059669; margin-top:2px;"></i>
+            <div><strong>८०जी कर सवलत / 80G Tax Benefit:</strong> संस्था नोंदणीकृत असून आपल्या देणगीवर आयकर नियमांनुसार सवलत अनुज्ञेय आहे.</div>
           </div>
-          <div style="padding:20px;">
-            <div style="background:#ECFDF5; border:1px solid #A7F3D0; padding:12px 14px; border-radius:10px; margin-bottom:16px; font-size:0.85rem; color:#065F46; line-height:1.4; display:flex; align-items:flex-start; gap:8px;">
-              <i class="fas fa-shield-alt" style="font-size:1.1rem; color:#059669; margin-top:2px;"></i>
-              <div><strong>८०जी कर सवलत / 80G Tax Benefit:</strong> संस्था नोंदणीकृत असून आपल्या देणगीवर आयकर नियमांनुसार सवलत अनुज्ञेय आहे.</div>
-            </div>
 
-            <h3 style="font-size:1.02rem; font-weight:700; color:#1E293B; margin-bottom:10px; display:flex; align-items:center; gap:8px;">
-              <i class="fas fa-university" style="color:#059669;"></i> बँक खात्याचा तपशील (Direct Bank Transfer)
-            </h3>
-            <div style="background:#F8FAFC; border:1px solid #E2E8F0; padding:14px; border-radius:10px; font-size:0.86rem; color:#334155; line-height:1.65; margin-bottom:16px;">
-              <div><strong>संस्थेचे नाव:</strong> छत्रपती शाहू महाराज बहुउद्देशीय संस्था</div>
-              <div><strong>बँकेचे नाव:</strong> बँक ऑफ महाराष्ट्र (Bank of Maharashtra)</div>
-              <div><strong>खाते क्रमांक:</strong> XXXXXXXXXXXX</div>
-              <div><strong>आयएफएससी कोड:</strong> MAHB000XXXX</div>
-              <div><strong>शाखा:</strong> छत्रपती संभाजीनगर / जळगाव, महाराष्ट्र</div>
-            </div>
+          <h3 style="font-size:1.02rem; font-weight:700; color:#1E293B; margin-bottom:10px; display:flex; align-items:center; gap:8px;">
+            <i class="fas fa-university" style="color:#059669;"></i> बँक खात्याचा तपशील (Direct Bank Transfer)
+          </h3>
+          <div style="background:#F8FAFC; border:1px solid #E2E8F0; padding:14px; border-radius:10px; font-size:0.86rem; color:#334155; line-height:1.65; margin-bottom:16px;">
+            <div><strong>संस्थेचे नाव:</strong> छत्रपती शाहू महाराज बहुउद्देशीय संस्था</div>
+            <div><strong>बँकेचे नाव:</strong> बँक ऑफ महाराष्ट्र (Bank of Maharashtra)</div>
+            <div><strong>खाते क्रमांक:</strong> XXXXXXXXXXXX</div>
+            <div><strong>आयएफएससी कोड:</strong> MAHB000XXXX</div>
+            <div><strong>शाखा:</strong> छत्रपती संभाजीनगर / जळगाव, महाराष्ट्र</div>
+          </div>
 
-            <h3 style="font-size:1.02rem; font-weight:700; color:#1E293B; margin-bottom:10px; display:flex; align-items:center; gap:8px;">
-              <i class="fas fa-qrcode" style="color:#059669;"></i> UPI / QR द्वारे पेमेंट (GPay / PhonePe / Paytm)
-            </h3>
-            <div style="background:#F8FAFC; border:1px solid #E2E8F0; padding:14px; border-radius:10px; text-align:center; margin-bottom:18px;">
-              <div style="font-weight:700; color:#059669; font-size:1.05rem; margin-bottom:4px;">UPI ID: csmbsanstha@upi</div>
-              <p style="font-size:0.82rem; color:#64748B; margin:0 0 8px;">मोबाईल नंबरवर डायरेक्ट ट्रांसफर करा:</p>
-              <div style="font-size:1.05rem; font-weight:800; color:#1E293B; background:#ffffff; display:inline-block; padding:8px 16px; border-radius:8px; border:1px dashed #059669;">
-                <i class="fas fa-mobile-alt" style="color:#059669;"></i> +91 9021757353 / +91 8007474503
-              </div>
+          <h3 style="font-size:1.02rem; font-weight:700; color:#1E293B; margin-bottom:10px; display:flex; align-items:center; gap:8px;">
+            <i class="fas fa-qrcode" style="color:#059669;"></i> UPI / QR द्वारे पेमेंट (GPay / PhonePe / Paytm)
+          </h3>
+          <div style="background:#F8FAFC; border:1px solid #E2E8F0; padding:14px; border-radius:10px; text-align:center; margin-bottom:18px;">
+            <div style="font-weight:700; color:#059669; font-size:1.05rem; margin-bottom:4px;">UPI ID: csmbsanstha@upi</div>
+            <p style="font-size:0.82rem; color:#64748B; margin:0 0 8px;">मोबाईल नंबरवर डायरेक्ट ट्रांसफर करा:</p>
+            <div style="font-size:1.05rem; font-weight:800; color:#1E293B; background:#ffffff; display:inline-block; padding:8px 16px; border-radius:8px; border:1px dashed #059669;">
+              <i class="fas fa-mobile-alt" style="color:#059669;"></i> +91 9021757353 / +91 8007474503
             </div>
+          </div>
 
-            <div style="text-align:center;">
-              <a href="https://wa.me/919021757353?text=नमस्कार,%20मी%20छत्रपती%20शाहू%20महाराज%20संस्थेला%20देणगी%20दिली%20आहे.%20पावती%20साठी%20तपशील." target="_blank" class="btn" style="background:#25D366; color:#ffffff; width:100%; border-radius:10px; padding:12px; font-weight:700; display:inline-flex; align-items:center; justify-content:center; gap:8px; text-decoration:none; box-shadow:0 4px 12px rgba(37,211,102,0.3);">
-                <i class="fab fa-whatsapp" style="font-size:1.3rem;"></i> देणगी पावती व ८०जी पावतीसाठी WhatsApp करा
-              </a>
-            </div>
+          <div style="text-align:center;">
+            <a href="https://wa.me/919021757353?text=नमस्कार,%20मी%20छत्रपती%20शाहू%20महाराज%20संस्थेला%20देणगी%20दिली%20आहे.%20पावती%20साठी%20तपशील." target="_blank" class="btn" style="background:#25D366; color:#ffffff; width:100%; border-radius:10px; padding:12px; font-weight:700; display:inline-flex; align-items:center; justify-content:center; gap:8px; text-decoration:none; box-shadow:0 4px 12px rgba(37,211,102,0.3);">
+              <i class="fab fa-whatsapp" style="font-size:1.3rem;"></i> देणगी पावती व ८०जी पावतीसाठी WhatsApp करा
+            </a>
           </div>
         </div>
-      `;
-      document.body.appendChild(modal);
+      </div>
+    `;
+    document.body.appendChild(modal);
 
-      const closeBtn = modal.querySelector('.close-modal-btn');
-      if (closeBtn) {
-        closeBtn.addEventListener('click', () => {
-          modal.style.display = 'none';
-        });
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.style.display = 'none';
       }
-      modal.addEventListener('click', (e) => {
-        if (e.target === modal) {
-          modal.style.display = 'none';
-        }
-      });
-    }
-    return modal;
-  };
+    });
+  } else {
+    modal.style.display = 'flex';
+  }
 
+  const navMenu = document.querySelector('.nav-menu');
+  const hamburger = document.querySelector('.hamburger');
+  if (navMenu && navMenu.classList.contains('active')) {
+    navMenu.classList.remove('active');
+    if (hamburger) hamburger.classList.remove('active');
+  }
+}
+window.openDonationModal = openDonationModal;
+
+function initDonationModal() {
   document.addEventListener('click', (e) => {
     const btn = e.target.closest('.open-donation-modal-btn');
     if (btn) {
       e.preventDefault();
       e.stopPropagation();
-      const modal = getModal();
-      modal.style.display = 'flex';
-      const navMenu = document.querySelector('.nav-menu');
-      const hamburger = document.querySelector('.hamburger');
-      if (navMenu && navMenu.classList.contains('active')) {
-        navMenu.classList.remove('active');
-        if (hamburger) hamburger.classList.remove('active');
-      }
+      openDonationModal();
     }
   });
 }
