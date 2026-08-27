@@ -56,8 +56,8 @@ function getStoredPatients() {
     const parsed = JSON.parse(data);
     if (!Array.isArray(parsed)) return [];
     // Filter out initial sample records if present
-    const sampleIds = ["REG-PAT-2026-1609", "REG-PAT-2026-1001", "REG-PAT-2026-1002"];
-    const filtered = parsed.filter(p => p && !sampleIds.includes(p.regId));
+    const sampleIds = ["REG-PAT-2026-1609", "REG-PAT-2026-1001", "REG-PAT-2026-1002", "REG-PAT-2026-1535", "REG-PAT-2026-1296"];
+    const filtered = parsed.filter(p => p && p.regId && !sampleIds.includes(p.regId) && !((p.name || '').toLowerCase().includes('katturwar')));
     if (filtered.length !== parsed.length) {
       savePatients(filtered);
     }
@@ -137,9 +137,18 @@ async function syncPatientsFromCloud() {
             const localPatients = getStoredPatients();
             const mergedMap = new Map();
 
+            const sampleIds = ["REG-PAT-2026-1609", "REG-PAT-2026-1001", "REG-PAT-2026-1002", "REG-PAT-2026-1535", "REG-PAT-2026-1296"];
             // Cloud records take precedence for live synchronization across devices
-            cloudPatients.forEach(p => { if (p && p.regId) mergedMap.set(p.regId, p); });
-            localPatients.forEach(p => { if (p && p.regId && !mergedMap.has(p.regId)) mergedMap.set(p.regId, p); });
+            cloudPatients.forEach(p => {
+              if (p && p.regId && !sampleIds.includes(p.regId) && !((p.name || '').toLowerCase().includes('katturwar'))) {
+                mergedMap.set(p.regId, p);
+              }
+            });
+            localPatients.forEach(p => {
+              if (p && p.regId && !sampleIds.includes(p.regId) && !((p.name || '').toLowerCase().includes('katturwar')) && !mergedMap.has(p.regId)) {
+                mergedMap.set(p.regId, p);
+              }
+            });
 
             const mergedList = Array.from(mergedMap.values());
             savePatients(mergedList);
