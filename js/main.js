@@ -976,6 +976,32 @@ function initHospitalsPage() {
     bhusawal: [21.0455, 75.8011]
   };
 
+  // Helper to generate specialty-colored map pin icons
+  function createSpecialtyMarkerIcon(spec) {
+    let color = '#4A2BC4';
+    let iconClass = 'fa-hospital';
+
+    const s = (spec || '').toLowerCase();
+    if (s.includes('नेत्र') || s.includes('eye')) {
+      color = '#2563EB';
+      iconClass = 'fa-eye';
+    } else if (s.includes('पॅथॉलॉजी') || s.includes('सोनोग्राफी') || s.includes('लॅब')) {
+      color = '#16A34A';
+      iconClass = 'fa-vial';
+    } else if (s.includes('दंत') || s.includes('dental')) {
+      color = '#D97706';
+      iconClass = 'fa-tooth';
+    }
+
+    return L.divIcon({
+      className: 'custom-leaflet-marker',
+      html: `<div style="background:${color}; color:#ffffff; width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 14px rgba(0,0,0,0.35); border:2px solid #ffffff; font-size:0.92rem;"><i class="fas ${iconClass}"></i></div>`,
+      iconSize: [34, 34],
+      iconAnchor: [17, 17],
+      popupAnchor: [0, -18]
+    });
+  }
+
   // Initialize Interactive Leaflet.js Hospital Map
   if (mapElement && typeof L !== 'undefined') {
     try {
@@ -993,9 +1019,9 @@ function initHospitalsPage() {
             navigator.geolocation.getCurrentPosition(pos => {
               const uLat = pos.coords.latitude;
               const uLng = pos.coords.longitude;
-              leafletMap.setView([uLat, uLng], 12);
+              leafletMap.flyTo([uLat, uLng], 12, { duration: 1.2 });
               L.circle([uLat, uLng], { radius: 4000, color: '#4A2BC4', fillColor: '#6F4BFF', fillOpacity: 0.25 }).addTo(leafletMap)
-                .bindPopup('<b>तुमचे वर्तमान स्थान</b>').openPopup();
+                .bindPopup('<b>आपले वर्तमान स्थान</b>').openPopup();
               if (window.showToast) window.showToast('आपले स्थान नकाशामध्ये दर्शवले आहे.', 'success');
             }, () => {
               if (window.showToast) window.showToast('स्थान मिळवता आले नाही. कृपया जीपीएस परवानगी तपासा.', 'warning');
@@ -1003,6 +1029,24 @@ function initHospitalsPage() {
           }
         });
       }
+
+      // City Quick-Jump Navigation Handlers
+      document.querySelectorAll('.map-city-jump-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const lat = parseFloat(btn.getAttribute('data-lat'));
+          const lng = parseFloat(btn.getAttribute('data-lng'));
+          const zoom = parseInt(btn.getAttribute('data-zoom') || '12', 10);
+          if (leafletMap && lat && lng) {
+            leafletMap.flyTo([lat, lng], zoom, { duration: 1.2 });
+            document.querySelectorAll('.map-city-jump-btn').forEach(b => {
+              b.style.background = '#F1F5F9';
+              b.style.color = 'var(--text-dark)';
+            });
+            btn.style.background = 'var(--primary)';
+            btn.style.color = '#ffffff';
+          }
+        });
+      });
     } catch (e) {
       console.warn('Map initialization skipped:', e);
     }
@@ -1023,22 +1067,34 @@ function initHospitalsPage() {
       return matchCity && matchQuery;
     });
 
-    // Update map markers
+    // Update map markers with specialty pins and rich popups
     if (markersGroup) {
       markersGroup.clearLayers();
       filtered.forEach((h, i) => {
         const coords = cityCoords[h.city] || [20.65, 75.4];
         const lat = coords[0] + (Math.sin(i + 1) * 0.015);
         const lng = coords[1] + (Math.cos(i + 1) * 0.015);
-        const marker = L.marker([lat, lng]);
-        marker.bindPopup(`
-          <div style="font-family: sans-serif; padding: 4px; max-width: 220px;">
-            <strong style="color: #4A2BC4; font-size: 0.92rem; display: block; margin-bottom: 2px;">${h.name}</strong>
-            <span style="font-size: 0.8rem; color: #166534; font-weight: 600;">${h.doctor} (${h.spec})</span><br>
-            <span style="font-size: 0.78rem; color: #27AE60; font-weight: 700;">${h.discount}</span><br>
-            <span style="font-size: 0.75rem; color: #64748B;">${h.address}</span>
+        const customIcon = createSpecialtyMarkerIcon(h.spec);
+        const marker = L.marker([lat, lng], { icon: customIcon });
+        
+        const popupContent = `
+          <div style="font-family: 'Poppins', sans-serif; padding: 4px; max-width: 230px;">
+            <span style="font-size: 0.72rem; font-weight: 800; background: var(--primary-light, #E2D9FF); color: var(--primary, #4A2BC4); padding: 2px 8px; border-radius: 999px; display: inline-block; margin-bottom: 6px;">
+              ${h.spec}
+            </span>
+            <h4 style="font-size: 0.98rem; font-weight: 800; color: #1E2432; margin: 0 0 4px 0; line-height: 1.3;">${h.name}</h4>
+            <p style="font-size: 0.82rem; font-weight: 600; color: #166534; margin: 0 0 6px 0;"><i class="fas fa-user-md"></i> ${h.doctor}</p>
+            <p style="font-size: 0.78rem; color: #475569; margin: 0 0 8px 0; line-height: 1.4;"><i class="fas fa-map-marker-alt" style="color: #4A2BC4;"></i> ${h.address}</p>
+            <div style="background: #F1F5F9; border-left: 3px solid #27AE60; padding: 4px 8px; border-radius: 4px; font-size: 0.78rem; font-weight: 700; color: #15803D; margin-bottom: 10px;">
+              <i class="fas fa-tags"></i> ${h.discount}
+            </div>
+            <div style="display: flex; gap: 6px;">
+              ${h.phone ? `<a href="tel:${h.phone}" class="btn btn-sm" style="background:#27AE60; color:#fff; font-size:0.75rem; padding:4px 8px; border-radius:4px; text-decoration:none; font-weight:700; flex:1; text-align:center;"><i class="fas fa-phone-alt"></i> कॉल करा</a>` : ''}
+              <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(h.name + ' ' + h.address)}" target="_blank" class="btn btn-sm" style="background:#4A2BC4; color:#fff; font-size:0.75rem; padding:4px 8px; border-radius:4px; text-decoration:none; font-weight:700; flex:1; text-align:center;"><i class="fas fa-directions"></i> दिशा (Route)</a>
+            </div>
           </div>
-        `);
+        `;
+        marker.bindPopup(popupContent);
         markersGroup.addLayer(marker);
       });
     }

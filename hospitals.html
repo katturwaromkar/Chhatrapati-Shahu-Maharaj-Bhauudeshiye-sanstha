@@ -210,15 +210,40 @@
 
       <!-- Interactive Hospital GPS Map Section -->
       <div style="margin-bottom: 35px; background: #ffffff; padding: 20px; border-radius: var(--radius-md); border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);">
-        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 15px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 12px;">
           <h3 style="font-size: 1.25rem; font-weight: 700; color: var(--text-dark); margin: 0; display: flex; align-items: center; gap: 8px;">
             <i class="fas fa-map-location-dot" style="color: var(--primary);"></i> संलग्न रुग्णालये परस्परसंवादी नकाशा (Interactive GPS Map)
           </h3>
-          <button id="locateUserBtn" class="btn btn-sm" style="background: var(--primary-light); color: var(--primary); font-weight: 700; border: 1px solid var(--primary);">
+          <button id="locateUserBtn" class="btn btn-sm" style="background: var(--primary-light); color: var(--primary); font-weight: 700; border: 1px solid var(--primary); padding: 8px 16px; border-radius: 999px;">
             <i class="fas fa-crosshairs"></i> माझे जवळचे रुग्णालय शोधा (Find Nearest)
           </button>
         </div>
-        <div id="hospitalMap" style="width: 100%; height: 380px; border-radius: var(--radius-sm); border: 1px solid var(--border-color); z-index: 1;"></div>
+
+        <!-- City Quick-Jump Navigation Bar -->
+        <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; align-items: center;">
+          <span style="font-size: 0.82rem; font-weight: 700; color: var(--text-muted);"><i class="fas fa-location-arrow"></i> नकाशामध्ये शहर निवडा:</span>
+          <button class="map-city-jump-btn btn btn-sm" data-lat="19.8762" data-lng="75.3433" data-zoom="12" style="padding: 5px 14px; font-size: 0.82rem; background: #F1F5F9; border: 1px solid var(--border-color); color: var(--text-dark); border-radius: 999px; font-weight: 600;">📍 संभाजीनगर</button>
+          <button class="map-city-jump-btn btn btn-sm" data-lat="21.0077" data-lng="75.5626" data-zoom="12" style="padding: 5px 14px; font-size: 0.82rem; background: #F1F5F9; border: 1px solid var(--border-color); color: var(--text-dark); border-radius: 999px; font-weight: 600;">📍 जळगाव</button>
+          <button class="map-city-jump-btn btn btn-sm" data-lat="20.4633" data-lng="75.0135" data-zoom="13" style="padding: 5px 14px; font-size: 0.82rem; background: #F1F5F9; border: 1px solid var(--border-color); color: var(--text-dark); border-radius: 999px; font-weight: 600;">📍 चाळीसगाव</button>
+          <button class="map-city-jump-btn btn btn-sm" data-lat="20.6500" data-lng="75.3500" data-zoom="13" style="padding: 5px 14px; font-size: 0.82rem; background: #F1F5F9; border: 1px solid var(--border-color); color: var(--text-dark); border-radius: 999px; font-weight: 600;">📍 पाचोरा</button>
+          <button class="map-city-jump-btn btn btn-sm" data-lat="21.0455" data-lng="75.8011" data-zoom="13" style="padding: 5px 14px; font-size: 0.82rem; background: #F1F5F9; border: 1px solid var(--border-color); color: var(--text-dark); border-radius: 999px; font-weight: 600;">📍 भुसावळ</button>
+          <button class="map-city-jump-btn btn btn-sm" data-lat="20.6658" data-lng="75.2289" data-zoom="13" style="padding: 5px 14px; font-size: 0.82rem; background: #F1F5F9; border: 1px solid var(--border-color); color: var(--text-dark); border-radius: 999px; font-weight: 600;">📍 भडगाव</button>
+        </div>
+
+        <!-- Leaflet Map Container -->
+        <div id="hospitalMap" style="width: 100%; height: 420px; border-radius: var(--radius-sm); border: 1px solid var(--border-color); z-index: 1; box-shadow: inset 0 2px 8px rgba(0,0,0,0.08);"></div>
+
+        <!-- Specialty Marker Color Legend -->
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-top: 12px; font-size: 0.8rem; background: #F8FAFC; padding: 10px 14px; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+          <div style="display: flex; gap: 14px; flex-wrap: wrap; align-items: center;">
+            <span style="font-weight: 700; color: var(--text-dark);">रंग संकेत:</span>
+            <span><i class="fas fa-circle" style="color: #4A2BC4;"></i> मल्टीस्पेशालिटी</span>
+            <span><i class="fas fa-circle" style="color: #2563EB;"></i> नेत्ररुग्णालय (Eye Care)</span>
+            <span><i class="fas fa-circle" style="color: #16A34A;"></i> पॅथॉलॉजी & लॅब</span>
+            <span><i class="fas fa-circle" style="color: #D97706;"></i> दंत रुग्णालय (Dental)</span>
+          </div>
+          <span style="color: var(--text-muted); font-weight: 600;"><i class="fas fa-info-circle"></i> नकाशातील पिनवर क्लिक करा प्रत्यक्ष कॉल करा व दिशा मिळवा</span>
+        </div>
       </div>
 
       <!-- Structured Hospital Cards Container -->
