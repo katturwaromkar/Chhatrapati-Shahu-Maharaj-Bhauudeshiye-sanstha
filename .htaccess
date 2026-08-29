@@ -13,9 +13,9 @@ Options -Indexes
   RewriteBase /
 
   # Hostinger API Endpoints Rewrite Rules
-  RewriteRule ^api/patients/?$ php_backend/patients.php [L,QSA]
-  RewriteRule ^api/cards/?$ php_backend/cards.php [L,QSA]
-  RewriteRule ^api/counter/?$ php_backend/counter.php [L,QSA]
+  RewriteRule ^api/patients(\.(php|js))?/?$ php_backend/patients.php [L,QSA]
+  RewriteRule ^api/cards(\.(php|js))?/?$ php_backend/cards.php [L,QSA]
+  RewriteRule ^api/counter(\.(php|js))?/?$ php_backend/counter.php [L,QSA]
 
   # 1. Force HTTPS Redirection
   RewriteCond %{HTTPS} off
@@ -47,7 +47,7 @@ Options -Indexes
   Header always set Referrer-Policy "strict-origin-when-cross-origin"
 
   # Permissions Policy (Restrict unneeded browser APIs)
-  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
+  Header always set Permissions-Policy "camera=(self), microphone=(), geolocation=(), payment=()"
 
   # Content Security Policy (CSP)
   Header always set Content-Security-Policy "default-src 'self' https: data: 'unsafe-inline' 'unsafe-eval'; img-src 'self' https: data: blob:; font-src 'self' https: data: cdnjs.cloudflare.com fonts.gstatic.com; style-src 'self' https: 'unsafe-inline' cdnjs.cloudflare.com fonts.googleapis.com; script-src 'self' https: 'unsafe-inline' 'unsafe-eval' cdnjs.cloudflare.com;"
