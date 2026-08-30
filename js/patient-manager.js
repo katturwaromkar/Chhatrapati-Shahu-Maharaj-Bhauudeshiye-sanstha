@@ -38,9 +38,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initCameraCapture();
   initPatientSearch();
   syncPatientsFromCloud(); // Initial cross-device sync on load
-
-  // Poll cloud database every 4 seconds so data added on any device displays to all users
-  setInterval(syncPatientsFromCloud, 4000);
+  setInterval(syncPatientsFromCloud, 10000);
+  window.addEventListener('focus', syncPatientsFromCloud);
 });
 
 /* --- Pre-loaded Registered Patients Database & Storage Helpers --- */
@@ -109,28 +108,86 @@ function compressImageBase64(base64Str, maxWidth = 600, quality = 0.6) {
   });
 }
 
-// Get candidate API endpoints (supports Vercel Serverless API + cPanel PHP backend + live production domain)
-function getApiEndpoints() {
-  const endpoints = ['api/patients', 'api/patients.js', 'api/patients.php'];
-  const prodUrl = 'https://chatrpatishahumaharajbahuuddeshiyasanstha.in/api/patients.php';
-  if (!window.location.href.includes('chatrpatishahumaharajbahuuddeshiyasanstha.in')) {
-    endpoints.push(prodUrl);
+// Fast fetch helper with timeout to avoid blocking network threads
+async function fetchWithTimeout(url, options = {}, timeoutMs = 2000) {
+  if (typeof AbortController === 'undefined') return fetch(url, options);
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    const response = await fetch(url, { ...options, signal: controller.signal });
+    clearTimeout(timeoutId);
+    return response;
+  } catch (err) {
+    clearTimeout(timeoutId);
+    throw err;
   }
-  return endpoints;
+}
+
+// Get candidate API endpoints with fast local Hostinger PHP priority
+function getApiEndpoints() {
+  return ['php_backend/patients.php', 'api/patients', 'api/patients.php'];
 }
 
 const RESTFUL_PATIENTS_URL = 'https://api.restful-api.dev/objects/ff8081819ff5b11001a0286cc47274af';
 let lastPatientHash = '';
+let isSyncing = false;
 
-/* --- Robust Real-Time Cross-Device Cloud Sync Function --- */
+/* --- Robust Real-Time Fast Cross-Device Cloud Sync Function --- */
 async function syncPatientsFromCloud() {
-  const endpoints = ['api/patients', RESTFUL_PATIENTS_URL];
-  for (const endpoint of endpoints) {
+  if (isSyncing) return;
+  isSyncing = true;
+
+  try {
+    // 1. Prioritize ultra-fast local Hostinger PHP backend (< 20ms)
+    const localEndpoints = ['php_backend/patients.php', 'api/patients'];
+    for (const endpoint of localEndpoints) {
+      try {
+        const response = await fetchWithTimeout(endpoint, { cache: 'no-store' }, 1500);
+        if (response && response.ok) {
+          const text = await response.text();
+          if (text && (text.trim().startsWith('{') || text.trim().startsWith('['))) {
+            const json = JSON.parse(text);
+            let cloudPatients = Array.isArray(json) ? json : (json.data?.patients || json.patients || null);
+            if (Array.isArray(cloudPatients) && cloudPatients.length > 0) {
+              const localPatients = getStoredPatients();
+              const mergedMap = new Map();
+
+              const sampleIds = ["REG-PAT-2026-1609", "REG-PAT-2026-1001", "REG-PAT-2026-1002", "REG-PAT-2026-1535", "REG-PAT-2026-1296"];
+              cloudPatients.forEach(p => {
+                if (p && p.regId && !sampleIds.includes(p.regId) && !((p.name || '').toLowerCase().includes('katturwar'))) {
+                  mergedMap.set(p.regId, p);
+                }
+              });
+              localPatients.forEach(p => {
+                if (p && p.regId && !sampleIds.includes(p.regId) && !((p.name || '').toLowerCase().includes('katturwar')) && !mergedMap.has(p.regId)) {
+                  mergedMap.set(p.regId, p);
+                }
+              });
+
+              const mergedList = Array.from(mergedMap.values());
+              savePatients(mergedList);
+
+              const newHash = mergedList.length + '_' + (mergedList[0]?.regId || '');
+              if (newHash !== lastPatientHash) {
+                lastPatientHash = newHash;
+                initPatientTable();
+              }
+              isSyncing = false;
+              return; // Fast success from Hostinger PHP!
+            }
+          }
+        }
+      } catch (err) {
+        // Continue to fallback
+      }
+    }
+
+    // 2. Secondary fallback cloud database with short timeout
     try {
-      const response = await fetch(endpoint, { cache: 'no-store' });
-      if (response.ok) {
+      const response = await fetchWithTimeout(RESTFUL_PATIENTS_URL, { cache: 'no-store' }, 2500);
+      if (response && response.ok) {
         const text = await response.text();
-        if (text.trim().startsWith('{') || text.trim().startsWith('[')) {
+        if (text && (text.trim().startsWith('{') || text.trim().startsWith('['))) {
           const json = JSON.parse(text);
           let cloudPatients = Array.isArray(json) ? json : (json.data?.patients || json.patients || null);
           if (Array.isArray(cloudPatients) && cloudPatients.length > 0) {
@@ -138,7 +195,6 @@ async function syncPatientsFromCloud() {
             const mergedMap = new Map();
 
             const sampleIds = ["REG-PAT-2026-1609", "REG-PAT-2026-1001", "REG-PAT-2026-1002", "REG-PAT-2026-1535", "REG-PAT-2026-1296"];
-            // Cloud records take precedence for live synchronization across devices
             cloudPatients.forEach(p => {
               if (p && p.regId && !sampleIds.includes(p.regId) && !((p.name || '').toLowerCase().includes('katturwar'))) {
                 mergedMap.set(p.regId, p);
@@ -158,13 +214,12 @@ async function syncPatientsFromCloud() {
               lastPatientHash = newHash;
               initPatientTable();
             }
-            return; // Successful sync from working endpoint
           }
         }
       }
-    } catch (err) {
-      console.warn(`Sync attempt failed for ${endpoint}:`, err);
-    }
+    } catch (err) {}
+  } finally {
+    isSyncing = false;
   }
 }
 
@@ -179,29 +234,33 @@ async function savePatientToCloudAPI(patientRecord) {
   }
   savePatients(currentLocal);
 
-  // Sync to Hostinger local endpoint
+  // Sync to Hostinger local endpoints immediately
   try {
-    await fetch('api/patients', {
+    fetch('php_backend/patients.php', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(patientRecord)
-    });
+    }).catch(() => {});
+
+    fetch('api/patients', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(patientRecord)
+    }).catch(() => {});
   } catch (e) {}
 
-  // Sync to persistent cloud database
+  // Sync in background to persistent cloud database
   try {
     const payload = {
       name: "CSM_SANSTHA_LIVE_DATABASE_2026",
       data: { patients: currentLocal }
     };
-    await fetch(RESTFUL_PATIENTS_URL, {
+    fetchWithTimeout(RESTFUL_PATIENTS_URL, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
-    });
-  } catch (err) {
-    console.warn('Cloud PUT failed:', err);
-  }
+    }, 3000).catch(() => {});
+  } catch (err) {}
 }
 
 // Delete patient record from shared cloud database across all candidate endpoints
@@ -210,9 +269,13 @@ async function deletePatientFromCloudAPI(regId) {
   savePatients(currentLocal);
 
   try {
-    await fetch(`api/patients?action=delete&regId=${encodeURIComponent(regId)}`, {
+    fetch(`php_backend/patients.php?action=delete&regId=${encodeURIComponent(regId)}`, {
       method: 'DELETE'
-    });
+    }).catch(() => {});
+
+    fetch(`api/patients?action=delete&regId=${encodeURIComponent(regId)}`, {
+      method: 'DELETE'
+    }).catch(() => {});
   } catch (e) {}
 
   try {
@@ -220,14 +283,12 @@ async function deletePatientFromCloudAPI(regId) {
       name: "CSM_SANSTHA_LIVE_DATABASE_2026",
       data: { patients: currentLocal }
     };
-    await fetch(RESTFUL_PATIENTS_URL, {
+    fetchWithTimeout(RESTFUL_PATIENTS_URL, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
-    });
-  } catch (err) {
-    console.warn('Cloud delete failed:', err);
-  }
+    }, 3000).catch(() => {});
+  } catch (err) {}
 }
 
 // Temporary hold for uploaded/captured base64 photos (New Registration)

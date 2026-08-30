@@ -675,33 +675,49 @@ function initVisitorCounter() {
 
   const isNewSession = !sessionStorage.getItem('csms_session_counted');
 
+  // 1. Instant Synchronous Cache Render (0ms)
+  let cachedCount = parseInt(localStorage.getItem('csms_global_visitor_count') || '5432', 10);
+  counterElements.forEach(el => { el.textContent = cachedCount.toLocaleString('en-IN'); });
+
   async function fetchRealtimeVisitorCount() {
-    // Try local Hostinger API endpoint first
-    try {
-      const endpoint = isNewSession ? 'api/counter?action=hit' : 'api/counter';
-      const response = await fetch(endpoint, { cache: 'no-store' });
-      if (response.ok) {
-        const json = await response.json();
-        if (json.count) {
-          if (isNewSession) sessionStorage.setItem('csms_session_counted', 'true');
-          counterElements.forEach(el => { el.textContent = json.formatted || json.count.toLocaleString('en-IN'); });
-          localStorage.setItem('csms_global_visitor_count', json.count);
-          return;
+    // 2. Fast local Hostinger PHP endpoint (< 20ms)
+    const localEndpoints = [
+      isNewSession ? 'php_backend/counter.php?action=hit' : 'php_backend/counter.php',
+      isNewSession ? 'api/counter?action=hit' : 'api/counter'
+    ];
+
+    for (const endpoint of localEndpoints) {
+      try {
+        const controller = typeof AbortController !== 'undefined' ? new AbortController() : null;
+        const tid = controller ? setTimeout(() => controller.abort(), 1200) : null;
+        const response = await fetch(endpoint, { cache: 'no-store', signal: controller ? controller.signal : undefined });
+        if (tid) clearTimeout(tid);
+
+        if (response && response.ok) {
+          const json = await response.json();
+          if (json.count) {
+            if (isNewSession) sessionStorage.setItem('csms_session_counted', 'true');
+            counterElements.forEach(el => { el.textContent = json.formatted || json.count.toLocaleString('en-IN'); });
+            localStorage.setItem('csms_global_visitor_count', json.count);
+            return;
+          }
         }
-      }
-    } catch (err) {
-      console.warn('Local counter fetch failed, trying cloud fallback:', err);
+      } catch (err) {}
     }
 
+    // 3. Fallback cloud database
     try {
-      const response = await fetch(RESTFUL_COUNTER_URL, { cache: 'no-store' });
-      if (response.ok) {
+      const controller = typeof AbortController !== 'undefined' ? new AbortController() : null;
+      const tid = controller ? setTimeout(() => controller.abort(), 2000) : null;
+      const response = await fetch(RESTFUL_COUNTER_URL, { cache: 'no-store', signal: controller ? controller.signal : undefined });
+      if (tid) clearTimeout(tid);
+
+      if (response && response.ok) {
         const json = await response.json();
         let currentCount = parseInt(json.data?.count || '5432', 10);
         if (isNewSession) {
           sessionStorage.setItem('csms_session_counted', 'true');
           currentCount += 1;
-          // PUT incremented count back to cloud DB
           fetch(RESTFUL_COUNTER_URL, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
@@ -709,32 +725,26 @@ function initVisitorCounter() {
               name: "CSM_SANSTHA_COUNTER_DB_2026",
               data: { count: currentCount }
             })
-          }).catch(e => {});
+          }).catch(() => {});
         }
         const formatted = currentCount.toLocaleString('en-IN');
         counterElements.forEach(el => { el.textContent = formatted; });
         localStorage.setItem('csms_global_visitor_count', currentCount);
         return;
       }
-    } catch (err) {
-      console.warn('Counter fetch failed:', err);
-    }
+    } catch (err) {}
 
     // Fallback baseline if offline
-    let fallbackCount = parseInt(localStorage.getItem('csms_global_visitor_count') || '5432', 10);
     if (isNewSession) {
-      fallbackCount += 1;
-      localStorage.setItem('csms_global_visitor_count', fallbackCount);
+      cachedCount += 1;
+      localStorage.setItem('csms_global_visitor_count', cachedCount);
       sessionStorage.setItem('csms_session_counted', 'true');
+      counterElements.forEach(el => { el.textContent = cachedCount.toLocaleString('en-IN'); });
     }
-    counterElements.forEach(el => { el.textContent = fallbackCount.toLocaleString('en-IN'); });
   }
 
-  // Initial fetch
   fetchRealtimeVisitorCount();
-
-  // Real-time polling every 6 seconds so visitor count stays 100% synchronized across all active devices
-  setInterval(fetchRealtimeVisitorCount, 6000);
+  setInterval(fetchRealtimeVisitorCount, 30000);
 }
 
 
@@ -977,7 +987,7 @@ function initHospitalsPage() {
     bhusawal: [21.0455, 75.8011]
   };
 
-  // Helper to generate specialty-colored map pin icons
+  // Helper to generate specialty-colored map pin icons with glowing shadow and category icon
   function createSpecialtyMarkerIcon(spec) {
     let color = '#4A2BC4';
     let iconClass = 'fa-hospital';
@@ -996,54 +1006,112 @@ function initHospitalsPage() {
 
     return L.divIcon({
       className: 'custom-leaflet-marker',
-      html: `<div style="background:${color}; color:#ffffff; width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 14px rgba(0,0,0,0.35); border:2px solid #ffffff; font-size:0.92rem;"><i class="fas ${iconClass}"></i></div>`,
-      iconSize: [34, 34],
-      iconAnchor: [17, 17],
-      popupAnchor: [0, -18]
+      html: `<div style="background:${color}; color:#ffffff; width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 14px rgba(0,0,0,0.35); border:2.5px solid #ffffff; font-size:0.95rem; cursor:pointer; transition:transform 0.2s ease;"><i class="fas ${iconClass}"></i></div>`,
+      iconSize: [36, 36],
+      iconAnchor: [18, 18],
+      popupAnchor: [0, -20]
     });
   }
 
-  // Initialize Interactive Leaflet.js Hospital Map with Google Maps Integration
+  // Initialize Interactive Leaflet.js Hospital Map with Rock-Solid Reliable Tile Providers
   if (mapElement && typeof L !== 'undefined') {
     try {
-      leafletMap = L.map('hospitalMap').setView([20.65, 75.4], 9);
+      leafletMap = L.map('hospitalMap', {
+        center: [20.65, 75.4],
+        zoom: 9,
+        scrollWheelZoom: false,
+        zoomControl: true
+      });
 
-      // Google Maps Streets & Hybrid Tile Layers
-      const googleStreets = L.tileLayer('https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
-        maxZoom: 20,
-        subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
-        attribution: '© Google Maps'
+      // 1. Standard OpenStreetMap Tile Layer (100% compliant & zero 403 blocks)
+      const osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '© <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors'
       }).addTo(leafletMap);
 
-      const osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      // 2. CARTO Voyager Layer (Modern clean vector-styled raster)
+      const cartoVoyager = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+        maxZoom: 20,
+        subdomains: 'abcd',
+        attribution: '© <a href="https://carto.com/">CARTO</a>'
+      });
+
+      // 3. ESRI World Imagery (Satellite view)
+      const esriSat = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
         maxZoom: 18,
-        attribution: '© OpenStreetMap'
+        attribution: '© <a href="https://www.esri.com/">Esri</a>'
       });
 
       const baseMaps = {
-        "🗺️ गूगल मॅप्स (Google Maps)": googleStreets,
-        "🌍 ओपन स्ट्रीट मॅप (Standard OSM)": osmLayer
+        "🗺️ ओपनस्ट्रीट मॅप (Standard OSM)": osmLayer,
+        "🎨 कार्टो व्हॉयेजर (Clean Modern)": cartoVoyager,
+        "🛰️ सॅटेलाइट व्ह्यू (Satellite)": esriSat
       };
 
-      L.control.layers(baseMaps).addTo(leafletMap);
+      L.control.layers(baseMaps, null, { position: 'topright' }).addTo(leafletMap);
 
       markersGroup = L.layerGroup().addTo(leafletMap);
 
+      // Hide map skeleton loader once initialized
+      const skeleton = document.getElementById('mapLoaderSkeleton');
+      if (skeleton) {
+        skeleton.style.opacity = '0';
+        setTimeout(() => { skeleton.style.display = 'none'; }, 300);
+      }
+
+      // Ensure tile layer recalculates size properly
+      setTimeout(() => {
+        if (leafletMap) leafletMap.invalidateSize();
+      }, 250);
+
+      window.addEventListener('resize', () => {
+        if (leafletMap) leafletMap.invalidateSize();
+      });
+
+      // User GPS Location Button with Smooth FlyTo & Pulse Marker
       const locateBtn = document.getElementById('locateUserBtn');
       if (locateBtn) {
         locateBtn.addEventListener('click', () => {
-          if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(pos => {
+          if (!navigator.geolocation) {
+            if (window.showToast) window.showToast('तुमच्या ब्राउझरमध्ये जीपीएस सपोर्ट उपलब्ध नाही.', 'warning');
+            return;
+          }
+
+          const originalHTML = locateBtn.innerHTML;
+          locateBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> स्थान शोधत आहे...';
+          locateBtn.disabled = true;
+
+          navigator.geolocation.getCurrentPosition(
+            (pos) => {
+              locateBtn.innerHTML = originalHTML;
+              locateBtn.disabled = false;
               const uLat = pos.coords.latitude;
               const uLng = pos.coords.longitude;
-              leafletMap.flyTo([uLat, uLng], 12, { duration: 1.2 });
-              L.circle([uLat, uLng], { radius: 4000, color: '#4285F4', fillColor: '#34A853', fillOpacity: 0.25 }).addTo(leafletMap)
-                .bindPopup('<b>आपले वर्तमान स्थान (Your Location)</b>').openPopup();
-              if (window.showToast) window.showToast('आपले स्थान नकाशामध्ये दर्शवले आहे.', 'success');
-            }, () => {
-              if (window.showToast) window.showToast('स्थान मिळवता आले नाही. कृपया जीपीएस परवानगी तपासा.', 'warning');
-            });
-          }
+
+              leafletMap.flyTo([uLat, uLng], 13, { duration: 1.2 });
+
+              const userIcon = L.divIcon({
+                className: 'user-gps-marker',
+                html: `<div style="background:#2563EB; color:#fff; width:26px; height:26px; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 0 0 8px rgba(37,99,235,0.3); border:2px solid #fff;"><i class="fas fa-user" style="font-size:0.75rem;"></i></div>`,
+                iconSize: [26, 26],
+                iconAnchor: [13, 13]
+              });
+
+              L.marker([uLat, uLng], { icon: userIcon }).addTo(leafletMap)
+                .bindPopup('<b style="color:#2563EB;"><i class="fas fa-location-dot"></i> आपले वर्तमान स्थान (Your Location)</b>')
+                .openPopup();
+
+              if (window.showToast) window.showToast('आपले स्थान नकाशामध्ये दर्शवले आहे!', 'success');
+            },
+            (err) => {
+              locateBtn.innerHTML = originalHTML;
+              locateBtn.disabled = false;
+              let msg = 'स्थान मिळवता आले नाही. कृपया ब्राउझरमध्ये GPS / Location परवानगी सुरू करा.';
+              if (err.code === 1) msg = 'स्थान परवानगी नाकारली आहे. कृपया Location Settings मधून परवानगी द्या.';
+              if (window.showToast) window.showToast(msg, 'warning');
+            },
+            { enableHighAccuracy: true, timeout: 8000, maximumAge: 60000 }
+          );
         });
       }
 
@@ -1054,13 +1122,15 @@ function initHospitalsPage() {
           const lng = parseFloat(btn.getAttribute('data-lng'));
           const zoom = parseInt(btn.getAttribute('data-zoom') || '12', 10);
           if (leafletMap && lat && lng) {
-            leafletMap.flyTo([lat, lng], zoom, { duration: 1.2 });
+            leafletMap.flyTo([lat, lng], zoom, { duration: 1.0 });
             document.querySelectorAll('.map-city-jump-btn').forEach(b => {
               b.style.background = '#F1F5F9';
               b.style.color = 'var(--text-dark)';
+              b.style.borderColor = 'var(--border-color)';
             });
             btn.style.background = 'var(--primary)';
             btn.style.color = '#ffffff';
+            btn.style.borderColor = 'var(--primary)';
           }
         });
       });
@@ -1084,8 +1154,14 @@ function initHospitalsPage() {
       return matchCity && matchQuery;
     });
 
+    // Update Result Count Badge
+    const countBadge = document.getElementById('hospitalCountBadge');
+    if (countBadge) {
+      countBadge.innerHTML = `<i class="fas fa-hospital-alt"></i> दाखवत आहे: <strong>${filtered.length}</strong> पैकी <strong>${fullHospitalList.length}</strong> रुग्णालये`;
+    }
+
     // Update map markers with specialty pins and rich popups
-    if (markersGroup) {
+    if (markersGroup && leafletMap) {
       markersGroup.clearLayers();
       filtered.forEach((h, i) => {
         const coords = cityCoords[h.city] || [20.65, 75.4];
@@ -1095,19 +1171,19 @@ function initHospitalsPage() {
         const marker = L.marker([lat, lng], { icon: customIcon });
         
         const popupContent = `
-          <div style="font-family: 'Poppins', sans-serif; padding: 4px; max-width: 230px;">
-            <span style="font-size: 0.72rem; font-weight: 800; background: var(--primary-light, #E2D9FF); color: var(--primary, #4A2BC4); padding: 2px 8px; border-radius: 999px; display: inline-block; margin-bottom: 6px;">
+          <div style="font-family: 'Poppins', sans-serif; padding: 4px; max-width: 250px;">
+            <span style="font-size: 0.72rem; font-weight: 800; background: var(--primary-light, #E2D9FF); color: var(--primary, #4A2BC4); padding: 3px 10px; border-radius: 999px; display: inline-block; margin-bottom: 6px;">
               ${h.spec}
             </span>
-            <h4 style="font-size: 0.98rem; font-weight: 800; color: #1E2432; margin: 0 0 4px 0; line-height: 1.3;">${h.name}</h4>
-            <p style="font-size: 0.82rem; font-weight: 600; color: #166534; margin: 0 0 6px 0;"><i class="fas fa-user-md"></i> ${h.doctor}</p>
-            <p style="font-size: 0.78rem; color: #475569; margin: 0 0 8px 0; line-height: 1.4;"><i class="fas fa-map-marker-alt" style="color: #4A2BC4;"></i> ${h.address}</p>
-            <div style="background: #F1F5F9; border-left: 3px solid #27AE60; padding: 4px 8px; border-radius: 4px; font-size: 0.78rem; font-weight: 700; color: #15803D; margin-bottom: 10px;">
+            <h4 style="font-size: 1rem; font-weight: 800; color: #1E2432; margin: 0 0 4px 0; line-height: 1.3;">${h.name}</h4>
+            <p style="font-size: 0.84rem; font-weight: 600; color: #166534; margin: 0 0 6px 0;"><i class="fas fa-user-md"></i> ${h.doctor}</p>
+            <p style="font-size: 0.80rem; color: #475569; margin: 0 0 8px 0; line-height: 1.4;"><i class="fas fa-map-marker-alt" style="color: #4A2BC4;"></i> ${h.address}</p>
+            <div style="background: #F1F5F9; border-left: 3px solid #27AE60; padding: 5px 8px; border-radius: 4px; font-size: 0.78rem; font-weight: 700; color: #15803D; margin-bottom: 10px;">
               <i class="fas fa-tags"></i> ${h.discount}
             </div>
             <div style="display: flex; gap: 6px;">
-              ${h.phone ? `<a href="tel:${h.phone}" class="btn btn-sm" style="background:#27AE60; color:#fff; font-size:0.75rem; padding:4px 8px; border-radius:4px; text-decoration:none; font-weight:700; flex:1; text-align:center;"><i class="fas fa-phone-alt"></i> कॉल करा</a>` : ''}
-              <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(h.name + ' ' + h.address)}" target="_blank" class="btn btn-sm" style="background:#4A2BC4; color:#fff; font-size:0.75rem; padding:4px 8px; border-radius:4px; text-decoration:none; font-weight:700; flex:1; text-align:center;"><i class="fas fa-directions"></i> दिशा (Route)</a>
+              ${h.phone ? `<a href="tel:${h.phone}" class="btn btn-sm" style="background:#27AE60; color:#fff; font-size:0.78rem; padding:6px 10px; border-radius:6px; text-decoration:none; font-weight:700; flex:1; text-align:center; display:inline-flex; align-items:center; justify-content:center; gap:4px;"><i class="fas fa-phone-alt"></i> कॉल करा</a>` : ''}
+              <a href="https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}" target="_blank" class="btn btn-sm" style="background:#4A2BC4; color:#fff; font-size:0.78rem; padding:6px 10px; border-radius:6px; text-decoration:none; font-weight:700; flex:1; text-align:center; display:inline-flex; align-items:center; justify-content:center; gap:4px;"><i class="fas fa-directions"></i> दिशा (Route)</a>
             </div>
           </div>
         `;
@@ -1118,49 +1194,50 @@ function initHospitalsPage() {
 
     if (!filtered.length) {
       container.innerHTML = `
-        <div style="grid-column: 1 / -1; background: #FFF5F5; color: #C53030; padding: 25px; border-radius: var(--radius-md); text-align: center; font-weight: 600; border: 1px solid #FEB2B2;">
-          <i class="fas fa-exclamation-circle" style="font-size: 1.4rem; margin-bottom: 8px; display: block;"></i>
-          कोणतेही हॉस्पिटल सापडले नाही. कृपया शोध शब्द किंवा फिल्टर बदला.
+        <div style="grid-column: 1 / -1; background: #FFF5F5; color: #C53030; padding: 30px; border-radius: var(--radius-md); text-align: center; font-weight: 600; border: 1px solid #FEB2B2; box-shadow: var(--shadow-sm);">
+          <i class="fas fa-hospital-slash" style="font-size: 2rem; margin-bottom: 10px; display: block; color: #E53E3E;"></i>
+          कोणतेही रुग्णालय सापडले नाही. कृपया वेगळा शब्द शोधा किंवा सर्व शहरे फिल्टर निवडा.
         </div>
       `;
       return;
     }
 
     container.innerHTML = filtered.map(h => `
-      <div class="hospital-card-item" style="background: #ffffff; border-radius: var(--radius-md); border: 1px solid var(--border-color); padding: 18px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.2s ease, box-shadow 0.2s ease;">
+      <div class="hospital-card-item card-hover" style="background: #ffffff; border-radius: var(--radius-md); border: 1px solid var(--border-color); padding: 20px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; justify-content: space-between; transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden;">
+        <div style="position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--gradient-primary);"></div>
         <div>
-          <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; margin-bottom: 10px; flex-wrap: wrap;">
-            <span style="font-size: 0.78rem; font-weight: 700; background: var(--primary-light); color: var(--primary); padding: 3px 10px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px;">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; margin-bottom: 12px; flex-wrap: wrap;">
+            <span style="font-size: 0.78rem; font-weight: 700; background: var(--primary-light); color: var(--primary); padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 5px;">
               <i class="fas fa-stethoscope"></i> ${h.spec}
             </span>
-            <span style="font-size: 0.75rem; font-weight: 700; background: #F1F5F9; color: var(--text-dark); padding: 3px 10px; border-radius: 999px; text-transform: uppercase;">
-              <i class="fas fa-map-pin"></i> ${h.city.toUpperCase()}
+            <span style="font-size: 0.75rem; font-weight: 700; background: #F1F5F9; color: var(--text-dark); padding: 4px 12px; border-radius: 999px; text-transform: uppercase; border: 1px solid var(--border-color);">
+              <i class="fas fa-map-pin" style="color: var(--primary);"></i> ${h.city.toUpperCase()}
             </span>
           </div>
 
-          <h3 style="font-size: 1.12rem; font-weight: 700; color: var(--text-dark); margin: 0 0 6px 0; line-height: 1.35;">${h.name}</h3>
+          <h3 style="font-size: 1.15rem; font-weight: 700; color: var(--text-dark); margin: 0 0 6px 0; line-height: 1.35;">${h.name}</h3>
           
-          <p style="font-size: 0.9rem; font-weight: 600; color: #166534; margin: 0 0 10px 0; display: flex; align-items: center; gap: 6px;">
+          <p style="font-size: 0.92rem; font-weight: 600; color: #166534; margin: 0 0 10px 0; display: flex; align-items: center; gap: 6px;">
             <i class="fas fa-user-md"></i> ${h.doctor}
           </p>
 
-          <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0 0 14px 0; line-height: 1.4;">
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0 0 14px 0; line-height: 1.45;">
             <i class="fas fa-map-marker-alt" style="color: var(--primary);"></i> ${h.address}
           </p>
 
-          <div style="background: #F8FAFC; border-left: 3px solid var(--primary); padding: 8px 12px; border-radius: 4px; margin-bottom: 14px;">
-            <span style="font-size: 0.78rem; font-weight: 700; color: var(--text-dark); display: block; margin-bottom: 2px;"><i class="fas fa-tags"></i> सवलतीचा तपशील:</span>
-            <span style="font-size: 0.84rem; font-weight: 700; color: #15803D;">${h.discount}</span>
+          <div style="background: #F8FAFC; border-left: 3px solid #16A34A; padding: 10px 12px; border-radius: 6px; margin-bottom: 16px; border: 1px solid #E2E8F0; border-left-width: 4px;">
+            <span style="font-size: 0.78rem; font-weight: 700; color: var(--text-dark); display: block; margin-bottom: 3px;"><i class="fas fa-tags" style="color: #16A34A;"></i> सवलतीचा तपशील:</span>
+            <span style="font-size: 0.86rem; font-weight: 700; color: #15803D;">${h.discount}</span>
           </div>
         </div>
 
-        <div>
+        <div style="display: flex; gap: 8px; flex-direction: column;">
           ${h.phone ? `
-            <a href="tel:${h.phone}" class="btn" style="width: 100%; background: var(--gradient-primary); color: #ffffff; text-decoration: none; padding: 8px 12px; font-size: 0.88rem; font-weight: 700; border-radius: var(--radius-sm); text-align: center; display: inline-flex; align-items: center; justify-content: center; gap: 6px;">
+            <a href="tel:${h.phone}" class="btn" style="width: 100%; background: var(--gradient-primary); color: #ffffff; text-decoration: none; padding: 10px 14px; font-size: 0.90rem; font-weight: 700; border-radius: var(--radius-sm); text-align: center; display: inline-flex; align-items: center; justify-content: center; gap: 8px; box-shadow: var(--shadow-sm);">
               <i class="fas fa-phone-alt"></i> कॉल करा (${h.phone})
             </a>
           ` : `
-            <span style="font-size: 0.82rem; color: var(--text-muted); text-align: center; display: block; padding: 6px 0;">
+            <span style="font-size: 0.82rem; color: var(--text-muted); text-align: center; display: block; padding: 8px 0; background: #F8FAFC; border-radius: var(--radius-sm); border: 1px dashed var(--border-color);">
               <i class="fas fa-info-circle"></i> प्रत्यक्ष भेटीसाठी पत्त्यावर संपर्क साधा
             </span>
           `}
@@ -1184,6 +1261,14 @@ function initHospitalsPage() {
       btn.classList.add('active');
       currentFilter = btn.getAttribute('data-filter') || 'all';
       renderHospitals();
+      if (leafletMap) {
+        const coords = cityCoords[currentFilter];
+        if (coords) {
+          leafletMap.flyTo(coords, 12, { duration: 1.0 });
+        } else if (currentFilter === 'all') {
+          leafletMap.flyTo([20.65, 75.4], 9, { duration: 1.0 });
+        }
+      }
     });
   });
 }

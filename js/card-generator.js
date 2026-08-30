@@ -9,33 +9,75 @@ document.addEventListener('DOMContentLoaded', () => {
   initHospitalDirectory();
   initLanguageSwitcher();
   syncHealthCardsFromCloud();
-  setInterval(syncHealthCardsFromCloud, 4000);
+  setInterval(syncHealthCardsFromCloud, 10000);
+  window.addEventListener('focus', syncHealthCardsFromCloud);
 });
 
 const RESTFUL_CARDS_URL = 'https://api.restful-api.dev/objects/ff8081819ff5b11001a0286d82a474b1';
 
-/* --- Real-Time Cross-Device Health Card Cloud Sync --- */
+// Fast fetch helper with timeout
+async function fetchWithTimeoutCard(url, options = {}, timeoutMs = 2000) {
+  if (typeof AbortController === 'undefined') return fetch(url, options);
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    const response = await fetch(url, { ...options, signal: controller.signal });
+    clearTimeout(timeoutId);
+    return response;
+  } catch (err) {
+    clearTimeout(timeoutId);
+    throw err;
+  }
+}
+
+let isCardSyncing = false;
+
+/* --- Ultra-Fast Cross-Device Health Card Cloud Sync --- */
 async function syncHealthCardsFromCloud() {
-  const endpoints = ['api/cards', RESTFUL_CARDS_URL];
-  for (const endpoint of endpoints) {
+  if (isCardSyncing) return;
+  isCardSyncing = true;
+
+  try {
+    // 1. Fast Hostinger local PHP endpoint (< 20ms)
+    const localEndpoints = ['php_backend/cards.php', 'api/cards'];
+    for (const endpoint of localEndpoints) {
+      try {
+        const response = await fetchWithTimeoutCard(endpoint, { cache: 'no-store' }, 1500);
+        if (response && response.ok) {
+          const text = await response.text();
+          if (text && text.trim().startsWith('{')) {
+            const json = JSON.parse(text);
+            const cloudCards = json.data?.cards || json.cards || json;
+            if (cloudCards && typeof cloudCards === 'object' && Object.keys(cloudCards).length > 0) {
+              const storedCards = JSON.parse(localStorage.getItem('CSM_CARDS') || '{}');
+              const merged = { ...sampleCardsDB, ...storedCards, ...cloudCards };
+              localStorage.setItem('CSM_CARDS', JSON.stringify(merged));
+              isCardSyncing = false;
+              return;
+            }
+          }
+        }
+      } catch (err) {}
+    }
+
+    // 2. Fallback cloud database
     try {
-      const response = await fetch(endpoint, { cache: 'no-store' });
-      if (response.ok) {
+      const response = await fetchWithTimeoutCard(RESTFUL_CARDS_URL, { cache: 'no-store' }, 2500);
+      if (response && response.ok) {
         const text = await response.text();
-        if (text.trim().startsWith('{')) {
+        if (text && text.trim().startsWith('{')) {
           const json = JSON.parse(text);
           const cloudCards = json.data?.cards || json.cards || json;
           if (cloudCards && typeof cloudCards === 'object') {
             const storedCards = JSON.parse(localStorage.getItem('CSM_CARDS') || '{}');
             const merged = { ...sampleCardsDB, ...storedCards, ...cloudCards };
             localStorage.setItem('CSM_CARDS', JSON.stringify(merged));
-            return;
           }
         }
       }
-    } catch (err) {
-      console.warn(`Card sync failed for ${endpoint}:`, err);
-    }
+    } catch (err) {}
+  } finally {
+    isCardSyncing = false;
   }
 }
 
@@ -44,13 +86,19 @@ async function saveHealthCardToCloudAPI(cardData) {
   storedCards[cardData.cardId] = cardData;
   localStorage.setItem('CSM_CARDS', JSON.stringify(storedCards));
 
-  // Save to Hostinger API endpoint
+  // Save to Hostinger API endpoints immediately
   try {
-    await fetch('api/cards', {
+    fetch('php_backend/cards.php', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(cardData)
-    });
+    }).catch(() => {});
+
+    fetch('api/cards', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(cardData)
+    }).catch(() => {});
   } catch (err) {}
 
   // Backup sync to external cloud DB
@@ -59,14 +107,12 @@ async function saveHealthCardToCloudAPI(cardData) {
       name: "CSM_SANSTHA_CARDS_DB_2026",
       data: { cards: storedCards }
     };
-    await fetch(RESTFUL_CARDS_URL, {
+    fetchWithTimeoutCard(RESTFUL_CARDS_URL, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
-    });
-  } catch (err) {
-    console.warn('Card cloud PUT failed:', err);
-  }
+    }, 3000).catch(() => {});
+  } catch (err) {}
 }
 
 /* --- Sample Pre-loaded Verified Cards Database --- */
